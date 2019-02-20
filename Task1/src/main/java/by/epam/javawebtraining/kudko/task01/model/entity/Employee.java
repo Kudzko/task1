@@ -7,6 +7,7 @@ public abstract class Employee {
     protected String surname;
     protected String positoin;
     protected double salary;
+    protected int experience;
 
     {
         System.out.println("Hello from Employee initialization");
@@ -16,7 +17,7 @@ public abstract class Employee {
         System.out.println("Hello from Employee default constructor");
     }
 
-    public Employee(String name, String surname, String positoin, double salary) {
+    public Employee(String name, String surname, String positoin, double salary, int experience) {
 
         System.out.println("Hello from Employee custom constructor");
 
@@ -24,6 +25,7 @@ public abstract class Employee {
         this.surname = surname;
         this.positoin = positoin;
         this.salary = salary;
+        this.experience = experience;
     }
 
     public void work(){
@@ -63,12 +65,21 @@ public abstract class Employee {
         this.salary = salary;
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
         return Double.compare(employee.salary, salary) == 0 &&
+                experience == employee.experience &&
                 Objects.equals(name, employee.name) &&
                 Objects.equals(surname, employee.surname) &&
                 Objects.equals(positoin, employee.positoin);
@@ -77,15 +88,17 @@ public abstract class Employee {
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, surname, positoin, salary);
+        return Objects.hash(name, surname, positoin, salary, experience);
     }
 
     @Override
     public String toString() {
-        return  "name='" + name + '\'' +
+        return "Employee{" +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", positoin='" + positoin + '\'' +
                 ", salary=" + salary +
+                ", experience=" + experience +
                 '}';
     }
 }

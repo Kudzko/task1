@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Manager extends Employee {
     Inferior[] inferiors;
-    String Chief;
+    Manager leader;
 
     {
         System.out.println("Hello from Manager initialization");
@@ -16,17 +16,21 @@ public class Manager extends Employee {
         System.out.println("Hello from Manager default constructor");
     }
 
-    public Manager(String name, String surname, String positoin, double salary, Inferior[] inferiors, String chief) {
-        super(name, surname, positoin, salary); // super always first line in constructor
+
+    public Manager(String name, String surname, String positoin, double salary, Inferior[] inferiors, Manager leader) {
+        super(name, surname, positoin, salary);
         this.inferiors = inferiors;
-        Chief = chief;
+        this.leader = leader;
 
         System.out.println("Hello from Manager custom constructor");
     }
 
-    public void manage(){
-        System.out.println("Manage");
+    public void work(){
+        System.out.println("Do some manager's work");
+    }
 
+    public void manage(){
+        System.out.println("I am managing");
     }
 
     public Inferior[] getInferiors() {
@@ -37,28 +41,28 @@ public class Manager extends Employee {
         this.inferiors = inferiors;
     }
 
-    public String getChief() {
-        return Chief;
+    public Manager getLeader() {
+        return leader;
     }
 
-    public void setChief(String chief) {
-        Chief = chief;
+    public void setLeader(Manager leader) {
+        this.leader = leader;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Manager)) return false;
         if (!super.equals(o)) return false;
         Manager manager = (Manager) o;
         return Arrays.equals(inferiors, manager.inferiors) &&
-                Objects.equals(Chief, manager.Chief);
+                Objects.equals(leader, manager.leader);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(super.hashCode(), Chief);
+        int result = Objects.hash(super.hashCode(), leader);
         result = 31 * result + Arrays.hashCode(inferiors);
         return result;
     }
@@ -67,7 +71,7 @@ public class Manager extends Employee {
     public String toString() {
         return "Manager{" +
                 "inferiors=" + Arrays.toString(inferiors) +
-                ", Chief='" + Chief + '\'' +
-                super.toString();
+                ", leader=" + leader + super.toString()+
+                '}';
     }
 }

@@ -1,72 +1,88 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class Inferior extends Employee {
-    String manager;
-    Inferior [] colleague;
+    Manager chief;
+    List<String> skills;
 
     {
         System.out.println("Hello from Inferior initialization");
-        colleague = new  Inferior[10];
     }
 
     public Inferior() {
         System.out.println("Hello from Inferior default constructor");
+        skills = new ArrayList<>();
     }
 
-    public Inferior(String name, String surname, String positoin, double salary, String manager, Inferior[] colleague) {
+    public Inferior(String name, String surname, String positoin, double salary, Manager chief, List<String> skills) {
         super(name, surname, positoin, salary);
-        this.manager = manager;
-        this.colleague = colleague;
+        this.chief = chief;
+        this.skills = skills;
 
         System.out.println("Hello from Inferior custom constructor");
     }
 
-    public void learnNewTechnology(){
-        System.out.println("Learn some new technologies");
+    @Override
+    public void work() {
+        super.work();
     }
 
-    public String getManager() {
-        return manager;
+    public void execute() {
+        System.out.println("Do manager's orders");
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    public void addSkill(String skill){
+        if((!skill.isEmpty()) && (skill != null)){
+            skills.add(skill);
+        }else {
+            System.out.println("entered skill incorrect ( null or contains zero letters)");
+        }
+
+
     }
 
-    public Inferior[] getColleague() {
-        return colleague;
+    public Manager getChief() {
+        return chief;
     }
 
-    public void setColleague(Inferior[] colleague) {
-        this.colleague = colleague;
+    public void setChief(Manager chief) {
+        this.chief = chief;
+    }
+
+    public List<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<String> skills) {
+        this.skills = skills;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Inferior)) return false;
         if (!super.equals(o)) return false;
         Inferior inferior = (Inferior) o;
-        return Objects.equals(manager, inferior.manager) &&
-                Arrays.equals(colleague, inferior.colleague);
+        return Objects.equals(chief, inferior.chief) &&
+                Objects.equals(skills, inferior.skills);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(super.hashCode(), manager);
-        result = 31 * result + Arrays.hashCode(colleague);
-        return result;
+        return Objects.hash(super.hashCode(), chief, skills);
     }
 
     @Override
     public String toString() {
         return "Inferior{" +
-                "manager='" + manager + '\'' +
-                ", colleague=" + Arrays.toString(colleague) +
-                super.toString();
+                "chief=" + chief +
+                ", skills=" + skills +
+                super.toString()+
+                '}';
     }
 }
