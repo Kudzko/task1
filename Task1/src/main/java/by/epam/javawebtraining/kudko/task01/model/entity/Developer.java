@@ -12,8 +12,9 @@ public class Developer extends Inferior {
         System.out.println("Hello from Developer default constructor");
     }
 
-    public Developer(String name, String surname, String positoin, double salary, Manager chief, List<String> skills) {
-        super(name, surname, positoin, salary, chief, skills);
+    public Developer(String name, String surname, String positoin, double salary, double bonus, int payRange,
+                     int experience, Manager chief, List<String> skills) {
+        super(name, surname, positoin, salary, bonus, payRange, experience, chief, skills);
 
         System.out.println("Hello from Developer custom constructor");
     }
@@ -24,9 +25,6 @@ public class Developer extends Inferior {
 
     @Override
     public String toString() {
-        return "Developer{" +
-                "chief=" + chief +
-                ", skills=" + skills + super.toString()+
-                '}';
-    }
+        return super.toString();
+                 }
 }

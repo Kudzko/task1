@@ -18,8 +18,9 @@ public class TeamLead extends Manager {
         System.out.println("Hello from default constructor of TeamLead");
     }
 
-    public TeamLead(String name, String surname, String positoin, double salary, Inferior[] inferiors, Manager leader, List<Employee> team) {
-        super(name, surname, positoin, salary, inferiors, leader);
+    public TeamLead(String name, String surname, String positoin, double salary, double bonus, int payRange,
+                    int experience, Inferior[] inferiors, Manager leader, List<Employee> team) {
+        super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
         this.team = team;
 
         System.out.println("Hello from custom constructor of TeamLead");
@@ -55,14 +56,9 @@ public class TeamLead extends Manager {
 
     @Override
     public String toString() {
-        return "TeamLead{" +
-                "team=" + team +
-                ", inferiors=" + Arrays.toString(inferiors) +
-                ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
+        return super.toString() +
+                "\n team=" + team.toString() +
+                " ]" +
                 '}';
     }
 }

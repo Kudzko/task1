@@ -20,8 +20,10 @@ public class ProjectManager extends Manager {
         System.out.println("Hello from default constructor of ProjectManager");
     }
 
-    public ProjectManager(String name, String surname, String positoin, double salary, Inferior[] inferiors, Manager leader) {
-        super(name, surname, positoin, salary, inferiors, leader);
+    public ProjectManager(String name, String surname, String positoin, double salary, double bonus, int payRange,
+                          int experience, Inferior[] inferiors, Manager leader, List<Employee> projectTeam) {
+        super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
+        this.projectTeam = projectTeam;
 
         System.out.println("Hello from custom constructor of ProjectManager");
     }
@@ -55,14 +57,9 @@ public class ProjectManager extends Manager {
 
     @Override
     public String toString() {
-        return "ProjectManager{" +
-                "projectTeam=" + projectTeam +
-                ", inferiors=" + Arrays.toString(inferiors) +
-                ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
+        return super.toString() +
+                "\n projectTeam=" + projectTeam.toString() +
+                " ]" +
                 '}';
     }
 }

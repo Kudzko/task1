@@ -17,8 +17,9 @@ public class Manager extends Employee {
     }
 
 
-    public Manager(String name, String surname, String positoin, double salary, Inferior[] inferiors, Manager leader) {
-        super(name, surname, positoin, salary);
+    public Manager(String name, String surname, String positoin, double salary, double bonus, int payRange,
+                   int experience, Inferior[] inferiors, Manager leader) {
+        super(name, surname, positoin, salary, bonus, payRange, experience);
         this.inferiors = inferiors;
         this.leader = leader;
 
@@ -69,9 +70,10 @@ public class Manager extends Employee {
 
     @Override
     public String toString() {
-        return "Manager{" +
-                "inferiors=" + Arrays.toString(inferiors) +
-                ", leader=" + leader + super.toString()+
+        return super.toString() +
+                "\n inferiors=" + Arrays.toString(inferiors) +
+                ", leader=" + leader +
+                " ]" +
                 '}';
     }
 }

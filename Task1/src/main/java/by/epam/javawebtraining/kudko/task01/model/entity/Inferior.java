@@ -18,8 +18,9 @@ public class Inferior extends Employee {
         skills = new ArrayList<>();
     }
 
-    public Inferior(String name, String surname, String positoin, double salary, Manager chief, List<String> skills) {
-        super(name, surname, positoin, salary);
+    public Inferior(String name, String surname, String positoin, double salary, double bonus, int payRange,
+                    int experience, Manager chief, List<String> skills) {
+        super(name, surname, positoin, salary, bonus, payRange, experience);
         this.chief = chief;
         this.skills = skills;
 
@@ -79,10 +80,10 @@ public class Inferior extends Employee {
 
     @Override
     public String toString() {
-        return "Inferior{" +
+        return super.toString() +
                 "chief=" + chief +
-                ", skills=" + skills +
-                super.toString()+
+                ",\n skills=" + skills.toString() +
+                ']' +
                 '}';
     }
 }
