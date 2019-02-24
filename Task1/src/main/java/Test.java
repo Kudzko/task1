@@ -30,24 +30,27 @@ public class Test {
 //        System.out.println( manager.toString());
        // list.get(1);
 
-        List<String> skill = new ArrayList<>();
-        skill.add("Java");
-        skill.add("HTML");
+//        List<String> skill = new ArrayList<>();
+//        skill.add("Java");
+//        skill.add("HTML");
+//
+//        Team team = new Team();
+//
+//            team.addEmployee(new Developer("John","English", "senior developer",
+//                5000.00,10500,10,3,new TeamLead(),skill));
+//        team.addEmployee(new Developer("Mary","English", "senior developer",
+//                5000.00,10500,10,3,new TeamLead(),skill));
+//        team.addEmployee(new Developer("Don","English", "senior developer",
+//                5000.00,10500,10,3,new TeamLead(),skill));
+//
+//
+//        System.out.println( Administraition.findEmployee(new Developer("John","English", "senior developer",
+//                5000.00,10500,10,3,new TeamLead(),skill),team));
+//        //System.out.println(employee.toString());
 
-        Team team = new Team();
 
-            team.addEmployee(new Developer("John","English", "senior developer",
-                5000.00,10500,10,3,new TeamLead(),skill));
-        team.addEmployee(new Developer("Mary","English", "senior developer",
-                5000.00,10500,10,3,new TeamLead(),skill));
-        team.addEmployee(new Developer("Don","English", "senior developer",
-                5000.00,10500,10,3,new TeamLead(),skill));
-
-
-        System.out.println( Administraition.findEmployee(new Developer("John","English", "senior developer",
-                5000.00,10500,10,3,new TeamLead(),skill),team));
-        //System.out.println(employee.toString());
-
+        Employee[] array=;
+        System.out.println(array);
 
     }
 }
