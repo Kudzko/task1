@@ -15,11 +15,13 @@ public class Administraition {
 
     }
 
-    public static double countTeamPrise(Team team) {
-        double prise = 0;
+    public static double countTeamPrice(Team team) {
+        double prise = 0.0;
         Employee[] employeeList = team.getWholeTeam();
         for (int i = 0; i < employeeList.length; i++) {
-            prise += employeeList[i].getSalary();
+            if (employeeList[i] != null) {
+                prise += employeeList[i].getSalary();
+            }
         }
         return prise;
     }
@@ -91,10 +93,15 @@ public class Administraition {
 
     private static boolean checkEmployeeFields(Employee findingEmployee, Employee existEmployee) {
         //Checking Employee fields fist
-        if ((findingEmployee.getName() == null)
-                || (!existEmployee.getName().equalsIgnoreCase(findingEmployee.getName()))) {
+        if (findingEmployee.getName() == null) {
             return false;
         }
+        if (existEmployee.getName() != null) {
+            if (!existEmployee.getName().equalsIgnoreCase(findingEmployee.getName())) {
+                return false;
+            }
+        }
+
         if ((findingEmployee.getSurname() == null)
                 || (!existEmployee.getSurname().equalsIgnoreCase(findingEmployee.getSurname()))) {
             return false;
@@ -128,8 +135,10 @@ public class Administraition {
         findingInferior = findingEmployee.getInferiors();
         existInferior = existEmployee.getInferiors();
         while (i < findingInferior.length) {
-            if (!findingInferior[i].equals(existInferior[i])) {
-                return false;
+            if (findingInferior[i] != null) {
+                if (!findingInferior[i].equals(existInferior[i])) {
+                    return false;
+                }
             }
             i++;
         }
