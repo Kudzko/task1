@@ -181,13 +181,13 @@ public class Controller {
         ((TeamLead) teamLead1).setLeader((Manager) projectManager1);
 
         // Filling fields second teamLead
-        teamLead1.setName("John");
-        teamLead1.setSurname("Walker");
-        teamLead1.setPositoin("leader2");
-        teamLead1.setSalary(20000);
-        teamLead1.setBonus(700);
-        teamLead1.setPayRange(7);
-        teamLead1.setExperience(7);
+        teamLead2.setName("John");
+        teamLead2.setSurname("Walker");
+        teamLead2.setPositoin("leader2");
+        teamLead2.setSalary(20000);
+        teamLead2.setBonus(700);
+        teamLead2.setPayRange(7);
+        teamLead2.setExperience(7);
 
         List<Employee> teamOfTeamLead2 = new ArrayList<Employee>();
         teamOfTeamLead2.add(developer4);
@@ -241,17 +241,18 @@ public class Controller {
         System.out.println("Priсe first team : " + teamPrice1);
         System.out.println("Priсe second team : " + teamPrice2);
 
-        Employee findingEmployee = new ProjectManager();
-        findingEmployee.setName("John");
+        Employee findingEmployee1 = new ProjectManager();
+        findingEmployee1.setName("John");
 
         //finding by exact type of employee
         System.out.println("Result of finding projectManager by name: " +
-                Administraition.findProjectManager((ProjectManager) findingEmployee, company)
+                Administraition.findProjectManager((ProjectManager) findingEmployee1, company)
         );
-
+        System.out.println();
+        System.out.println();
         //finding by fields of employee
         System.out.println("Result of finding by name: " +
-                Administraition.findEmployeeByParameters( findingEmployee, company)
+                Administraition.findEmployeeByParameters( findingEmployee1, company)
         );
 
 

@@ -60,23 +60,38 @@ public class Administraition {
 
         //Checking Manager fields then
         if (findingEmployee instanceof Manager) {
-            found = checkManagerFields((Manager) findingEmployee, (Manager) existEmployee);
-
+            if (existEmployee instanceof Manager){
+                found = checkManagerFields((Manager) findingEmployee, (Manager) existEmployee);
+            }else{
+                found = false;
+            }
         }
 
         //Checking Inferior fields then
-        if (findingEmployee instanceof Inferior) {
-            found = checkInferiorFields((Inferior) findingEmployee, (Inferior) existEmployee);
+        if (findingEmployee instanceof Inferior){
+            if(existEmployee instanceof Inferior){
+                found = checkInferiorFields((Inferior) findingEmployee, (Inferior) existEmployee);
+            }else{
+                found = false;
+            }
         }
 
         //Checking ProjectManager fields then
-        if (findingEmployee instanceof ProjectManager) {
-            found = checkProjectManagerFields((ProjectManager) findingEmployee, (ProjectManager) existEmployee);
+        if (findingEmployee instanceof ProjectManager){
+            if (existEmployee instanceof ProjectManager){
+                found = checkProjectManagerFields((ProjectManager) findingEmployee, (ProjectManager) existEmployee);
+            }else{
+                found = false;
+            }
         }
 
         //Checking TeamLead fields then
-        if (findingEmployee instanceof TeamLead) {
-            found = checkTeamLeadFields((TeamLead) findingEmployee, (TeamLead) existEmployee);
+        if (findingEmployee instanceof TeamLead){
+            if (existEmployee instanceof TeamLead){
+                found = checkTeamLeadFields((TeamLead) findingEmployee, (TeamLead) existEmployee);
+            }else {
+                found = false;
+            }
         }
 
         //Checking Developer fields then
