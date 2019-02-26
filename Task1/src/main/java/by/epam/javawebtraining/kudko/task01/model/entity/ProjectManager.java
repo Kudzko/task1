@@ -55,28 +55,28 @@ public class ProjectManager extends Manager {
         return Objects.hash(super.hashCode(), projectTeam);
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() +
-//                "\n projectTeam=" + projectTeam.toString() +
-//                " ]" +
-//                '}';
-//    }
-
-
     @Override
     public String toString() {
-        return "ProjectManager{" +
-                "projectTeam=" + projectTeam +
-                ", inferiors=" + /*Arrays.toString(inferiors) +*/
-                ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+        return super.toString() +
+                "\n projectTeam=" + projectTeam.toString() +
+                " ]" +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "ProjectManager{" +
+//                "projectTeam=" + projectTeam +
+//                ", inferiors=" + /*Arrays.toString(inferiors) +*/
+//                ", leader=" + leader +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

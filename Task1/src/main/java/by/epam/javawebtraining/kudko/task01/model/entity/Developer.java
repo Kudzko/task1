@@ -19,28 +19,27 @@ public class Developer extends Inferior {
         System.out.println("Hello from Developer custom constructor");
     }
 
-    public void communicateWithCollegue(){
+    public void communicateWithCollegue() {
         System.out.println("Communicate with Tester");
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 
 //    @Override
 //    public String toString() {
-//        return super.toString();
-//                 }
-
-
-    @Override
-    public String toString() {
-        return "Developer{" +
-                "chief=" + chief +
-                ", skills=" + skills +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
-                '}';
-    }
+//        return "Developer{" +
+//                "chief=" + chief +
+//                ", skills=" + skills +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

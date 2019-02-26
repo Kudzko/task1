@@ -68,28 +68,28 @@ public class Manager extends Employee {
         return result;
     }
 
-//    @Override
-////    public String toString() {
-////        return super.toString() +
-////                "\n inferiors=" + Arrays.toString(inferiors) +
-////                ", leader=" + leader +
-////                " ]" +
-////                '}';
-////    }
-
-
     @Override
     public String toString() {
-        return "Manager{" +
-                "inferiors=" + /*Arrays.toString(inferiors) +*/
+        return super.toString() +
+                "\n inferiors=" + Arrays.toString(inferiors) +
                 ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+                " ]" +
                 '}';
     }
+
+//
+//    @Override
+//    public String toString() {
+//        return "Manager{" +
+//                "inferiors=" + /*Arrays.toString(inferiors) +*/
+//                ", leader=" + leader +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }
