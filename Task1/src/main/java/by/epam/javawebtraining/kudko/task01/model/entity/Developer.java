@@ -23,8 +23,24 @@ public class Developer extends Inferior {
         System.out.println("Communicate with Tester");
     }
 
+//    @Override
+//    public String toString() {
+//        return super.toString();
+//                 }
+
+
     @Override
     public String toString() {
-        return super.toString();
-                 }
+        return "Developer{" +
+                "chief=" + chief +
+                ", skills=" + skills +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", positoin='" + positoin + '\'' +
+                ", salary=" + salary +
+                ", bonus=" + bonus +
+                ", payRange=" + payRange +
+                ", experience=" + experience +
+                '}';
+    }
 }

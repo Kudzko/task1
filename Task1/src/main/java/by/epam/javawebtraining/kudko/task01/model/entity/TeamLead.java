@@ -54,11 +54,28 @@ public class TeamLead extends Manager {
         return Objects.hash(super.hashCode(), team);
     }
 
+//    @Override
+//    public String toString() {
+//        return super.toString() +
+//                "\n team=" + team +
+//                " ]" +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
-        return super.toString() +
-                "\n team=" + team.toString() +
-                " ]" +
+        return "TeamLead{" +
+                "team=" + team +
+                ", inferiors=" +/* Arrays.toString(inferiors) +*/
+                ", leader=" + leader +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", positoin='" + positoin + '\'' +
+                ", salary=" + salary +
+                ", bonus=" + bonus +
+                ", payRange=" + payRange +
+                ", experience=" + experience +
                 '}';
     }
 }

@@ -10,10 +10,9 @@ Specific is in creating Company and adding there Employee anyway,
  that we can know about all employees for sure
  */
 
-    public static Employee createEmployee(KindOfEmployee kindOfEmployee) /*throws UnknownEmployeeExceptoin */ {
-        Employee employee; // That new employee is added to List<Employee> in Company I added this variable here
-                        // and in switch and create here Company, witch is singleton
-        Company company = Company.createCompany();
+    public static Employee createEmployee(KindOfEmployee kindOfEmployee, boolean addToCompany) /*throws UnknownEmployeeExceptoin */ {
+        Employee employee; // That new employee is added to List<Employee> in Company
+        //  if addToCompany == true .
 
         switch (kindOfEmployee) {
             case tester:
@@ -37,7 +36,13 @@ Specific is in creating Company and adding there Employee anyway,
              * What is better here to return null or custom exception?
              * */
         }
-        company.addEmployeeToComany(employee);
+
+        // I create here Company, witch is singleton
+        // and add there employee if addToCompany == true
+        if (addToCompany == true) {
+            Company company = Company.createCompany();
+            company.addEmployeeToComany(employee);
+        }
         return employee;
     }
 }

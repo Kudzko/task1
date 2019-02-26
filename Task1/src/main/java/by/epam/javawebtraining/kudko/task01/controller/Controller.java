@@ -10,17 +10,17 @@ import java.util.List;
 
 public class Controller {
     public static void main(String[] args) {
-        Employee projectManager1 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager);
-        Employee projectManager2 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager);
-        Employee teamLead1 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead);
-        Employee teamLead2 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead);
-        Employee developer1 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer);
-        Employee developer2 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer);
-        Employee developer3 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer);
-        Employee developer4 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer);
-        Employee developer5 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer);
-        Employee tester1 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester);
-        Employee tester2 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester);
+        Employee projectManager1 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
+        Employee projectManager2 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
+        Employee teamLead1 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);
+        Employee teamLead2 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);
+        Employee developer1 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
+        Employee developer2 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
+        Employee developer3 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
+        Employee developer4 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
+        Employee developer5 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
+        Employee tester1 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester, true);
+        Employee tester2 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester, true);
 
         Company company = Company.createCompany();
 
@@ -60,7 +60,7 @@ public class Controller {
 
         // Filling fields second developer
         developer2.setName("John");
-        developer2.setSurname("Baker");
+        developer2.setSurname("Finder");
         developer2.setPositoin("senior");
         developer2.setSalary(15000);
         developer2.setBonus(600);
@@ -214,13 +214,13 @@ public class Controller {
         ((ProjectManager) projectManager1).setProjectTeam(projectTeam1);
 
         //filling fields second projectManager
-        projectManager1.setName("John");
-        projectManager1.setSurname("Jonson");
-        projectManager1.setPositoin("c.e.o.2");
-        projectManager1.setSalary(30000);
-        projectManager1.setBonus(1000);
-        projectManager1.setPayRange(10);
-        projectManager1.setExperience(10);
+        projectManager2.setName("John");
+        projectManager2.setSurname("Jonson");
+        projectManager2.setPositoin("c.e.o.2");
+        projectManager2.setSalary(30000);
+        projectManager2.setBonus(1000);
+        projectManager2.setPayRange(10);
+        projectManager2.setExperience(10);
 
         List<Employee> projectTeam2 = new ArrayList<Employee>();
         projectTeam1.add(teamLead2);
@@ -241,19 +241,43 @@ public class Controller {
         System.out.println("Priсe first team : " + teamPrice1);
         System.out.println("Priсe second team : " + teamPrice2);
 
-        Employee findingEmployee1 = new ProjectManager();
-        findingEmployee1.setName("John");
 
-        //finding by exact type of employee
-        System.out.println("Result of finding projectManager by name: " +
-                Administraition.findProjectManager((ProjectManager) findingEmployee1, company)
-        );
-        System.out.println();
-        System.out.println();
-        //finding by fields of employee
-        System.out.println("Result of finding by name: " +
-                Administraition.findEmployeeByParameters( findingEmployee1, company)
-        );
+//        System.out.println("---------------------------------");
+//        for (int i = 0; i < company.getEmployeesOfWholeCompany().size(); i++){
+//            System.out.println(company.getEmployeesOfWholeCompany().get(i));
+//            System.out.println();
+//        }
+
+
+
+Employee [] teammm = team1.getWholeTeam();
+        System.out.println("---------------------------------");
+        for (int i = 0; i < teammm.length; i++){
+            System.out.println(teammm[i]);
+            System.out.println();
+        }
+
+
+
+//        Employee findingEmployee1 = new ProjectManager();
+//        findingEmployee1.setName("John");
+//
+//        //finding by exact type of employee
+//        System.out.println("Result of finding projectManager by name: " +
+//                Administraition.findProjectManager((ProjectManager) findingEmployee1, team1)
+//        );
+//        System.out.println();
+//        System.out.println();
+//        //finding by fields of employee
+//        System.out.println("Result of finding by name: ");
+//        List<Employee> foundEmployee =  Administraition.findEmployeeByParameters( findingEmployee1, team1);
+//
+//        for (int i = 0; i < foundEmployee.size(); i++){
+//            System.out.println(foundEmployee.get(i));
+//            System.out.println();
+//        }
+
+
 
 
     }

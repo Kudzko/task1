@@ -77,13 +77,28 @@ public class Inferior extends Employee {
 
         return Objects.hash(super.hashCode(), chief, skills);
     }
+//
+//    @Override
+//    public String toString() {
+//        return super.toString() +
+//                "chief=" + chief +
+//                ",\n skills=" + skills.toString() +
+//                ']' +
+//                '}';
+//    }
+
 
     @Override
     public String toString() {
-        return super.toString() +
-                "chief=" + chief +
-                ",\n skills=" + skills.toString() +
-                ']' +
+        return "Inferior{" +
+                "skills=" + skills +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", positoin='" + positoin + '\'' +
+                ", salary=" + salary +
+                ", bonus=" + bonus +
+                ", payRange=" + payRange +
+                ", experience=" + experience +
                 '}';
     }
 }

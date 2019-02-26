@@ -47,7 +47,7 @@ public class Administraition {
         List<Employee> foundEmploee = new ArrayList<>();
 
         for (Employee existEmployee : team.getWholeTeam()) {
-            if (checkFieldsByWholeParameters(findingEmployee, existEmployee)) {
+            if ((existEmployee!=null) && (checkFieldsByWholeParameters(findingEmployee, existEmployee))) {
                 foundEmploee.add(existEmployee);
             }
         }
@@ -60,49 +60,55 @@ public class Administraition {
 
         //Checking Manager fields then
         if (findingEmployee instanceof Manager) {
-            if (existEmployee instanceof Manager){
+            if (existEmployee instanceof Manager) {
                 found = checkManagerFields((Manager) findingEmployee, (Manager) existEmployee);
-            }else{
+            } else {
                 found = false;
             }
         }
 
         //Checking Inferior fields then
-        if (findingEmployee instanceof Inferior){
-            if(existEmployee instanceof Inferior){
+        if (findingEmployee instanceof Inferior) {
+            if (existEmployee instanceof Inferior) {
                 found = checkInferiorFields((Inferior) findingEmployee, (Inferior) existEmployee);
-            }else{
+            } else {
                 found = false;
             }
         }
 
         //Checking ProjectManager fields then
-        if (findingEmployee instanceof ProjectManager){
-            if (existEmployee instanceof ProjectManager){
+        if (findingEmployee instanceof ProjectManager) {
+            if (existEmployee instanceof ProjectManager) {
                 found = checkProjectManagerFields((ProjectManager) findingEmployee, (ProjectManager) existEmployee);
-            }else{
+            } else {
                 found = false;
             }
         }
 
         //Checking TeamLead fields then
-        if (findingEmployee instanceof TeamLead){
-            if (existEmployee instanceof TeamLead){
+        if (findingEmployee instanceof TeamLead) {
+            if (existEmployee instanceof TeamLead) {
                 found = checkTeamLeadFields((TeamLead) findingEmployee, (TeamLead) existEmployee);
-            }else {
+            } else {
                 found = false;
             }
         }
 
         //Checking Developer fields then
-        if (findingEmployee instanceof Developer) {
+        if ((findingEmployee instanceof Developer) && (existEmployee instanceof Developer)) {
             found = checkDeveloperFields((Developer) findingEmployee, (Developer) existEmployee);
+        }else {
+            found = false;
         }
 
         //Checking Tester fields then
-        if (findingEmployee instanceof Tester) {
+        if ((findingEmployee instanceof Tester) && (existEmployee instanceof Tester)) {
             found = checkTesterFields((Tester) findingEmployee, (Tester) existEmployee);
+        }else {
+            found = false;
         }
+
+
         return found;
     }
 
@@ -115,16 +121,32 @@ public class Administraition {
             if (!existEmployee.getName().equalsIgnoreCase(findingEmployee.getName())) {
                 return false;
             }
+        } else {
+            return false;
         }
 
-        if ((findingEmployee.getSurname() == null)
-                || (!existEmployee.getSurname().equalsIgnoreCase(findingEmployee.getSurname()))) {
+        if (findingEmployee.getSurname() == null) {
             return false;
         }
-        if ((findingEmployee.getPositoin() == null)
-                || (!existEmployee.getPositoin().equalsIgnoreCase(findingEmployee.getPositoin()))) {
+        if (existEmployee.getSurname() != null) {
+            if (!existEmployee.getSurname().equalsIgnoreCase(findingEmployee.getSurname())) {
+                return false;
+            }
+        } else {
             return false;
         }
+
+        if (findingEmployee.getPositoin() == null) {
+            return false;
+        }
+        if (existEmployee.getPositoin() != null) {
+            if (!existEmployee.getPositoin().equalsIgnoreCase(findingEmployee.getPositoin())) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
         if ((findingEmployee.getSalary() == -1) || (existEmployee.getSalary() != findingEmployee.getSalary())) {
             return false;
         }
@@ -141,6 +163,7 @@ public class Administraition {
     }
 
     private static boolean checkManagerFields(Manager findingEmployee, Manager existEmployee) {
+
         //cheking  field Inferior[] inferiors;
         if (findingEmployee.getInferiors() == null) {
             return false;
@@ -149,16 +172,23 @@ public class Administraition {
         Inferior[] findingInferior, existInferior;
         findingInferior = findingEmployee.getInferiors();
         existInferior = existEmployee.getInferiors();
-        while (i < findingInferior.length) {
-            if (findingInferior[i] != null) {
-                if (!findingInferior[i].equals(existInferior[i])) {
-                    return false;
+        if (existInferior != null) {
+            while (i < findingInferior.length) {
+                if (findingInferior[i] != null) {
+                    if (!findingInferior[i].equals(existInferior[i])) {
+                        return false;
+                    }
                 }
+                i++;
             }
-            i++;
+        } else {
+            return false;
         }
+
         // cheking  field  Manager leader;
-        if ((findingEmployee.getLeader() == null) || (!findingEmployee.getLeader().equals(existEmployee.getLeader()))) {
+        if ((findingEmployee.getLeader() == null)
+                || (findingEmployee.getLeader() == null)
+                || (!findingEmployee.getLeader().equals(existEmployee.getLeader()))) {
             return false;
         }
         return true;
@@ -166,6 +196,7 @@ public class Administraition {
 
     private static boolean checkInferiorFields(Inferior findingEmployee, Inferior existEmployee) {
         if ((findingEmployee.getChief() == null)
+                || (findingEmployee.getChief() == null)
                 || (!findingEmployee.getChief().equals(existEmployee.getChief()))) {
             return false;
         }
@@ -174,7 +205,8 @@ public class Administraition {
         findingSkils = findingEmployee.getSkills();
         existSkils = existEmployee.getSkills();
         while (i < findingSkils.size()) {
-            if (!findingSkils.get(i).equalsIgnoreCase(existSkils.get(i))) {
+            if ((existSkils.get(i)== null)
+                    || (!findingSkils.get(i).equalsIgnoreCase(existSkils.get(i)))) {
                 return false;
             }
             i++;
@@ -191,7 +223,8 @@ public class Administraition {
         findingProjectTeam = findingEmployee.getProjectTeam();
         existProjectTeam = existEmployee.getProjectTeam();
         while (i < findingProjectTeam.size()) {
-            if (!findingProjectTeam.get(i).equals(existProjectTeam.get(i))) {
+            if ((findingProjectTeam.get(i)==null)
+                    || !findingProjectTeam.get(i).equals(existProjectTeam.get(i))) {
                 return false;
             }
             i++;
@@ -208,7 +241,7 @@ public class Administraition {
         findingSkils = findingEmployee.getTeam();
         existSkils = existEmployee.getTeam();
         while (i < findingSkils.size()) {
-            if (!findingSkils.get(i).equals(existSkils.get(i))) {
+            if ((findingSkils.get(i) == null ) || (!findingSkils.get(i).equals(existSkils.get(i)))) {
                 return false;
             }
             i++;

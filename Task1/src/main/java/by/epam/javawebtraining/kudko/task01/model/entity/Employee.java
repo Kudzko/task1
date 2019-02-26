@@ -114,19 +114,34 @@ public abstract class Employee {
         return Objects.hash(name, surname, positoin, salary, bonus, payRange, experience);
     }
 
+//    @Override
+//    public String toString() {
+//        String [] className = this.getClass().getName().replace('.', ':').split(":");
+//        int indexNameOfClass = className.length - 1;
+//
+//        return '{' + className[indexNameOfClass] +
+//                " [ name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                " ]" +
+//                '}';
+//    }
+
+
     @Override
     public String toString() {
-        String [] className = this.getClass().getName().replace('.', ':').split(":");
-        int indexNameOfClass = className.length - 1;
-        return '{' + className[indexNameOfClass] +
-                " [ name='" + name + '\'' +
+        return "Employee{" +
+                "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", positoin='" + positoin + '\'' +
                 ", salary=" + salary +
                 ", bonus=" + bonus +
                 ", payRange=" + payRange +
                 ", experience=" + experience +
-                " ]" +
                 '}';
     }
 }
