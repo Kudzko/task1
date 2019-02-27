@@ -72,20 +72,22 @@ public class Manager extends Employee {
     public String toString() {
         return super.toString() +
                 "\n inferiors=" + printInferiors() +
-                ", leader=" + leader +
+                "\n    leader=" + leader +
                 " ]" +
                 '}';
     }
 
     public String printInferiors() {
         StringBuilder inferiorsToString = new StringBuilder();
-        inferiorsToString.append("\n ");
+        inferiorsToString.append("\n      ");
         for (int i = 0; i < inferiors.length; i++) {
             if (inferiors[i] != null) {
+                inferiorsToString.append(inferiors[i].id);
+                inferiorsToString.append(", ");
                 inferiorsToString.append(inferiors[i].name);
                 inferiorsToString.append(", ");
                 inferiorsToString.append(inferiors[i].surname);
-                inferiorsToString.append("; ");
+                inferiorsToString.append("; \n      ");
             }
 
         }

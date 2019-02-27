@@ -74,7 +74,7 @@ public class Controller {
         skills2.add("JS");
         skills2.add("Java EE");
 
-        ((Developer) developer1).setSkills(skills2);
+        ((Developer) developer2).setSkills(skills2);
 
         // Filling fields third developer
         developer3.setName("Mike");

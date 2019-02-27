@@ -81,7 +81,7 @@ public class Inferior extends Employee {
     @Override
     public String toString() {
         return super.toString() +
-                "chief=" + chief +
+                "\n chief=" + chief.id +", " + chief.name + chief.surname +
                 ",\n skills=" + skills.toString() +
                 ']' +
                 '}';

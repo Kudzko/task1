@@ -3,6 +3,8 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 import java.util.Objects;
 
 public abstract class Employee {
+    private static int generatedID =0;
+    protected  int id = 0;
     protected String name;
     protected String surname;
     protected String positoin;
@@ -12,11 +14,14 @@ public abstract class Employee {
     protected int experience;
 
     {
-    //    System.out.println("Hello from Employee initialization");
+
+       setId(generatedID);
+       generatedID++;
+        //    System.out.println("Hello from Employee initialization");
     }
 
     public Employee() {
-       // System.out.println("Hello from Employee default constructor");
+        // System.out.println("Hello from Employee default constructor");
     }
 
     public Employee(String name, String surname, String positoin, double salary, double bonus, int payRange, int experience) {
@@ -94,6 +99,14 @@ public abstract class Employee {
         this.experience = experience;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,11 +129,12 @@ public abstract class Employee {
 
     @Override
     public String toString() {
-        String [] className = this.getClass().getName().replace('.', ':').split(":");
+        String[] className = this.getClass().getName().replace('.', ':').split(":");
         int indexNameOfClass = className.length - 1;
 
         return '{' + className[indexNameOfClass] +
-                " [ name='" + name + '\'' +
+                "[ id = " + getId() +
+                ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", positoin='" + positoin + '\'' +
                 ", salary=" + salary +
