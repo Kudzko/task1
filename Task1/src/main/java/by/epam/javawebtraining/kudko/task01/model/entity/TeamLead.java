@@ -9,13 +9,13 @@ public class TeamLead extends Manager {
     private List<Employee> team;
 
     {
-        System.out.println("Hello from initialisation block of TeamLead");
+     //   System.out.println("Hello from initialisation block of TeamLead");
     }
 
     public TeamLead() {
         this.team = new ArrayList<Employee>();
 
-        System.out.println("Hello from default constructor of TeamLead");
+     //   System.out.println("Hello from default constructor of TeamLead");
     }
 
     public TeamLead(String name, String surname, String positoin, double salary, double bonus, int payRange,
@@ -23,7 +23,7 @@ public class TeamLead extends Manager {
         super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
         this.team = team;
 
-        System.out.println("Hello from custom constructor of TeamLead");
+     //   System.out.println("Hello from custom constructor of TeamLead");
     }
 
     public void manageTeam(){
@@ -54,28 +54,28 @@ public class TeamLead extends Manager {
         return Objects.hash(super.hashCode(), team);
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() +
-//                "\n team=" + team +
-//                " ]" +
-//                '}';
-//    }
-
-
     @Override
     public String toString() {
-        return "TeamLead{" +
-                "team=" + team +
-                ", inferiors=" +/* Arrays.toString(inferiors) +*/
-                ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+        return super.toString() +
+                "\n team=" + team +
+                " ]" +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "TeamLead{" +
+//                "team=" + team +
+//                ", inferiors=" +/* Arrays.toString(inferiors) +*/
+//                ", leader=" + leader +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

@@ -4,16 +4,16 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Manager extends Employee {
-    Inferior[] inferiors;
-    Manager leader;
+    protected Inferior[] inferiors;
+    protected Manager leader;
 
     {
-        System.out.println("Hello from Manager initialization");
+        // System.out.println("Hello from Manager initialization");
         inferiors = new Inferior[10];
     }
 
     public Manager() {
-        System.out.println("Hello from Manager default constructor");
+        // System.out.println("Hello from Manager default constructor");
     }
 
 
@@ -23,14 +23,14 @@ public class Manager extends Employee {
         this.inferiors = inferiors;
         this.leader = leader;
 
-        System.out.println("Hello from Manager custom constructor");
+        // System.out.println("Hello from Manager custom constructor");
     }
 
-    public void work(){
+    public void work() {
         System.out.println("Do some manager's work");
     }
 
-    public void manage(){
+    public void manage() {
         System.out.println("I am managing");
     }
 
@@ -68,28 +68,44 @@ public class Manager extends Employee {
         return result;
     }
 
-//    @Override
-////    public String toString() {
-////        return super.toString() +
-////                "\n inferiors=" + Arrays.toString(inferiors) +
-////                ", leader=" + leader +
-////                " ]" +
-////                '}';
-////    }
-
-
     @Override
     public String toString() {
-        return "Manager{" +
-                "inferiors=" + /*Arrays.toString(inferiors) +*/
+        return super.toString() +
+                "\n inferiors=" + printInferiors() +
                 ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+                " ]" +
                 '}';
     }
+
+    public String printInferiors() {
+        StringBuilder inferiorsToString = new StringBuilder();
+        inferiorsToString.append("\n ");
+        for (int i = 0; i < inferiors.length; i++) {
+            if (inferiors[i] != null) {
+                inferiorsToString.append(inferiors[i].name);
+                inferiorsToString.append(", ");
+                inferiorsToString.append(inferiors[i].surname);
+                inferiorsToString.append("; ");
+            }
+
+        }
+
+        return inferiorsToString.toString();
+    }
+
+
+//    @Override
+//    public String toString() {
+//        return "Manager{" +
+//                "inferiors=" + /*Arrays.toString(inferiors) +*/
+//                ", leader=" + leader +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

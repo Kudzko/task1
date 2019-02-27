@@ -12,11 +12,11 @@ public abstract class Employee {
     protected int experience;
 
     {
-        System.out.println("Hello from Employee initialization");
+    //    System.out.println("Hello from Employee initialization");
     }
 
     public Employee() {
-        System.out.println("Hello from Employee default constructor");
+       // System.out.println("Hello from Employee default constructor");
     }
 
     public Employee(String name, String surname, String positoin, double salary, double bonus, int payRange, int experience) {
@@ -28,7 +28,7 @@ public abstract class Employee {
         this.payRange = payRange;
         this.experience = experience;
 
-        System.out.println("Hello from Employee custom constructor");
+        // System.out.println("Hello from Employee custom constructor");
     }
 
     public void work() {
@@ -114,34 +114,34 @@ public abstract class Employee {
         return Objects.hash(name, surname, positoin, salary, bonus, payRange, experience);
     }
 
-//    @Override
-//    public String toString() {
-//        String [] className = this.getClass().getName().replace('.', ':').split(":");
-//        int indexNameOfClass = className.length - 1;
-//
-//        return '{' + className[indexNameOfClass] +
-//                " [ name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                " ]" +
-//                '}';
-//    }
-
-
     @Override
     public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
+        String [] className = this.getClass().getName().replace('.', ':').split(":");
+        int indexNameOfClass = className.length - 1;
+
+        return '{' + className[indexNameOfClass] +
+                " [ name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", positoin='" + positoin + '\'' +
                 ", salary=" + salary +
                 ", bonus=" + bonus +
                 ", payRange=" + payRange +
                 ", experience=" + experience +
+                " ]" +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "Employee{" +
+//                "name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

@@ -7,19 +7,19 @@ public class Team {
     private int counter;
 
 {
-    System.out.println("Hello from Team initialization");
+    //System.out.println("Hello from Team initialization");
     counter  = -1;
 }
 
     public Team() {
 
         team = new Employee[10];
-        System.out.println("Hello from Team default constructor");
+       // System.out.println("Hello from Team default constructor");
     }
 
     public Team(Employee[] department) {
         this.team = department;
-        System.out.println("Hello from Team custom constructor");
+       // System.out.println("Hello from Team custom constructor");
 
     }
 

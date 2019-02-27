@@ -10,11 +10,11 @@ public class Inferior extends Employee {
     List<String> skills;
 
     {
-        System.out.println("Hello from Inferior initialization");
+       // System.out.println("Hello from Inferior initialization");
     }
 
     public Inferior() {
-        System.out.println("Hello from Inferior default constructor");
+       // System.out.println("Hello from Inferior default constructor");
         skills = new ArrayList<>();
     }
 
@@ -24,7 +24,7 @@ public class Inferior extends Employee {
         this.chief = chief;
         this.skills = skills;
 
-        System.out.println("Hello from Inferior custom constructor");
+       // System.out.println("Hello from Inferior custom constructor");
     }
 
     @Override
@@ -37,7 +37,7 @@ public class Inferior extends Employee {
     }
 
     public void addSkill(String skill){
-        if((!skill.isEmpty()) && (skill != null)){
+        if((skill != null) && (!skill.isEmpty())) {
             skills.add(skill);
         }else {
             System.out.println("entered skill incorrect ( null or contains zero letters)");
@@ -77,28 +77,28 @@ public class Inferior extends Employee {
 
         return Objects.hash(super.hashCode(), chief, skills);
     }
-//
-//    @Override
-//    public String toString() {
-//        return super.toString() +
-//                "chief=" + chief +
-//                ",\n skills=" + skills.toString() +
-//                ']' +
-//                '}';
-//    }
-
 
     @Override
     public String toString() {
-        return "Inferior{" +
-                "skills=" + skills +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+        return super.toString() +
+                "chief=" + chief +
+                ",\n skills=" + skills.toString() +
+                ']' +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "Inferior{" +
+//                "skills=" + skills +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }

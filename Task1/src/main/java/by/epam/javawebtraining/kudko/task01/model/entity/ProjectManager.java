@@ -7,17 +7,17 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 
 public class ProjectManager extends Manager {
 
-    List<Employee> projectTeam;
+   private List<Employee> projectTeam;
 
     {
-        System.out.println("Hello from initialisation block of ProjectManager");
+      //  System.out.println("Hello from initialisation block of ProjectManager");
     }
 
     public ProjectManager() {
         projectTeam = new ArrayList<>();
 
 
-        System.out.println("Hello from default constructor of ProjectManager");
+       // System.out.println("Hello from default constructor of ProjectManager");
     }
 
     public ProjectManager(String name, String surname, String positoin, double salary, double bonus, int payRange,
@@ -25,7 +25,7 @@ public class ProjectManager extends Manager {
         super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
         this.projectTeam = projectTeam;
 
-        System.out.println("Hello from custom constructor of ProjectManager");
+       // System.out.println("Hello from custom constructor of ProjectManager");
     }
 
     public void runProject (){
@@ -55,28 +55,28 @@ public class ProjectManager extends Manager {
         return Objects.hash(super.hashCode(), projectTeam);
     }
 
-//    @Override
-//    public String toString() {
-//        return super.toString() +
-//                "\n projectTeam=" + projectTeam.toString() +
-//                " ]" +
-//                '}';
-//    }
-
-
     @Override
     public String toString() {
-        return "ProjectManager{" +
-                "projectTeam=" + projectTeam +
-                ", inferiors=" + /*Arrays.toString(inferiors) +*/
-                ", leader=" + leader +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
-                ", salary=" + salary +
-                ", bonus=" + bonus +
-                ", payRange=" + payRange +
-                ", experience=" + experience +
+        return super.toString() +
+                "\n projectTeam=" + projectTeam.toString() +
+                " ]" +
                 '}';
     }
+
+
+//    @Override
+//    public String toString() {
+//        return "ProjectManager{" +
+//                "projectTeam=" + projectTeam +
+//                ", inferiors=" + /*Arrays.toString(inferiors) +*/
+//                ", leader=" + leader +
+//                ", name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", positoin='" + positoin + '\'' +
+//                ", salary=" + salary +
+//                ", bonus=" + bonus +
+//                ", payRange=" + payRange +
+//                ", experience=" + experience +
+//                '}';
+//    }
 }
