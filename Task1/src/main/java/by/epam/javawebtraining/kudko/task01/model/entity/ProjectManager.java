@@ -37,7 +37,7 @@ public class ProjectManager extends Manager {
     }
 
     public void setProjectTeam(List<Employee> projectTeam) {
-        this.projectTeam = projectTeam;
+        this.projectTeam.addAll(projectTeam);
     }
 
     @Override
