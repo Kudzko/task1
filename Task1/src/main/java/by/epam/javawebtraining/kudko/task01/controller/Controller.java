@@ -1,5 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.controller;
 
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NotDefinedMethod {
         Employee projectManager1 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
         Employee projectManager2 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
         Employee teamLead1 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);
@@ -242,40 +243,47 @@ public class Controller {
         System.out.println("Priсe second team : " + teamPrice2);
 
 
-//        System.out.println("---------------------------------");
+//        System.out.println("----------------COMPANY-----------------");
 //        for (int i = 0; i < company.getEmployeesOfWholeCompany().size(); i++){
 //            System.out.println(company.getEmployeesOfWholeCompany().get(i));
 //            System.out.println();
 //        }
-
-
-
-Employee [] teammm = team1.getWholeTeam();
-        System.out.println("---------------------------------");
-        for (int i = 0; i < teammm.length; i++){
-            System.out.println(teammm[i]);
-            System.out.println();
-        }
-
-
-
-//        Employee findingEmployee1 = new ProjectManager();
-//        findingEmployee1.setName("John");
 //
-//        //finding by exact type of employee
+//
+//
+//Employee [] teammm = team1.getWholeTeam();
+//        System.out.println("------------TEAM1--------------");
+//        for (int i = 0; i < teammm.length; i++){
+//            System.out.println(teammm[i]);
+//            System.out.println();
+//        }
+//
+//        Employee [] teammm2 = team2.getWholeTeam();
+//        System.out.println("------------TEAM2--------------");
+//        for (int i = 0; i < teammm2.length; i++){
+//            System.out.println(teammm2[i]);
+//            System.out.println();
+//        }
+
+
+
+        Employee findingEmployee1 = projectManager1;
+//        findingEmployee1.setName("John");
+
+        //finding by exact type of employee
 //        System.out.println("Result of finding projectManager by name: " +
-//                Administraition.findProjectManager((ProjectManager) findingEmployee1, team1)
+//                Administraition.findProjectManager((ProjectManager) findingEmployee1, company)
 //        );
 //        System.out.println();
 //        System.out.println();
-//        //finding by fields of employee
-//        System.out.println("Result of finding by name: ");
-//        List<Employee> foundEmployee =  Administraition.findEmployeeByParameters( findingEmployee1, team1);
-//
-//        for (int i = 0; i < foundEmployee.size(); i++){
-//            System.out.println(foundEmployee.get(i));
-//            System.out.println();
-//        }
+        //finding by fields of employee
+        System.out.println("Result of finding by name: ");
+        List<Employee> foundEmployee =  Administraition.findEmployeeByParametersStrictly(findingEmployee1, company);
+
+        for (int i = 0; i < foundEmployee.size(); i++){
+            System.out.println(foundEmployee.get(i));
+            System.out.println();
+        }
 
 
 

@@ -1,19 +1,12 @@
 package by.epam.javawebtraining.kudko.task01.model.logic;
 
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Administraition {
-
-    public static void sortEmployeesBySalary(Team team) {
-
-    }
-
-    public static void sortEmployeesBySalary(Company company) {
-
-    }
 
     public static double countTeamPrice(Team team) {
         double prise = 0.0;
@@ -26,374 +19,470 @@ public class Administraition {
         return prise;
     }
 
+//++++++++++++++++SORTING BLOCK++++++++++++++++++
+    public static void sortEmployeesBySalary(Team team) {
+
+    }
+
+    public static void sortEmployeesBySalary(Company company) {
+
+    }
+//----------------------------------------------------
+
+
+//++++++++++++++FINDING BLOCK BY PARAMETERS+++++++++++++++++++++++++++++++++++++++
 
     /**
      * To find some employee by parameters, you should give to method instance of class witch has all
-     * papamers you need. If there is some odd parameters - set "null" or "-1"  for int and double fields of
-     * instances of needed class
+     * papamers you need. If there is some odd parameters - set "null"  or "-1"  (for int and double fields of
+     * instances of needed class)
+     * And choose find by strict match or soft match
      */
-    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Company company) {
+    public static List<Employee> findEmployeeByParametersStrictly(Employee findingEmployee, Company company)
+            throws NotDefinedMethod {
+        return findEmployeeByParameters(findingEmployee, company, true);
+    }
+
+    public static List<Employee> findEmployeeByParametersSoftly(Employee findingEmployee, Company company)
+            throws NotDefinedMethod {
+        return findEmployeeByParameters(findingEmployee, company, false);
+    }
+
+    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Company company, boolean strictly)
+            throws NotDefinedMethod {
         List<Employee> foundEmploee = new ArrayList<>();
 
         for (Employee existEmployee : company.getEmployeesOfWholeCompany()) {
-            if (checkFieldsByWholeParameters(findingEmployee, existEmployee)) {
+            if (checkFieldsByWholeParameters(findingEmployee, existEmployee, strictly)) {
                 foundEmploee.add(existEmployee);
             }
         }
         return foundEmploee;
     }
 
-    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Team team) {
+    public static List<Employee> findEmployeeByParametersStrictly(Employee findingEmployee, Team team)
+            throws NotDefinedMethod {
+        return findEmployeeByParameters(findingEmployee, team, true);
+    }
+
+    public static List<Employee> findEmployeeByParametersSoftly(Employee findingEmployee, Team team)
+            throws NotDefinedMethod {
+        return findEmployeeByParameters(findingEmployee, team, false);
+    }
+
+    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Team team, boolean strictly) throws NotDefinedMethod {
         List<Employee> foundEmploee = new ArrayList<>();
 
         for (Employee existEmployee : team.getWholeTeam()) {
-            if ((existEmployee!=null) && (checkFieldsByWholeParameters(findingEmployee, existEmployee))) {
+            if ((existEmployee != null) && (checkFieldsByWholeParameters(findingEmployee, existEmployee, strictly))) {
                 foundEmploee.add(existEmployee);
             }
         }
         return foundEmploee;
     }
 
-    private static boolean checkFieldsByWholeParameters(Employee findingEmployee, Employee existEmployee) {
-        boolean found = true;
-        found = checkEmployeeFields(findingEmployee, existEmployee);
+
+    private static boolean checkFieldsByWholeParametersStrictly(Employee findingEmployee, Employee existEmployee)
+            throws NotDefinedMethod {
+        return checkFieldsByWholeParameters(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkFieldsByWholeParametersSoftly(Employee findingEmployee, Employee existEmployee)
+            throws NotDefinedMethod {
+        return checkFieldsByWholeParameters(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkFieldsByWholeParameters(Employee findingEmployee, Employee existEmployee, boolean strictly)
+            throws NotDefinedMethod {
+
+        boolean found = false;
+        boolean strictMathcing = true;
+
+        //Checking Employee fields then
+        if (checkEmployeeFields(findingEmployee, existEmployee, strictly)) {
+            found = true;
+        } else {
+            strictMathcing = false;
+        }
 
         //Checking Manager fields then
-        if (findingEmployee instanceof Manager) {
-            if (existEmployee instanceof Manager) {
-                found = checkManagerFields((Manager) findingEmployee, (Manager) existEmployee);
+        if ((findingEmployee instanceof Manager) && (existEmployee instanceof Manager)) {
+            if (checkManagerFields((Manager) findingEmployee, (Manager) existEmployee, strictly)) {
+                found = true;
             } else {
-                found = false;
+                strictMathcing = false;
             }
         }
 
         //Checking Inferior fields then
-        if (findingEmployee instanceof Inferior) {
-            if (existEmployee instanceof Inferior) {
-                found = checkInferiorFields((Inferior) findingEmployee, (Inferior) existEmployee);
+        if ((findingEmployee instanceof Inferior) && (existEmployee instanceof Inferior)) {
+            if (checkInferiorFields((Inferior) findingEmployee, (Inferior) existEmployee, strictly)) {
+                found = true;
             } else {
-                found = false;
+                strictMathcing = false;
             }
         }
 
         //Checking ProjectManager fields then
-        if (findingEmployee instanceof ProjectManager) {
-            if (existEmployee instanceof ProjectManager) {
-                found = checkProjectManagerFields((ProjectManager) findingEmployee, (ProjectManager) existEmployee);
+        if ((findingEmployee instanceof ProjectManager) && (existEmployee instanceof ProjectManager)) {
+            if (checkProjectManagerFields((ProjectManager) findingEmployee, (ProjectManager) existEmployee, strictly)) {
+                found = true;
             } else {
-                found = false;
+                strictMathcing = false;
             }
         }
 
         //Checking TeamLead fields then
-        if (findingEmployee instanceof TeamLead) {
-            if (existEmployee instanceof TeamLead) {
-                found = checkTeamLeadFields((TeamLead) findingEmployee, (TeamLead) existEmployee);
+        if ((findingEmployee instanceof TeamLead) && (existEmployee instanceof TeamLead)) {
+            if (checkTeamLeadFields((TeamLead) findingEmployee, (TeamLead) existEmployee, strictly)) {
+                found = true;
             } else {
-                found = false;
+                strictMathcing = false;
             }
         }
 
         //Checking Developer fields then
         if ((findingEmployee instanceof Developer) && (existEmployee instanceof Developer)) {
-            found = checkDeveloperFields((Developer) findingEmployee, (Developer) existEmployee);
-        }else {
-            found = false;
+            if (checkDeveloperFields((Developer) findingEmployee, (Developer) existEmployee, strictly)) {
+                found = true;
+            } else {
+                strictMathcing = false;
+            }
+
         }
+
 
         //Checking Tester fields then
         if ((findingEmployee instanceof Tester) && (existEmployee instanceof Tester)) {
-            found = checkTesterFields((Tester) findingEmployee, (Tester) existEmployee);
-        }else {
-            found = false;
+            if (checkTesterFields((Tester) findingEmployee, (Tester) existEmployee, strictly)) {
+                found = true;
+            } else {
+                strictMathcing = false;
+            }
+
         }
 
-
+        if (strictly)
+        {
+            return strictMathcing;
+        }
         return found;
     }
 
-    private static boolean checkEmployeeFields(Employee findingEmployee, Employee existEmployee) {
-        //Checking Employee fields fist
-        if (findingEmployee.getName() == null) {
-            return false;
-        }
-        if (existEmployee.getName() != null) {
-            if (!existEmployee.getName().equalsIgnoreCase(findingEmployee.getName())) {
-                return false;
-            }
-        } else {
-            return false;
-        }
 
-        if (findingEmployee.getSurname() == null) {
-            return false;
-        }
-        if (existEmployee.getSurname() != null) {
-            if (!existEmployee.getSurname().equalsIgnoreCase(findingEmployee.getSurname())) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        if (findingEmployee.getPositoin() == null) {
-            return false;
-        }
-        if (existEmployee.getPositoin() != null) {
-            if (!existEmployee.getPositoin().equalsIgnoreCase(findingEmployee.getPositoin())) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        if ((findingEmployee.getSalary() == -1) || (existEmployee.getSalary() != findingEmployee.getSalary())) {
-            return false;
-        }
-        if ((findingEmployee.getBonus() == -1) || (existEmployee.getBonus() != findingEmployee.getBonus())) {
-            return false;
-        }
-        if ((findingEmployee.getPayRange() == -1) || (existEmployee.getPayRange() != findingEmployee.getPayRange())) {
-            return false;
-        }
-        if ((findingEmployee.getExperience() == -1) || (existEmployee.getExperience() != findingEmployee.getExperience())) {
-            return false;
-        }
-        return true;
+    private static boolean checkEmployeeFieldsStrictly(Employee findingEmployee, Employee existEmployee) {
+        return checkEmployeeFields(findingEmployee, existEmployee, true);
     }
 
-    private static boolean checkManagerFields(Manager findingEmployee, Manager existEmployee) {
+    private static boolean checkEmployeeFieldsSoftly(Employee findingEmployee, Employee existEmployee) {
+        return checkEmployeeFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkEmployeeFields(Employee findingEmployee, Employee existEmployee, boolean strictly) {
+
+        //Checking Employee fields
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+
+        if (findingEmployee.getName() != null) {
+            if (existEmployee.getName() != null) {
+                if (existEmployee.getName().equalsIgnoreCase(findingEmployee.getName())) {
+                    mathcing = true;
+                } else {
+                    strictMathcing = false;
+                }
+            }
+        }
+
+        if (findingEmployee.getSurname() != null) {
+            if (existEmployee.getSurname() != null) {
+                if (existEmployee.getSurname().equalsIgnoreCase(findingEmployee.getSurname())) {
+                    mathcing = true;
+                } else {
+                    strictMathcing = false;
+                }
+            }
+        }
+
+        if (findingEmployee.getPositoin() != null) {
+            if (existEmployee.getPositoin() != null) {
+                if (existEmployee.getPositoin().equalsIgnoreCase(findingEmployee.getPositoin())) {
+                    mathcing = true;
+                } else {
+                    strictMathcing = false;
+                }
+            }
+        }
+
+        if (findingEmployee.getSalary() != -1) {
+            if (existEmployee.getSalary() == findingEmployee.getSalary()) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+        }
+        if (findingEmployee.getBonus() != -1) {
+            if (existEmployee.getBonus() == findingEmployee.getBonus()) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+        }
+        if (findingEmployee.getPayRange() != -1) {
+            if (existEmployee.getPayRange() == findingEmployee.getPayRange()) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+        }
+        if (findingEmployee.getExperience() != -1) {
+            if (existEmployee.getExperience() == findingEmployee.getExperience()) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+        }
+
+        if (strictly) {
+            return strictMathcing;
+        }
+        return mathcing;
+    }
+
+    private static boolean checkManagerFieldsStrictly(Manager findingEmployee, Manager existEmployee) {
+        return checkManagerFields(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkManagerFieldsSoftly(Manager findingEmployee, Manager existEmployee) {
+        return checkManagerFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkManagerFields(Manager findingEmployee, Manager existEmployee, boolean strictly) {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
 
         //cheking  field Inferior[] inferiors;
-        if (findingEmployee.getInferiors() == null) {
-            return false;
+        if (findingEmployee.getInferiors() != null) {
+            int i = 0;
+            Inferior[] findingInferior, existInferior;
+            findingInferior = findingEmployee.getInferiors();
+            existInferior = existEmployee.getInferiors();
+            if (existInferior != null) {
+                while (i < findingInferior.length) {
+                    if ((findingInferior[i] != null) && (existInferior[i] != null)) {
+                        if (findingInferior[i].equals(existInferior[i])) {
+                            mathcing = true;
+                        } else {
+                            strictMathcing = false;
+                        }
+                    }
+                    i++;
+                }
+            }
         }
-        int i = 0;
-        Inferior[] findingInferior, existInferior;
-        findingInferior = findingEmployee.getInferiors();
-        existInferior = existEmployee.getInferiors();
-        if (existInferior != null) {
-            while (i < findingInferior.length) {
-                if (findingInferior[i] != null) {
-                    if (!findingInferior[i].equals(existInferior[i])) {
-                        return false;
+
+        // cheking  field  leader;
+        if ((findingEmployee.getLeader() != null) && (existEmployee.getLeader() != null)) {
+            if (findingEmployee.getLeader().equals(existEmployee.getLeader())) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+
+        }
+        if (strictly) {
+            return strictMathcing;
+        }
+        return mathcing;
+    }
+
+    private static boolean checkInferiorFieldsStrictly(Inferior findingEmployee, Inferior existEmployee) {
+        return checkInferiorFields(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkInferiorFieldsSoftly(Inferior findingEmployee, Inferior existEmployee) {
+        return checkInferiorFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkInferiorFields(Inferior findingEmployee, Inferior existEmployee, boolean strictly) {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+
+        //checking field chief
+        if ((findingEmployee.getChief() != null) && (existEmployee.getChief() != null)) {
+            if (findingEmployee.getChief().equals(existEmployee.getChief())) {
+                mathcing = true;
+            } else {
+                strictMathcing = false;
+            }
+        }
+
+        //checking skills
+        List<String> findingSkils, existSkils;
+        findingSkils = findingEmployee.getSkills();
+        existSkils = existEmployee.getSkills();
+        if ((findingSkils != null) && (existSkils != null)) {
+            int i = 0;
+            while (i < findingSkils.size()) {
+                if ((existSkils.get(i) != null) && (findingSkils.get(i) != null)) {
+                    if (findingSkils.get(i).equalsIgnoreCase(existSkils.get(i))) {
+                        mathcing = true;
+                    } else {
+                        strictMathcing = false;
                     }
                 }
                 i++;
             }
-        } else {
-            return false;
         }
-
-        // cheking  field  Manager leader;
-        if ((findingEmployee.getLeader() == null)
-                || (findingEmployee.getLeader() == null)
-                || (!findingEmployee.getLeader().equals(existEmployee.getLeader()))) {
-            return false;
+        if (strictly ) {
+            return strictMathcing;
         }
-        return true;
+        return mathcing;
     }
 
-    private static boolean checkInferiorFields(Inferior findingEmployee, Inferior existEmployee) {
-        if ((findingEmployee.getChief() == null)
-                || (findingEmployee.getChief() == null)
-                || (!findingEmployee.getChief().equals(existEmployee.getChief()))) {
-            return false;
-        }
-        int i = 0;
-        List<String> findingSkils, existSkils;
-        findingSkils = findingEmployee.getSkills();
-        existSkils = existEmployee.getSkills();
-        while (i < findingSkils.size()) {
-            if ((existSkils.get(i)== null)
-                    || (!findingSkils.get(i).equalsIgnoreCase(existSkils.get(i)))) {
-                return false;
+    private static boolean checkProjectManagerFieldsStrictly(ProjectManager findingEmployee, ProjectManager existEmployee) {
+        return checkProjectManagerFields(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkProjectManagerFieldsSoftly(ProjectManager findingEmployee, ProjectManager existEmployee) {
+        return checkProjectManagerFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkProjectManagerFields(ProjectManager findingEmployee, ProjectManager existEmployee, boolean strictly) {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+        // checking field projectTeam
+        if ((findingEmployee.getProjectTeam() != null) && (existEmployee.getProjectTeam() != null)) {
+
+            List<Employee> findingProjectTeam, existProjectTeam;
+            findingProjectTeam = findingEmployee.getProjectTeam();
+            existProjectTeam = existEmployee.getProjectTeam();
+            int i = 0;
+            while ((i < findingProjectTeam.size()) & (i < existProjectTeam.size())) {
+                if ((findingProjectTeam.get(i) != null) && (existProjectTeam.get(i) != null)) {
+                    if (findingProjectTeam.get(i).equals(existProjectTeam.get(i))) {
+                        mathcing = true;
+                    } else {
+                        strictMathcing = false;
+                    }
+                }
+                i++;
             }
-            i++;
         }
-        return true;
+
+
+        if (strictly ) {
+            return strictMathcing;
+        }
+        return mathcing;
     }
 
-    private static boolean checkProjectManagerFields(ProjectManager findingEmployee, ProjectManager existEmployee) {
-        if (findingEmployee.getProjectTeam() == null) {
-            return false;
-        }
-        int i = 0;
-        List<Employee> findingProjectTeam, existProjectTeam;
-        findingProjectTeam = findingEmployee.getProjectTeam();
-        existProjectTeam = existEmployee.getProjectTeam();
-        while (i < findingProjectTeam.size()) {
-            if ((findingProjectTeam.get(i)==null)
-                    || !findingProjectTeam.get(i).equals(existProjectTeam.get(i))) {
-                return false;
+    private static boolean checkTeamLeadFieldsStrictly(TeamLead findingEmployee, TeamLead existEmployee) {
+        return checkTeamLeadFields(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkTeamLeadFieldsSoftly(TeamLead findingEmployee, TeamLead existEmployee) {
+        return checkTeamLeadFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkTeamLeadFields(TeamLead findingEmployee, TeamLead existEmployee, boolean strictly) {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+
+        // checking field team
+        if ((findingEmployee.getTeam() != null) && (existEmployee.getTeam() != null)) {
+
+            List<Employee> findingSkils, existSkils;
+            findingSkils = findingEmployee.getTeam();
+            existSkils = existEmployee.getTeam();
+            int i = 0;
+            while (i < findingSkils.size()) {
+                if ((findingSkils.get(i) != null) && (findingSkils.get(i) != null)) {
+                    if (findingSkils.get(i).equals(existSkils.get(i))) {
+                        mathcing = true;
+                    } else {
+                        strictMathcing = false;
+                    }
+                }
+                i++;
             }
-            i++;
         }
-        return true;
+
+        if (strictly) {
+            return strictMathcing;
+        }
+        return mathcing;
     }
 
-    private static boolean checkTeamLeadFields(TeamLead findingEmployee, TeamLead existEmployee) {
-        if (findingEmployee.getTeam() == null) {
-            return false;
-        }
-        int i = 0;
-        List<Employee> findingSkils, existSkils;
-        findingSkils = findingEmployee.getTeam();
-        existSkils = existEmployee.getTeam();
-        while (i < findingSkils.size()) {
-            if ((findingSkils.get(i) == null ) || (!findingSkils.get(i).equals(existSkils.get(i)))) {
-                return false;
-            }
-            i++;
-        }
-        return true;
+
+    private static boolean checkDeveloperFieldsStrictly(Developer findingEmployee, Developer existEmployee) throws NotDefinedMethod {
+        return checkDeveloperFields(findingEmployee, existEmployee, true);
     }
 
-    private static boolean checkDeveloperFields(Developer findingEmployee, Developer existEmployee) {
+    private static boolean checkDeveloperFieldsSoftly(Developer findingEmployee, Developer existEmployee) throws NotDefinedMethod {
+        return checkDeveloperFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkDeveloperFields(Developer findingEmployee,
+                                                Developer existEmployee,
+                                                boolean strictly) throws NotDefinedMethod {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+
         System.out.println("Fields of Developer is not defined yet");
-        return true;
+
+        // checking field team
+//        if ((findingEmployee.getField() != null) && (existEmployee.getField() != null)){
+//            if (findingSkils.getField().equals(existSkils.getField())) {
+//                        mathcing = true;
+//                    } else {
+//                        strictMathcing = false;
+//                    }
+
+//        }
+
+
+        if (strictly) {
+            return strictMathcing;
+        }
+        // return mathcing;
+        throw new NotDefinedMethod();
+
     }
 
-    private static boolean checkTesterFields(Tester findingEmployee, Tester existEmployee) {
+    private static boolean checkTesterFieldsStrictly(Tester findingEmployee, Tester existEmployee) throws NotDefinedMethod {
+        return checkTesterFields(findingEmployee, existEmployee, true);
+    }
+
+    private static boolean checkTesterFieldsSoftly(Tester findingEmployee, Tester existEmployee) throws NotDefinedMethod {
+        return checkTesterFields(findingEmployee, existEmployee, false);
+    }
+
+    private static boolean checkTesterFields(Tester findingEmployee,
+                                             Tester existEmployee,
+                                             boolean strictly) throws NotDefinedMethod {
+        boolean mathcing = false;
+        boolean strictMathcing = true;
+
         System.out.println("Fields of Tester is not defined yet");
-        return true;
-    }
+        // checking field team
+//        if ((findingEmployee.getField() != null) && (existEmployee.getField() != null)){
+//            if (findingSkils.getField().equals(existSkils.getField())) {
+//                        mathcing = true;
+//                    } else {
+//                        strictMathcing = false;
+//                    }
 
-    public static List<Employee> findExactEmployee(Employee employee, Team team) {
-        List<Employee> rusult = new ArrayList<>();
+//        }
 
-        if ((employee != null) && (team != null)) {
-            for (Employee empl : team.getWholeTeam()) {
-                if ((empl != null) && (empl.equals(employee)))
-                    rusult.add(empl);
-            }
+
+        if (strictly ) {
+            return strictMathcing;
         }
-        return rusult;
+        // return mathcing;
+        throw new NotDefinedMethod();
     }
-
-    public static List<Employee> findExactEmployee(Employee employee, Company company) {
-        List<Employee> rusult = new ArrayList<>();
-
-        if ((employee != null) && (company != null)) {
-            for (Employee empl : company.getEmployeesOfWholeCompany()) {
-                if ((empl != null) && (empl.equals(employee)))
-                    rusult.add(empl);
-            }
-        }
-        return rusult;
-    }
-
-    public static List<ProjectManager> findProjectManager(ProjectManager findingProjectManager, Company company) {
-        List<ProjectManager> foundProjectManager = new ArrayList<>();
-
-        for (Employee existEmployee : company.getEmployeesOfWholeCompany())
-            if (existEmployee instanceof ProjectManager) {
-                if (checkEmployeeFields(findingProjectManager, existEmployee)
-                        && checkManagerFields(findingProjectManager, (Manager) existEmployee)
-                        && checkProjectManagerFields(findingProjectManager, (ProjectManager) existEmployee)) {
-                    foundProjectManager.add((ProjectManager) existEmployee);
-                }
-            }
-        return foundProjectManager;
-    }
-
-    public static List<ProjectManager> findProjectManager(ProjectManager findingProjectManager, Team team) {
-        List<ProjectManager> foundProjectManager = new ArrayList<>();
-
-        for (Employee existEmployee : team.getWholeTeam())
-            if (existEmployee instanceof ProjectManager) {
-                if (checkEmployeeFields(findingProjectManager, existEmployee)
-                        && checkManagerFields(findingProjectManager, (Manager) existEmployee)
-                        && checkProjectManagerFields(findingProjectManager, (ProjectManager) existEmployee)) {
-                    foundProjectManager.add((ProjectManager) existEmployee);
-                }
-            }
-        return foundProjectManager;
-    }
-
-    public static List<TeamLead> findTeamLead(TeamLead findingTeamLead, Company company) {
-        List<TeamLead> foundTeamLead = new ArrayList<>();
-
-        for (Employee existEmployee : company.getEmployeesOfWholeCompany())
-            if (existEmployee instanceof TeamLead) {
-                if (checkEmployeeFields(findingTeamLead, existEmployee)
-                        && checkManagerFields(findingTeamLead, (Manager) existEmployee)
-                        && checkTeamLeadFields(findingTeamLead, (TeamLead) existEmployee)) {
-                    foundTeamLead.add((TeamLead) existEmployee);
-                }
-            }
-        return foundTeamLead;
-    }
-
-    public static List<TeamLead> findTeamLead(TeamLead findingTeamLead, Team team) {
-        List<TeamLead> foundTeamLead = new ArrayList<>();
-
-        for (Employee existEmployee : team.getWholeTeam())
-            if (existEmployee instanceof TeamLead) {
-                if (checkEmployeeFields(findingTeamLead, existEmployee)
-                        && checkManagerFields(findingTeamLead, (Manager) existEmployee)
-                        && checkTeamLeadFields(findingTeamLead, (TeamLead) existEmployee)) {
-                    foundTeamLead.add((TeamLead) existEmployee);
-                }
-            }
-        return foundTeamLead;
-    }
-
-    public static List<Developer> findDeveloper(Developer findingDeveloper, Company company) {
-        List<Developer> foundDeveloper = new ArrayList<>();
-
-        for (Employee existEmployee : company.getEmployeesOfWholeCompany())
-            if (existEmployee instanceof Developer) {
-                if (checkEmployeeFields(findingDeveloper, existEmployee)
-                        && checkInferiorFields(findingDeveloper, (Inferior) existEmployee)
-                        && checkDeveloperFields(findingDeveloper, (Developer) existEmployee)) {
-                    foundDeveloper.add((Developer) existEmployee);
-                }
-            }
-        return foundDeveloper;
-    }
-
-    public static List<Developer> findDeveloper(Developer findingDeveloper, Team team) {
-        List<Developer> foundDeveloper = new ArrayList<>();
-
-        for (Employee existEmployee : team.getWholeTeam())
-            if (existEmployee instanceof Developer) {
-                if (checkEmployeeFields(findingDeveloper, existEmployee)
-                        && checkInferiorFields(findingDeveloper, (Inferior) existEmployee)
-                        && checkDeveloperFields(findingDeveloper, (Developer) existEmployee)) {
-                    foundDeveloper.add((Developer) existEmployee);
-                }
-            }
-        return foundDeveloper;
-    }
-
-    public static List<Tester> findTester(Tester findingTester, Company company) {
-        List<Tester> foundTester = new ArrayList<>();
-
-        for (Employee existEmployee : company.getEmployeesOfWholeCompany())
-            if (existEmployee instanceof Tester) {
-                if (checkEmployeeFields(findingTester, existEmployee)
-                        && checkInferiorFields(findingTester, (Inferior) existEmployee)
-                        && checkTesterFields(findingTester, (Tester) existEmployee)) {
-                    foundTester.add((Tester) existEmployee);
-                }
-            }
-        return foundTester;
-    }
-
-    public static List<Tester> findDeveloper(Tester findingTester, Team team) {
-        List<Tester> foundTester = new ArrayList<>();
-
-        for (Employee existEmployee : team.getWholeTeam())
-            if (existEmployee instanceof Tester) {
-                if (checkEmployeeFields(findingTester, existEmployee)
-                        && checkInferiorFields(findingTester, (Inferior) existEmployee)
-                        && checkTesterFields(findingTester, (Tester) existEmployee)) {
-                    foundTester.add((Tester) existEmployee);
-                }
-            }
-        return foundTester;
-    }
+//-----------------------------------------------------------------------------------
 
 
 }
