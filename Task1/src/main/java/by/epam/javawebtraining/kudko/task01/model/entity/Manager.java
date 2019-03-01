@@ -16,6 +16,9 @@ public class Manager extends Employee {
         // System.out.println("Hello from Manager default constructor");
     }
 
+    public Manager(int id) {
+        super(id);
+    }
 
     public Manager(String name, String surname, String positoin, double salary, double bonus, int payRange,
                    int experience, Inferior[] inferiors, Manager leader) {
@@ -80,13 +83,13 @@ public class Manager extends Employee {
     public String printInferiors() {
         StringBuilder inferiorsToString = new StringBuilder();
         inferiorsToString.append("\n      ");
-        for (int i = 0; i < inferiors.length; i++) {
-            if (inferiors[i] != null) {
-                inferiorsToString.append(inferiors[i].id);
+        for (Inferior inferior : inferiors) {
+            if (inferiors != null) {
+                inferiorsToString.append(inferior.id);
                 inferiorsToString.append(", ");
-                inferiorsToString.append(inferiors[i].name);
+                inferiorsToString.append(inferior.name);
                 inferiorsToString.append(", ");
-                inferiorsToString.append(inferiors[i].surname);
+                inferiorsToString.append(inferior.surname);
                 inferiorsToString.append("; \n      ");
             }
 

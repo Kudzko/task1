@@ -11,6 +11,10 @@ public class Tester extends Inferior {
         //System.out.println("Hello from Tester default constructor");
     }
 
+    public Tester(int id) {
+        super(id);
+    }
+
     public Tester(String name, String surname, String positoin, double salary, double bonus, int payRange,
                   int experience, Manager chief, List<String> skills) {
         super(name, surname, positoin, salary, bonus, payRange, experience, chief, skills);

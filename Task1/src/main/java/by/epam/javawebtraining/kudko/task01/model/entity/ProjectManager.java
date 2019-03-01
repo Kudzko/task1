@@ -16,8 +16,13 @@ public class ProjectManager extends Manager {
     public ProjectManager() {
         projectTeam = new ArrayList<>();
 
-
         // System.out.println("Hello from default constructor of ProjectManager");
+    }
+
+    public ProjectManager(int id) {
+         super(id);
+         projectTeam = new ArrayList<>();
+
     }
 
     public ProjectManager(String name, String surname, String positoin, double salary, double bonus, int payRange,

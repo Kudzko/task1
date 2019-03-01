@@ -10,22 +10,25 @@ Specific is in creating Company and adding there Employee anyway,
  that we can know about all employees for sure
  */
 
+private static int id=0;
+
     public static Employee createEmployee(KindOfEmployee kindOfEmployee, boolean addToCompany) /*throws UnknownEmployeeExceptoin */ {
         Employee employee; // That new employee is added to List<Employee> in Company
         //  if addToCompany == true .
 
+        id++;
         switch (kindOfEmployee) {
             case tester:
-                employee = new Tester();
+                employee = new Tester(id);
                 break;
             case developer:
-                employee = new Developer();
+                employee = new Developer(id);
                 break;
             case teamLead:
-                employee = new TeamLead();
+                employee = new TeamLead(id);
                 break;
             case projectManager:
-                employee = new ProjectManager();
+                employee = new ProjectManager(id);
                 break;
             default:
                 employee = null;

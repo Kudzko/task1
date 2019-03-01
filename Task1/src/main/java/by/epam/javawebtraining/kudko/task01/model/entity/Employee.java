@@ -3,8 +3,8 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 import java.util.Objects;
 
 public abstract class Employee {
-    private static int generatedID =0;
-    protected  int id = 0;
+
+    protected  int id = -1;
     protected String name;
     protected String surname;
     protected String positoin;
@@ -14,14 +14,15 @@ public abstract class Employee {
     protected int experience;
 
     {
-
-       setId(generatedID);
-       generatedID++;
-        //    System.out.println("Hello from Employee initialization");
+      //    System.out.println("Hello from Employee initialization");
     }
 
     public Employee() {
         // System.out.println("Hello from Employee default constructor");
+    }
+
+    public Employee(int id) {
+        this.id = id;
     }
 
     public Employee(String name, String surname, String positoin, double salary, double bonus, int payRange, int experience) {
@@ -39,8 +40,6 @@ public abstract class Employee {
     public void work() {
         System.out.println("Do some work");
     }
-
-    ;
 
 
     public String getName() {
@@ -101,10 +100,6 @@ public abstract class Employee {
 
     public int getId() {
         return id;
-    }
-
-    private void setId(int id) {
-        this.id = id;
     }
 
     @Override

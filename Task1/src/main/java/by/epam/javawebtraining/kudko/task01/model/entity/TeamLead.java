@@ -18,6 +18,11 @@ public class TeamLead extends Manager {
      //   System.out.println("Hello from default constructor of TeamLead");
     }
 
+    public TeamLead(int id) {
+        super(id);
+        this.team = new ArrayList<Employee>();
+    }
+
     public TeamLead(String name, String surname, String positoin, double salary, double bonus, int payRange,
                     int experience, Inferior[] inferiors, Manager leader, List<Employee> team) {
         super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);

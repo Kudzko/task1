@@ -18,6 +18,11 @@ public class Inferior extends Employee {
         skills = new ArrayList<>();
     }
 
+    public Inferior(int id) {
+        super(id);
+        skills = new ArrayList<>();
+    }
+
     public Inferior(String name, String surname, String positoin, double salary, double bonus, int payRange,
                     int experience, Manager chief, List<String> skills) {
         super(name, surname, positoin, salary, bonus, payRange, experience);

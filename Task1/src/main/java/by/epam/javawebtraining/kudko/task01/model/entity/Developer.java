@@ -12,6 +12,10 @@ public class Developer extends Inferior {
         // System.out.println("Hello from Developer default constructor");
     }
 
+    public Developer(int id) {
+        super(id);
+    }
+
     public Developer(String name, String surname, String positoin, double salary, double bonus, int payRange,
                      int experience, Manager chief, List<String> skills) {
         super(name, surname, positoin, salary, bonus, payRange, experience, chief, skills);
