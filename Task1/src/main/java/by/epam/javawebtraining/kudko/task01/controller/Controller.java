@@ -285,7 +285,12 @@ public class Controller {
             System.out.println();
         }
 
-
+Administraition.sortEmployeesBySurname(team1);
+        System.out.println("Sortes TEAM: ");
+        for (int i = 0; i < team1.getWholeTeam().length; i++){
+            System.out.println(team1.getWholeTeam()[i]);
+            System.out.println();
+        }
 
 
     }

@@ -2,8 +2,11 @@ package by.epam.javawebtraining.kudko.task01.model.logic;
 
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
+import by.epam.javawebtraining.kudko.task01.model.logic.comparator.SurnameComparator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Administraition {
@@ -19,12 +22,22 @@ public class Administraition {
         return prise;
     }
 
-//++++++++++++++++SORTING BLOCK++++++++++++++++++
-    public static void sortEmployeesBySalary(Team team) {
-
+    //++++++++++++++++SORTING BLOCK++++++++++++++++++
+    public static void sortEmployeesBySurname(Company company) {
+        Comparator<Employee> surnameComparator = new SurnameComparator();
+        company.getEmployeesOfWholeCompany().sort(surnameComparator);
     }
 
-    public static void sortEmployeesBySalary(Company company) {
+    public static void sortEmployeesBySurname(Team team) {
+        Comparator<Employee> surnameComparator = new SurnameComparator();
+        List<Employee> sortedTeam = new ArrayList<>(Arrays.asList(team.getWholeTeam()));
+        Comparator<Employee> comparator = new SurnameComparator();
+        sortedTeam.sort(comparator);
+        team.deleteAllEmployee();
+        team.addAllEmployee((Employee[])sortedTeam.toArray()) ;
+    }
+
+    public static void sortEmployeesByName(Company company) {
 
     }
 //----------------------------------------------------
@@ -162,8 +175,7 @@ public class Administraition {
 
         }
 
-        if (strictly)
-        {
+        if (strictly) {
             return strictMathcing;
         }
         return found;
@@ -334,7 +346,7 @@ public class Administraition {
                 i++;
             }
         }
-        if (strictly ) {
+        if (strictly) {
             return strictMathcing;
         }
         return mathcing;
@@ -371,7 +383,7 @@ public class Administraition {
         }
 
 
-        if (strictly ) {
+        if (strictly) {
             return strictMathcing;
         }
         return mathcing;
@@ -476,7 +488,7 @@ public class Administraition {
 //        }
 
 
-        if (strictly ) {
+        if (strictly) {
             return strictMathcing;
         }
         // return mathcing;
