@@ -29,13 +29,9 @@ public class Administraition {
     }
 
     public static void sortEmployeesBySurname(Team team) {
-        Comparator<Employee> surnameComparator = new SurnameComparator();
-        List<Employee> sortedTeam = new ArrayList<>(Arrays.asList(team.getWholeTeam()));
         Comparator<Employee> comparator = new SurnameComparator();
-        sortedTeam.sort(comparator);
-        team.deleteAllEmployee();
-        team.addAllEmployee((Employee[])sortedTeam.toArray()) ;
-    }
+        Arrays.sort(team.getWholeTeam(),0,team.getCounter()+1 ,comparator);
+            }
 
     public static void sortEmployeesByName(Company company) {
 

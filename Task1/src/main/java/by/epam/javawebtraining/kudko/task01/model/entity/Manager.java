@@ -71,10 +71,10 @@ public class Manager extends Employee {
     @Override
     public String toString() {
         return super.toString() +
-                "\n inferiors=" + printInferiors() +
-                "\n    leader=" + leader +
+                "\n     inferiors = " + printInferiors() +
+                "\n     leader = " + leader +
                 " ]" +
-                '}';
+                "}\n";
     }
 
     public String printInferiors() {

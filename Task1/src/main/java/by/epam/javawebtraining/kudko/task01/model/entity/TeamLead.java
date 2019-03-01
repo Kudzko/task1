@@ -57,7 +57,7 @@ public class TeamLead extends Manager {
     @Override
     public String toString() {
         return super.toString() +
-                "\n team=" + team +
+                "\n     team=" + team +
                 " ]" +
                 '}';
     }

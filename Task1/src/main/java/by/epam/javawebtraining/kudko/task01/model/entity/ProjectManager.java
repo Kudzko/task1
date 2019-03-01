@@ -58,7 +58,7 @@ public class ProjectManager extends Manager {
     @Override
     public String toString() {
         return super.toString() +
-                "\n projectTeam=" + printProjectTeam() +
+                "\n     projectTeam = " + printProjectTeam() +
                 " ]" +
                 '}';
     }

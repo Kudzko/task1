@@ -2,6 +2,8 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.ExitOutOfBoundException;
 
+import java.util.Arrays;
+
 public class Team {
     private Employee[] team; // I created storage here with array as demanded
     private int counter;
@@ -86,5 +88,9 @@ public class Team {
             team[i] = null;
             counter--;
         }
+    }
+
+    public int getCounter() {
+        return counter;
     }
 }
