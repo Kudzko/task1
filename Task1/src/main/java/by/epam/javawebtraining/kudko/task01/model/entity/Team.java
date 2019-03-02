@@ -1,8 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.ExitOutOfBoundException;
-
-import java.util.Arrays;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.ExitOutOfBoundException;
 
 public class Team {
     private Employee[] team; // I created storage here with array as demanded

@@ -3,7 +3,7 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Manager extends Employee {
+public abstract class Manager extends Employee {
     protected Inferior[] inferiors;
     protected Manager leader;
 
@@ -84,7 +84,7 @@ public class Manager extends Employee {
         StringBuilder inferiorsToString = new StringBuilder();
         inferiorsToString.append("\n      ");
         for (Inferior inferior : inferiors) {
-            if (inferiors != null) {
+            if (inferior != null) {
                 inferiorsToString.append(inferior.id);
                 inferiorsToString.append(", ");
                 inferiorsToString.append(inferior.name);

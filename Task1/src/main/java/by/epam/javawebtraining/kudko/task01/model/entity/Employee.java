@@ -1,10 +1,14 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.InvalidSalaryValue;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInNameEcception;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInSurname;
+
 import java.util.Objects;
 
 public abstract class Employee {
 
-    protected  int id = -1;
+    protected int id = -1;
     protected String name;
     protected String surname;
     protected String positoin;
@@ -14,7 +18,7 @@ public abstract class Employee {
     protected int experience;
 
     {
-      //    System.out.println("Hello from Employee initialization");
+        //    System.out.println("Hello from Employee initialization");
     }
 
     public Employee() {
@@ -46,16 +50,27 @@ public abstract class Employee {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws NoLettersInNameEcception {
+        if ((name != null) && (name.length() > 0)) {
+            this.name = name;
+        } else {
+            throw new NoLettersInNameEcception("You haven't entered any letters");
+        }
+
     }
 
     public String getSurname() {
         return surname;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setSurname(String surname) throws NoLettersInSurname {
+
+        if ((surname != null) && (surname.length() > 0)) {
+            this.surname = surname;
+        } else {
+            throw new NoLettersInSurname("No entered letters in surname");
+        }
+
     }
 
     public String getPositoin() {
@@ -70,8 +85,11 @@ public abstract class Employee {
         return salary;
     }
 
-    public void setSalary(double salary) {
-        this.salary = salary;
+    public void setSalary(double salary) throws InvalidSalaryValue {
+
+        if (salary >= 0){
+            this.salary = salary;
+        }else throw new InvalidSalaryValue();
     }
 
     public double getBonus() {
@@ -107,7 +125,8 @@ public abstract class Employee {
         if (this == o) return true;
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
-        return Double.compare(employee.salary, salary) == 0 &&
+        return id == employee.id &&
+                Double.compare(employee.salary, salary) == 0 &&
                 Double.compare(employee.bonus, bonus) == 0 &&
                 payRange == employee.payRange &&
                 experience == employee.experience &&
@@ -119,7 +138,7 @@ public abstract class Employee {
     @Override
     public int hashCode() {
 
-        return Objects.hash(name, surname, positoin, salary, bonus, payRange, experience);
+        return Objects.hash(id, name, surname, positoin, salary, bonus, payRange, experience);
     }
 
     @Override

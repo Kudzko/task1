@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.logic;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.NotDefinedMethod;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.SurnameComparator;
 

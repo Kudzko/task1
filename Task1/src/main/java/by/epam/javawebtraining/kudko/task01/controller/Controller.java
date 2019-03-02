@@ -1,6 +1,9 @@
 package by.epam.javawebtraining.kudko.task01.controller;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.NotDefinedMethod;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.InvalidSalaryValue;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInNameEcception;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInSurname;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
@@ -10,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    public static void main(String[] args) throws NotDefinedMethod {
+    public static void main(String[] args) throws NotDefinedMethod, NoLettersInNameEcception, NoLettersInSurname, InvalidSalaryValue {
         Employee projectManager1 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
         Employee projectManager2 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
         Employee teamLead1 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);

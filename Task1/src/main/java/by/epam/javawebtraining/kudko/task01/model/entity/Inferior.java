@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Inferior extends Employee {
+public abstract class Inferior extends Employee {
     Manager chief;
     List<String> skills;
 
