@@ -10,11 +10,11 @@ public abstract class Inferior extends Employee {
     List<String> skills;
 
     {
-       // System.out.println("Hello from Inferior initialization");
+        // System.out.println("Hello from Inferior initialization");
     }
 
     public Inferior() {
-       // System.out.println("Hello from Inferior default constructor");
+        // System.out.println("Hello from Inferior default constructor");
         skills = new ArrayList<>();
     }
 
@@ -29,22 +29,37 @@ public abstract class Inferior extends Employee {
         this.chief = chief;
         this.skills = skills;
 
-       // System.out.println("Hello from Inferior custom constructor");
+        // System.out.println("Hello from Inferior custom constructor");
     }
 
     @Override
     public void work() {
-        super.work();
+        if (energy >= 5){
+            System.out.println("Do some work");
+            energy = getEnergy() - 100*0.05;
+        }else {
+            System.out.println("I am tired");
+        }
+    }
+
+    @Override
+    public void relax() {
+        if (energy <= 95){
+            System.out.println("Chill");
+            energy = getEnergy() + 100*0.05;
+        }else {
+            System.out.println("I need work");
+        }
     }
 
     public void execute() {
         System.out.println("Do manager's orders");
     }
 
-    public void addSkill(String skill){
-        if((skill != null) && (!skill.isEmpty())) {
+    public void addSkill(String skill) {
+        if ((skill != null) && (!skill.isEmpty())) {
             skills.add(skill);
-        }else {
+        } else {
             System.out.println("entered skill incorrect ( null or contains zero letters)");
         }
 
@@ -86,7 +101,7 @@ public abstract class Inferior extends Employee {
     @Override
     public String toString() {
         return super.toString() +
-                "\n      chief = " + chief.id +", " + chief.name + chief.surname +
+                "\n      chief = " + chief.id + ", " + chief.name + chief.surname +
                 ",\n      skills = " + skills.toString() +
                 ']' +
                 '}';

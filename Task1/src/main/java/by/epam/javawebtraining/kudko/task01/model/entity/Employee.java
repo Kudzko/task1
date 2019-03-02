@@ -3,12 +3,14 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.InvalidSalaryValue;
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInNameEcception;
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInSurname;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.SetWrongLevelEnergy;
 
 import java.util.Objects;
 
 public abstract class Employee {
 
     protected int id = -1;
+    protected double energy = 100; // range from 0 till 100
     protected String name;
     protected String surname;
     protected String positoin;
@@ -42,9 +44,23 @@ public abstract class Employee {
     }
 
     public void work() {
-        System.out.println("Do some work");
-    }
+        if (energy >= 10){
+            System.out.println("Do some work");
+            energy = getEnergy() - 100*0.1;
+        }else {
+            System.out.println("I am tired");
+        }
 
+    }
+    public void relax() {
+        if (energy <= 90){
+            energy = getEnergy() + 100*0.1;
+            System.out.println("Relax");
+        }else {
+            System.out.println("I need work");
+        }
+
+    }
 
     public String getName() {
         return name;
@@ -118,6 +134,19 @@ public abstract class Employee {
 
     public int getId() {
         return id;
+    }
+
+    public double getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) throws SetWrongLevelEnergy {
+        if ( (0<= energy) && (energy <= 100)){
+            this.energy = energy;
+        }else {
+            throw new SetWrongLevelEnergy("Check value of energy. It must be from 0 till 100");
+        }
+
     }
 
     @Override

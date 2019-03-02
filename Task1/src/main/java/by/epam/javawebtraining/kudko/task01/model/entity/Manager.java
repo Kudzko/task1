@@ -29,8 +29,24 @@ public abstract class Manager extends Employee {
         // System.out.println("Hello from Manager custom constructor");
     }
 
+    @Override
     public void work() {
-        System.out.println("Do some manager's work");
+        if (energy >= 20){
+            System.out.println("Do some work");
+            energy = getEnergy() - 100*0.2;
+        }else {
+            System.out.println("I am tired");
+        }
+    }
+
+    @Override
+    public void relax() {
+        if (energy <= 80){
+            System.out.println("Chill");
+            energy = getEnergy() + 100*0.2;
+        }else {
+            System.out.println("I need work");
+        }
     }
 
     public void manage() {
