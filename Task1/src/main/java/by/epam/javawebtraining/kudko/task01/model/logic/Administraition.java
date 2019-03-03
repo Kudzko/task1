@@ -1,5 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.logic;
 
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.IncorrectFrameValueException;
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.ComparatorCreator;
@@ -26,23 +27,23 @@ public class Administraition {
 
     //++++++++++++++++SORTING BLOCK++++++++++++++++++
     public static void sortEmployeesBySurname(Company company) {
-        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(TypeComparator.SurnameComparator);
+        Comparator<Employee> comparator = ComparatorCreator.createCompararor(TypeComparator.SurnameComparator);
         company.getEmployeesOfWholeCompany().sort(comparator);
     }
 
     public static void sortEmployeesBySurname(Team team) {
         Comparator<Employee> comparator = new SurnameComparator();
-        Arrays.sort(team.getWholeTeam(),0,team.getCounter()+1 ,comparator);
-            }
+        Arrays.sort(team.getWholeTeam(), 0, team.getCounter() + 1, comparator);
+    }
 
     public static void sortEmployeesByComparator(Company company, TypeComparator typeComparator) {
-        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(typeComparator);
+        Comparator<Employee> comparator = ComparatorCreator.createCompararor(typeComparator);
         company.getEmployeesOfWholeCompany().sort(comparator);
     }
 
     public static void sortEmployeesByComparator(Team team, TypeComparator typeComparator) {
-        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(typeComparator);
-        Arrays.sort(team.getWholeTeam(),0,team.getCounter()+1 ,comparator);
+        Comparator<Employee> comparator = ComparatorCreator.createCompararor(typeComparator);
+        Arrays.sort(team.getWholeTeam(), 0, team.getCounter() + 1, comparator);
     }
 
 //----------------------------------------------------
@@ -499,6 +500,69 @@ public class Administraition {
         // return mathcing;
         throw new NotDefinedMethod();
     }
+    // ++++++++ search by frameworks+++++++++++++++++
+
+    /**
+     * This method find employees by settes frames
+     * if you don't need in some parameters - set them -1
+     *
+     * @param salaryFrom
+     * @param bonusFrom
+     * @param payRangeFrom
+     * @param experienceFrom
+     * @param salaryTill
+     * @param bonusTill
+     * @param payRangeTill
+     * @param experienceTill
+     * @return List<Employee> witch satisfy searching condition
+     */
+    public static List<Employee> searchByFrames(double salaryFrom, double bonusFrom, int payRangeFrom, double experienceFrom,
+                                                double salaryTill, double bonusTill, int payRangeTill, double experienceTill)
+            throws IncorrectFrameValueException {
+
+        List<Employee> employeesInFrames = new ArrayList<>();
+        Company company = Company.createCompany();
+
+        for (Employee findingEmployee : company.getEmployeesOfWholeCompany()) {
+            if (((((salaryFrom >= 0) || (salaryFrom == -1)) && (salaryFrom <= salaryTill)) || (salaryTill == -1))
+                    && ((((bonusFrom >= 0) || (bonusFrom == -1)) && (bonusFrom <= bonusTill)) || (bonusTill == -1))
+                    && ((((payRangeFrom >= 0) || (payRangeFrom == -1)) && (payRangeFrom <= payRangeTill)) || (payRangeTill == -1))
+                    && ((((experienceFrom >= 0) || (experienceFrom == -1)) && (experienceFrom <= experienceTill)) || (experienceTill == -1))) {
+
+                if (findingEmployee != null) {
+
+                    if (((salaryFrom <= findingEmployee.getSalary()) || (salaryFrom == -1))
+                            && ((salaryTill >= findingEmployee.getSalary()) || (salaryTill == -1)))
+                    {
+                        if (((bonusFrom <= findingEmployee.getBonus()) || (bonusFrom == -1))
+                                && ((bonusTill >= findingEmployee.getBonus()) || (bonusTill == -1)))
+                        {
+                            if (((payRangeFrom <= findingEmployee.getPayRange()) || (payRangeFrom == -1))
+                                    && ((payRangeTill >= findingEmployee.getPayRange()) || (payRangeTill == -1)))
+                            {
+                                if (((experienceFrom <= findingEmployee.getExperience()) || (experienceFrom == -1))
+                                        && ((experienceTill >= findingEmployee.getExperience()) || (experienceTill == -1)))
+                                {
+                                    company.addEmployeeToComany(findingEmployee);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            } else {
+                throw new IncorrectFrameValueException("Check if correct values of parameters : \n" +
+                        "salaryFrom,  bonusFrom,  payRangeFrom,  experienceFrom,\n" +
+                        "salaryTill,  bonusTill,  payRangeTill,  experienceTill" +
+                        "\n may some of has  negative values, or values -Till less then values -From"
+                );
+            }
+
+
+        }
+        return employeesInFrames;
+    }
+    
 //-----------------------------------------------------------------------------------
 
 

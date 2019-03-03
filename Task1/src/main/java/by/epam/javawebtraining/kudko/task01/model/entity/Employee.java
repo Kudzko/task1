@@ -13,8 +13,8 @@ public abstract class Employee {
     protected String positoin;
     protected double salary; // in human*hours
     protected double bonus;
-    protected int payRange;
-    protected int experience;
+    protected int payRange;  // from 1 till 10
+    protected double experience;
 
     {
         //    System.out.println("Hello from Employee initialization");
@@ -121,11 +121,11 @@ public abstract class Employee {
         this.payRange = payRange;
     }
 
-    public int getExperience() {
+    public double getExperience() {
         return experience;
     }
 
-    public void setExperience(int experience) {
+    public void setExperience(double experience) {
         this.experience = experience;
     }
 
