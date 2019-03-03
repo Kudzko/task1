@@ -1,9 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.InvalidSalaryValue;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInNameEcception;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInSurname;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.SetWrongLevelEnergy;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.*;
 
 import java.util.Objects;
 
@@ -43,21 +40,21 @@ public abstract class Employee {
         // System.out.println("Hello from Employee custom constructor");
     }
 
-    public void work() {
+    public void work() throws TooLowEnergyException {
         if (energy >= 10){
             System.out.println("Do some work");
             energy = getEnergy() - 100*0.1;
         }else {
-            System.out.println("I am tired");
+            throw new TooLowEnergyException("I am tired");
         }
 
     }
-    public void relax() {
+    public void relax() throws TooHighEnergyException {
         if (energy <= 90){
             energy = getEnergy() + 100*0.1;
             System.out.println("Relax");
         }else {
-            System.out.println("I need work");
+            throw new TooHighEnergyException("I need work");
         }
 
     }
