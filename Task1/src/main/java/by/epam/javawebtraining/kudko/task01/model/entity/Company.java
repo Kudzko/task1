@@ -41,10 +41,7 @@ public class Company {
     }
  //------
 
- //+++action methods+++
 
-
- //------
 
 // +++getters & setters +++
     public List<Employee> getEmployeesOfWholeCompany() {
@@ -62,7 +59,9 @@ public class Company {
     public void setTeamsOfCompany(List<Team> teamsOfCompany) {
         this.teamsOfCompany = teamsOfCompany;
     }
-//-------
+
+    //-------
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

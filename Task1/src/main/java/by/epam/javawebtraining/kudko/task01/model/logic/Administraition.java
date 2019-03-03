@@ -1,6 +1,7 @@
 package by.epam.javawebtraining.kudko.task01.model.logic;
 
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.IncorrectFrameValueException;
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoEmployeesYet;
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.ComparatorCreator;
@@ -532,17 +533,13 @@ public class Administraition {
                 if (findingEmployee != null) {
 
                     if (((salaryFrom <= findingEmployee.getSalary()) || (salaryFrom == -1))
-                            && ((salaryTill >= findingEmployee.getSalary()) || (salaryTill == -1)))
-                    {
+                            && ((salaryTill >= findingEmployee.getSalary()) || (salaryTill == -1))) {
                         if (((bonusFrom <= findingEmployee.getBonus()) || (bonusFrom == -1))
-                                && ((bonusTill >= findingEmployee.getBonus()) || (bonusTill == -1)))
-                        {
+                                && ((bonusTill >= findingEmployee.getBonus()) || (bonusTill == -1))) {
                             if (((payRangeFrom <= findingEmployee.getPayRange()) || (payRangeFrom == -1))
-                                    && ((payRangeTill >= findingEmployee.getPayRange()) || (payRangeTill == -1)))
-                            {
+                                    && ((payRangeTill >= findingEmployee.getPayRange()) || (payRangeTill == -1))) {
                                 if (((experienceFrom <= findingEmployee.getExperience()) || (experienceFrom == -1))
-                                        && ((experienceTill >= findingEmployee.getExperience()) || (experienceTill == -1)))
-                                {
+                                        && ((experienceTill >= findingEmployee.getExperience()) || (experienceTill == -1))) {
                                     company.addEmployeeToComany(findingEmployee);
                                 }
                             }
@@ -562,8 +559,79 @@ public class Administraition {
         }
         return employeesInFrames;
     }
-    
+
 //-----------------------------------------------------------------------------------
 
+
+    //++++++++++++++++++ Max & Min values ++++++++++++++++++++++++++++++
+    /**
+     * Find employee in whole company with max salary
+     *
+     * @return Employee with max salary in company
+     */
+    public static Employee findMaxSalary() throws NoEmployeesYet {
+        Company company = Company.createCompany();
+        List<Employee> employees = company.getEmployeesOfWholeCompany();
+        Employee employeeMaxSalary ;
+
+        // defend from NullPointerException
+         employeeMaxSalary = findNonNullEmployee( employees);
+
+        // finding emloyee with max salary
+        for (Employee employee :
+                employees) {
+            if ((employee != null) && ( employee.getSalary() > employeeMaxSalary.getSalary()) ) {
+                employeeMaxSalary = employee;
+            }
+
+        }
+
+        return employeeMaxSalary;
+
+    }
+
+    /**
+     * Find employee in whole company with max salary
+     *
+     * @return Employee with max salary in company
+     */
+    public static Employee findMinSalary() throws NoEmployeesYet {
+        Company company = Company.createCompany();
+        List<Employee> employees = company.getEmployeesOfWholeCompany();
+        Employee employeeMinSalary ;
+
+        // defend from NullPointerException
+       employeeMinSalary = findNonNullEmployee( employees);
+
+       // finding emloyee with max salary
+        for (Employee employee :
+                employees) {
+            if ((employee != null) && ( employee.getSalary() < employeeMinSalary.getSalary()) ) {
+                employeeMinSalary = employee;
+            }
+
+        }
+
+        return employeeMinSalary;
+
+    }
+
+    private static Employee findNonNullEmployee (List<Employee> employees) throws NoEmployeesYet {
+        Employee notNullEmployee = null;
+        if (employees.get(0) != null) {
+            notNullEmployee = employees.get(0);
+        } else {
+            int i = 0;
+            while ((i < employees.size()) && (employees.get(i) == null)) {
+                notNullEmployee = employees.get(i);
+                i++;
+            }
+        }
+        if (notNullEmployee == null) {
+            throw new NoEmployeesYet("Company haven't contain any employee yet");
+        }
+        return notNullEmployee;
+    }
+//--------------------------------------------------------------------------------
 
 }
