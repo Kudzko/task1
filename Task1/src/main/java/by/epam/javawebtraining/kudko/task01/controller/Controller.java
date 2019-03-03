@@ -6,10 +6,13 @@ import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicExcepti
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
+import by.epam.javawebtraining.kudko.task01.model.logic.comparator.ComparatorCreator;
+import by.epam.javawebtraining.kudko.task01.model.logic.comparator.TypeComparator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
 import by.epam.javawebtraining.kudko.task01.util.KindOfEmployee;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Controller {
@@ -280,16 +283,16 @@ public class Controller {
 //        System.out.println();
 //        System.out.println();
         //finding by fields of employee
-        System.out.println("Result of finding by name: ");
-        List<Employee> foundEmployee =  Administraition.findEmployeeByParametersStrictly(findingEmployee1, company);
+//        System.out.println("Result of finding by name: ");
+//        List<Employee> foundEmployee =  Administraition.findEmployeeByParametersStrictly(findingEmployee1, company);
+//
+//        for (int i = 0; i < foundEmployee.size(); i++){
+//            System.out.println(foundEmployee.get(i));
+//            System.out.println();
+//        }
 
-        for (int i = 0; i < foundEmployee.size(); i++){
-            System.out.println(foundEmployee.get(i));
-            System.out.println();
-        }
-
-Administraition.sortEmployeesBySurname(team1);
-        System.out.println("Sortes TEAM: ");
+Administraition.sortEmployeesByComparator(team1, TypeComparator.ClasstypeSurnameNameComparator);
+        System.out.println("Sorted TEAM: ");
         for (int i = 0; i < team1.getWholeTeam().length; i++){
             System.out.println(team1.getWholeTeam()[i]);
             System.out.println();

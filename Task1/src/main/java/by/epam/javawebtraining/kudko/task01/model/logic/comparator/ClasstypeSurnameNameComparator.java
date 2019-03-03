@@ -15,10 +15,10 @@ public class ClasstypeSurnameNameComparator implements Comparator<Employee> {
                 return 1;
             } else {
                 if (((o1 instanceof ProjectManager) && (o2 instanceof TeamLead))
-                        || (((o1 instanceof Tester) && (o2 instanceof Developer)))) {
+                        || (((o1 instanceof Developer) && (o2 instanceof Tester)))) {
                     return -1;
                 } else if (((o1 instanceof TeamLead) && (o2 instanceof ProjectManager))
-                || ((o1 instanceof Developer) && (o2 instanceof Tester))){
+                || ((o1 instanceof Tester) && (o2 instanceof Developer))){
                     return 1;
                 }  else {
                     String surnameO1 = o1.getSurname();
@@ -41,9 +41,9 @@ public class ClasstypeSurnameNameComparator implements Comparator<Employee> {
                 }
             }
         } else if ((o1 == null) && (o2 != null)) {
-            return -1;
-        } else if (o1 != null) {
             return 1;
+        } else if ((o1 != null)&& (o2 == null)) {
+            return -1;
         }
         return 0;
     }

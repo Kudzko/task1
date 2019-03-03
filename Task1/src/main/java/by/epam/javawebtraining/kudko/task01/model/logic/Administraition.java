@@ -2,7 +2,9 @@ package by.epam.javawebtraining.kudko.task01.model.logic;
 
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
+import by.epam.javawebtraining.kudko.task01.model.logic.comparator.ComparatorCreator;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.SurnameComparator;
+import by.epam.javawebtraining.kudko.task01.model.logic.comparator.TypeComparator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +26,8 @@ public class Administraition {
 
     //++++++++++++++++SORTING BLOCK++++++++++++++++++
     public static void sortEmployeesBySurname(Company company) {
-        Comparator<Employee> surnameComparator = new SurnameComparator();
-        company.getEmployeesOfWholeCompany().sort(surnameComparator);
+        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(TypeComparator.SurnameComparator);
+        company.getEmployeesOfWholeCompany().sort(comparator);
     }
 
     public static void sortEmployeesBySurname(Team team) {
@@ -33,9 +35,16 @@ public class Administraition {
         Arrays.sort(team.getWholeTeam(),0,team.getCounter()+1 ,comparator);
             }
 
-    public static void sortEmployeesByName(Company company) {
-
+    public static void sortEmployeesByComparator(Company company, TypeComparator typeComparator) {
+        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(typeComparator);
+        company.getEmployeesOfWholeCompany().sort(comparator);
     }
+
+    public static void sortEmployeesByComparator(Team team, TypeComparator typeComparator) {
+        Comparator<Employee>    comparator = ComparatorCreator.createCompararor(typeComparator);
+        Arrays.sort(team.getWholeTeam(),0,team.getCounter()+1 ,comparator);
+    }
+
 //----------------------------------------------------
 
 

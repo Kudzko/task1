@@ -3,10 +3,7 @@ package by.epam.javawebtraining.kudko.task01.model.logic.comparator;
 import by.epam.javawebtraining.kudko.task01.model.entity.Employee;
 
 import java.util.Comparator;
-import java.util.function.Function;
-import java.util.function.ToDoubleFunction;
-import java.util.function.ToIntFunction;
-import java.util.function.ToLongFunction;
+
 
 public class SurnameComparator implements Comparator<Employee> {
     @Override
