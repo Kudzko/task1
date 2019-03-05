@@ -10,7 +10,6 @@ public abstract class Employee {
     protected double energy = 100; // range from 0 till 100
     protected String name;
     protected String surname;
-    protected String positoin;
     protected double salary; // in human*hours
     protected double bonus;
     protected int payRange;  // from 1 till 10
@@ -28,10 +27,9 @@ public abstract class Employee {
         this.id = id;
     }
 
-    public Employee(String name, String surname, String positoin, double salary, double bonus, int payRange, int experience) {
+    public Employee(String name, String surname, double salary, double bonus, int payRange, int experience) {
         this.name = name;
         this.surname = surname;
-        this.positoin = positoin;
         this.salary = salary;
         this.bonus = bonus;
         this.payRange = payRange;
@@ -58,7 +56,7 @@ public abstract class Employee {
         }
 
     }
-
+//++++++++++++ GETTERS & SETTERS  ++++++++++++++++++++++
     public String getName() {
         return name;
     }
@@ -84,14 +82,6 @@ public abstract class Employee {
             throw new NoLettersInSurname("No entered letters in surname");
         }
 
-    }
-
-    public String getPositoin() {
-        return positoin;
-    }
-
-    public void setPositoin(String positoin) {
-        this.positoin = positoin;
     }
 
     public double getSalary() {
@@ -152,19 +142,19 @@ public abstract class Employee {
         if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
         return id == employee.id &&
+                Double.compare(employee.energy, energy) == 0 &&
                 Double.compare(employee.salary, salary) == 0 &&
                 Double.compare(employee.bonus, bonus) == 0 &&
                 payRange == employee.payRange &&
-                experience == employee.experience &&
+                Double.compare(employee.experience, experience) == 0 &&
                 Objects.equals(name, employee.name) &&
-                Objects.equals(surname, employee.surname) &&
-                Objects.equals(positoin, employee.positoin);
+                Objects.equals(surname, employee.surname);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, name, surname, positoin, salary, bonus, payRange, experience);
+        return Objects.hash(id, energy, name, surname, salary, bonus, payRange, experience);
     }
 
     @Override
@@ -176,7 +166,6 @@ public abstract class Employee {
                 "[ id = " + getId() +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", positoin='" + positoin + '\'' +
                 ", salary=" + salary +
                 ", bonus=" + bonus +
                 ", payRange=" + payRange +
@@ -185,17 +174,4 @@ public abstract class Employee {
                 '}';
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "Employee{" +
-//                "name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
 }

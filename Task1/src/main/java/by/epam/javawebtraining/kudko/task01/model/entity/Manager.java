@@ -1,15 +1,17 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Manager extends Employee {
-    protected Inferior[] inferiors;
+    private List<Employee> employees;
     protected Manager leader;
 
     {
         // System.out.println("Hello from Manager initialization");
-        inferiors = new Inferior[10];
+        employees = new ArrayList<>();
     }
 
     public Manager() {
@@ -20,12 +22,11 @@ public abstract class Manager extends Employee {
         super(id);
     }
 
-    public Manager(String name, String surname, String positoin, double salary, double bonus, int payRange,
-                   int experience, Inferior[] inferiors, Manager leader) {
-        super(name, surname, positoin, salary, bonus, payRange, experience);
-        this.inferiors = inferiors;
+    public Manager(String name, String surname, double salary, double bonus, int payRange, int experience,
+                   List<Employee> employees, Manager leader) {
+        super(name, surname, salary, bonus, payRange, experience);
+        this.employees = employees;
         this.leader = leader;
-
         // System.out.println("Hello from Manager custom constructor");
     }
 
@@ -53,12 +54,12 @@ public abstract class Manager extends Employee {
         System.out.println("I am managing");
     }
 
-    public Inferior[] getInferiors() {
-        return inferiors;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setInferiors(Inferior[] inferiors) {
-        this.inferiors = inferiors;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public Manager getLeader() {
@@ -75,16 +76,14 @@ public abstract class Manager extends Employee {
         if (!(o instanceof Manager)) return false;
         if (!super.equals(o)) return false;
         Manager manager = (Manager) o;
-        return Arrays.equals(inferiors, manager.inferiors) &&
+        return Objects.equals(employees, manager.employees) &&
                 Objects.equals(leader, manager.leader);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(super.hashCode(), leader);
-        result = 31 * result + Arrays.hashCode(inferiors);
-        return result;
+        return Objects.hash(super.hashCode(), employees, leader);
     }
 
     @Override
@@ -99,13 +98,13 @@ public abstract class Manager extends Employee {
     public String printInferiors() {
         StringBuilder inferiorsToString = new StringBuilder();
         inferiorsToString.append("\n      ");
-        for (Inferior inferior : inferiors) {
-            if (inferior != null) {
-                inferiorsToString.append(inferior.id);
+        for (Employee employee : employees) {
+            if (employee != null) {
+                inferiorsToString.append(employee.id);
                 inferiorsToString.append(", ");
-                inferiorsToString.append(inferior.name);
+                inferiorsToString.append(employee.name);
                 inferiorsToString.append(", ");
-                inferiorsToString.append(inferior.surname);
+                inferiorsToString.append(employee.surname);
                 inferiorsToString.append("; \n      ");
             }
 
@@ -114,19 +113,4 @@ public abstract class Manager extends Employee {
         return inferiorsToString.toString();
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "Manager{" +
-//                "inferiors=" + /*Arrays.toString(inferiors) +*/
-//                ", leader=" + leader +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
 }

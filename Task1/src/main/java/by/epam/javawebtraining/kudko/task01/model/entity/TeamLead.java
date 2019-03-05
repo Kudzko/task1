@@ -6,43 +6,39 @@ import java.util.List;
 import java.util.Objects;
 
 public class TeamLead extends Manager {
-    private List<Employee> team;
+    private boolean controllingSomeTask = false;
 
     {
      //   System.out.println("Hello from initialisation block of TeamLead");
     }
 
     public TeamLead() {
-        this.team = new ArrayList<Employee>();
 
      //   System.out.println("Hello from default constructor of TeamLead");
     }
 
     public TeamLead(int id) {
         super(id);
-        this.team = new ArrayList<Employee>();
+
     }
 
-    public TeamLead(String name, String surname, String positoin, double salary, double bonus, int payRange,
-                    int experience, Inferior[] inferiors, Manager leader, List<Employee> team) {
-        super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
-        this.team = team;
-
-     //   System.out.println("Hello from custom constructor of TeamLead");
+    public TeamLead(String name, String surname, double salary, double bonus, int payRange, int experience,
+                    List<Employee> employees, Manager leader, boolean controllingSomeTask) {
+        super(name, surname, salary, bonus, payRange, experience, employees, leader);
+        this.controllingSomeTask = controllingSomeTask;
     }
 
-    public void manageTeam(){
-        System.out.println("Manage team");
+    public void multytask(){
+        controllingSomeTask = true;
     }
 
-    public List<Employee> getTeam() {
-        return team;
+    public boolean isControllingSomeTask() {
+        return controllingSomeTask;
     }
 
-    public void setTeam(List<Employee> team) {
-        this.team = team;
+    public void setControllingSomeTask(boolean controllingSomeTask) {
+        this.controllingSomeTask = controllingSomeTask;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -50,37 +46,21 @@ public class TeamLead extends Manager {
         if (!(o instanceof TeamLead)) return false;
         if (!super.equals(o)) return false;
         TeamLead teamLead = (TeamLead) o;
-        return Objects.equals(team, teamLead.team);
+        return controllingSomeTask == teamLead.controllingSomeTask;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), team);
+        return Objects.hash(super.hashCode(), controllingSomeTask);
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                "\n     team=" + team +
+                "\n     controllingSomeTask= " + controllingSomeTask +
                 " ]" +
                 '}';
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "TeamLead{" +
-//                "team=" + team +
-//                ", inferiors=" +/* Arrays.toString(inferiors) +*/
-//                ", leader=" + leader +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
 }

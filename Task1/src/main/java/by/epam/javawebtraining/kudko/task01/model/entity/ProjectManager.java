@@ -1,48 +1,85 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.WrongProjectException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ProjectManager extends Manager {
+   List<String> currentProjects;
+    List<String> finishedProjects;
 
-    private List<Employee> projectTeam;
+
 
     {
         //  System.out.println("Hello from initialisation block of ProjectManager");
     }
 
     public ProjectManager() {
-        projectTeam = new ArrayList<>();
+        currentProjects = new ArrayList<>();
+        finishedProjects = new ArrayList<>();
 
         // System.out.println("Hello from default constructor of ProjectManager");
     }
 
     public ProjectManager(int id) {
          super(id);
-         projectTeam = new ArrayList<>();
+        currentProjects = new ArrayList<>();
+        finishedProjects = new ArrayList<>();
 
     }
 
-    public ProjectManager(String name, String surname, String positoin, double salary, double bonus, int payRange,
-                          int experience, Inferior[] inferiors, Manager leader, List<Employee> projectTeam) {
-        super(name, surname, positoin, salary, bonus, payRange, experience, inferiors, leader);
-        this.projectTeam = projectTeam;
-
-        // System.out.println("Hello from custom constructor of ProjectManager");
+    public ProjectManager(String name, String surname, double salary, double bonus, int payRange, int experience,
+                          List<Employee> employees, Manager leader, List<String> currentProjects, List<String> finishedProjects) {
+        super(name, surname, salary, bonus, payRange, experience, employees, leader);
+        this.currentProjects = currentProjects;
+        this.finishedProjects = finishedProjects;
     }
 
     public void runProject() {
         System.out.println("Manage project");
     }
 
-    public List<Employee> getProjectTeam() {
-        return projectTeam;
+    public void startProject ( String projectName) throws WrongProjectException{
+        if ((projectName != null) && (projectName.length()>0)){
+            currentProjects.add(projectName);
+        }else {
+            throw new WrongProjectException();
+        }
+         }
+    public void finishProject ( String projectName) throws WrongProjectException{
+        if ((projectName != null) && (projectName.length()>0)){
+            if (currentProjects.contains(projectName)){
+                int index = currentProjects.indexOf(projectName);
+                finishedProjects.add( currentProjects.get(index));
+                currentProjects.remove(index);
+            }else {
+                System.out.println("project not founded");
+            }
+
+        }else {
+            throw new WrongProjectException();
+        }
     }
 
-    public void setProjectTeam(List<Employee> projectTeam) {
-        this.projectTeam.addAll(projectTeam);
+
+
+    public List<String> getCurrentProjects() {
+        return currentProjects;
+    }
+
+    public void setCurrentProjects(List<String> currentProjects) {
+        this.currentProjects = currentProjects;
+    }
+
+    public List<String> getFinishedProjects() {
+        return finishedProjects;
+    }
+
+    public void setFinishedProjects(List<String> finishedProjects) {
+        this.finishedProjects = finishedProjects;
     }
 
     @Override
@@ -51,50 +88,38 @@ public class ProjectManager extends Manager {
         if (!(o instanceof ProjectManager)) return false;
         if (!super.equals(o)) return false;
         ProjectManager that = (ProjectManager) o;
-        return Objects.equals(projectTeam, that.projectTeam);
+        return Objects.equals(currentProjects, that.currentProjects) &&
+                Objects.equals(finishedProjects, that.finishedProjects);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(super.hashCode(), projectTeam);
+        return Objects.hash(super.hashCode(), currentProjects, finishedProjects);
     }
 
     @Override
     public String toString() {
         return super.toString() +
-                "\n     projectTeam = " + printProjectTeam() +
+                "\n     projectTeam = " + printProjects() +
                 " ]" +
                 '}';
     }
 
-    private String printProjectTeam() {
+    private String printProjects() {
         StringBuilder printingProjectTeam = new StringBuilder();
-        for (int i = 0; i < projectTeam.size(); i++) {
-            printingProjectTeam.append(projectTeam.get(i).id);
+        printingProjectTeam.append("\n           Current projects: ");
+        for (int i = 0; i < currentProjects.size(); i++) {
+            printingProjectTeam.append(currentProjects.get(i));
             printingProjectTeam.append(", ");
-            printingProjectTeam.append(projectTeam.get(i).name);
+
+        }
+        printingProjectTeam.append("\n           Finished projects: ");
+        for (int i = 0; i < finishedProjects.size(); i++) {
+            printingProjectTeam.append(finishedProjects.get(i));
             printingProjectTeam.append(", ");
-            printingProjectTeam.append(projectTeam.get(i).surname);
-            printingProjectTeam.append(";  ");
+
         }
         return printingProjectTeam.toString();
     }
-
-
-//    @Override
-//    public String toString() {
-//        return "ProjectManager{" +
-//                "projectTeam=" + projectTeam +
-//                ", inferiors=" + /*Arrays.toString(inferiors) +*/
-//                ", leader=" + leader +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
 }

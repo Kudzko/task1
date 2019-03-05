@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Inferior extends Employee {
-    Manager chief;
-    List<String> skills;
+    private Manager chief;
+    private List<String> skills;
 
     {
         // System.out.println("Hello from Inferior initialization");
@@ -23,12 +23,11 @@ public abstract class Inferior extends Employee {
         skills = new ArrayList<>();
     }
 
-    public Inferior(String name, String surname, String positoin, double salary, double bonus, int payRange,
-                    int experience, Manager chief, List<String> skills) {
-        super(name, surname, positoin, salary, bonus, payRange, experience);
+    public Inferior(String name, String surname, double salary, double bonus, int payRange, int experience,
+                    Manager chief, List<String> skills) {
+        super(name, surname, salary, bonus, payRange, experience);
         this.chief = chief;
         this.skills = skills;
-
         // System.out.println("Hello from Inferior custom constructor");
     }
 
@@ -107,18 +106,4 @@ public abstract class Inferior extends Employee {
                 '}';
     }
 
-
-//    @Override
-//    public String toString() {
-//        return "Inferior{" +
-//                "skills=" + skills +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
 }

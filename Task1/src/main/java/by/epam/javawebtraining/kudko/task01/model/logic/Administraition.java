@@ -27,9 +27,9 @@ public class Administraition {
     }
 
     //++++++++++++++++SORTING BLOCK++++++++++++++++++
-    public static void sortEmployeesBySurname(Company company) {
+    public static void sortEmployeesBySurname(HRDepartment hrDepartment) {
         Comparator<Employee> comparator = ComparatorCreator.createCompararor(TypeComparator.SurnameComparator);
-        company.getEmployeesOfWholeCompany().sort(comparator);
+        hrDepartment.getAllEmployees().sort(comparator);
     }
 
     public static void sortEmployeesBySurname(Team team) {
@@ -37,9 +37,9 @@ public class Administraition {
         Arrays.sort(team.getWholeTeam(), 0, team.getCounter() + 1, comparator);
     }
 
-    public static void sortEmployeesByComparator(Company company, TypeComparator typeComparator) {
+    public static void sortEmployeesByComparator(HRDepartment hrDepartment, TypeComparator typeComparator) {
         Comparator<Employee> comparator = ComparatorCreator.createCompararor(typeComparator);
-        company.getEmployeesOfWholeCompany().sort(comparator);
+        hrDepartment.getAllEmployees().sort(comparator);
     }
 
     public static void sortEmployeesByComparator(Team team, TypeComparator typeComparator) {
@@ -58,21 +58,21 @@ public class Administraition {
      * instances of needed class)
      * And choose find by strict match or soft match
      */
-    public static List<Employee> findEmployeeByParametersStrictly(Employee findingEmployee, Company company)
+    public static List<Employee> findEmployeeByParametersStrictly(Employee findingEmployee, HRDepartment HRDepartment)
             throws NotDefinedMethod {
-        return findEmployeeByParameters(findingEmployee, company, true);
+        return findEmployeeByParameters(findingEmployee, HRDepartment, true);
     }
 
-    public static List<Employee> findEmployeeByParametersSoftly(Employee findingEmployee, Company company)
+    public static List<Employee> findEmployeeByParametersSoftly(Employee findingEmployee, HRDepartment HRDepartment)
             throws NotDefinedMethod {
-        return findEmployeeByParameters(findingEmployee, company, false);
+        return findEmployeeByParameters(findingEmployee, HRDepartment, false);
     }
 
-    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Company company, boolean strictly)
-            throws NotDefinedMethod {
+    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, HRDepartment hrDepartment, boolean strictly)
+           {
         List<Employee> foundEmploee = new ArrayList<>();
 
-        for (Employee existEmployee : company.getEmployeesOfWholeCompany()) {
+        for (Employee existEmployee : hrDepartment.getAllEmployees()) {
             if (checkFieldsByWholeParameters(findingEmployee, existEmployee, strictly)) {
                 foundEmploee.add(existEmployee);
             }
@@ -90,7 +90,8 @@ public class Administraition {
         return findEmployeeByParameters(findingEmployee, team, false);
     }
 
-    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Team team, boolean strictly) throws NotDefinedMethod {
+    public static List<Employee> findEmployeeByParameters(Employee findingEmployee, Team team, boolean strictly)
+           {
         List<Employee> foundEmploee = new ArrayList<>();
 
         for (Employee existEmployee : team.getWholeTeam()) {
@@ -103,17 +104,17 @@ public class Administraition {
 
 
     private static boolean checkFieldsByWholeParametersStrictly(Employee findingEmployee, Employee existEmployee)
-            throws NotDefinedMethod {
+           {
         return checkFieldsByWholeParameters(findingEmployee, existEmployee, true);
     }
 
     private static boolean checkFieldsByWholeParametersSoftly(Employee findingEmployee, Employee existEmployee)
-            throws NotDefinedMethod {
+           {
         return checkFieldsByWholeParameters(findingEmployee, existEmployee, false);
     }
 
     private static boolean checkFieldsByWholeParameters(Employee findingEmployee, Employee existEmployee, boolean strictly)
-            throws NotDefinedMethod {
+              {
 
         boolean found = false;
         boolean strictMathcing = true;
@@ -223,16 +224,6 @@ public class Administraition {
             }
         }
 
-        if (findingEmployee.getPositoin() != null) {
-            if (existEmployee.getPositoin() != null) {
-                if (existEmployee.getPositoin().equalsIgnoreCase(findingEmployee.getPositoin())) {
-                    mathcing = true;
-                } else {
-                    strictMathcing = false;
-                }
-            }
-        }
-
         if (findingEmployee.getSalary() != -1) {
             if (existEmployee.getSalary() == findingEmployee.getSalary()) {
                 mathcing = true;
@@ -240,6 +231,7 @@ public class Administraition {
                 strictMathcing = false;
             }
         }
+
         if (findingEmployee.getBonus() != -1) {
             if (existEmployee.getBonus() == findingEmployee.getBonus()) {
                 mathcing = true;
@@ -247,6 +239,7 @@ public class Administraition {
                 strictMathcing = false;
             }
         }
+
         if (findingEmployee.getPayRange() != -1) {
             if (existEmployee.getPayRange() == findingEmployee.getPayRange()) {
                 mathcing = true;
@@ -254,6 +247,7 @@ public class Administraition {
                 strictMathcing = false;
             }
         }
+
         if (findingEmployee.getExperience() != -1) {
             if (existEmployee.getExperience() == findingEmployee.getExperience()) {
                 mathcing = true;
@@ -281,15 +275,15 @@ public class Administraition {
         boolean strictMathcing = true;
 
         //cheking  field Inferior[] inferiors;
-        if (findingEmployee.getInferiors() != null) {
+        if (findingEmployee.getEmployees() != null) {
             int i = 0;
-            Inferior[] findingInferior, existInferior;
-            findingInferior = findingEmployee.getInferiors();
-            existInferior = existEmployee.getInferiors();
+            List<Employee> findingInferior, existInferior;
+            findingInferior = findingEmployee.getEmployees();
+            existInferior = existEmployee.getEmployees();
             if (existInferior != null) {
-                while (i < findingInferior.length) {
-                    if ((findingInferior[i] != null) && (existInferior[i] != null)) {
-                        if (findingInferior[i].equals(existInferior[i])) {
+                while (i < findingInferior.size()) {
+                    if ((findingInferior.get(i) != null) && (existInferior.get(i) != null)) {
+                        if (findingInferior.get(i).equals(existInferior.get(i))) {
                             mathcing = true;
                         } else {
                             strictMathcing = false;
@@ -367,26 +361,33 @@ public class Administraition {
         return checkProjectManagerFields(findingEmployee, existEmployee, false);
     }
 
-    private static boolean checkProjectManagerFields(ProjectManager findingEmployee, ProjectManager existEmployee, boolean strictly) {
+    private static boolean checkProjectManagerFields(ProjectManager findingEmployee, ProjectManager existEmployee,
+                                                     boolean strictly) {
         boolean mathcing = false;
         boolean strictMathcing = true;
-        // checking field projectTeam
-        if ((findingEmployee.getProjectTeam() != null) && (existEmployee.getProjectTeam() != null)) {
 
-            List<Employee> findingProjectTeam, existProjectTeam;
-            findingProjectTeam = findingEmployee.getProjectTeam();
-            existProjectTeam = existEmployee.getProjectTeam();
-            int i = 0;
-            while ((i < findingProjectTeam.size()) & (i < existProjectTeam.size())) {
-                if ((findingProjectTeam.get(i) != null) && (existProjectTeam.get(i) != null)) {
-                    if (findingProjectTeam.get(i).equals(existProjectTeam.get(i))) {
-                        mathcing = true;
-                    } else {
-                        strictMathcing = false;
-                    }
-                }
-                i++;
-            }
+        // checking field currentProjects
+        if ((findingEmployee.getCurrentProjects() != null) && (existEmployee.getCurrentProjects() != null)) {
+
+            List<String> findingCurrentProjects, existCurrentProjects;
+            findingCurrentProjects = findingEmployee.getCurrentProjects();
+            existCurrentProjects = existEmployee.getCurrentProjects();
+
+            boolean[] matchings = compareProjectManagerField(findingCurrentProjects, existCurrentProjects);
+            mathcing = matchings[0];
+            strictMathcing = matchings[1];
+
+
+        }
+        // checking field finishedProjects
+        if ((findingEmployee.getFinishedProjects() != null) && (existEmployee.getFinishedProjects() != null)) {
+
+            List<String> findingFinishedProjects, existFinishedProjects;
+            findingFinishedProjects = findingEmployee.getCurrentProjects();
+            existFinishedProjects = existEmployee.getCurrentProjects();
+            boolean[] matchings = compareProjectManagerField(findingFinishedProjects, existFinishedProjects);
+            mathcing = matchings[0];
+            strictMathcing = matchings[1];
         }
 
 
@@ -395,6 +396,23 @@ public class Administraition {
         }
         return mathcing;
     }
+
+    private static boolean[] compareProjectManagerField(List<String> findingProjects, List<String> existProjects) {
+        boolean[] mathcings = new boolean[2];
+        int i = 0;
+        while ((i < findingProjects.size()) & (i < existProjects.size())) {
+            if ((findingProjects.get(i) != null) && (existProjects.get(i) != null)) {
+                if (findingProjects.get(i).equals(existProjects.get(i))) {
+                    mathcings[0] = true;
+                } else {
+                    mathcings[1] = false;
+                }
+            }
+            i++;
+        }
+        return mathcings;
+    }
+
 
     private static boolean checkTeamLeadFieldsStrictly(TeamLead findingEmployee, TeamLead existEmployee) {
         return checkTeamLeadFields(findingEmployee, existEmployee, true);
@@ -408,23 +426,11 @@ public class Administraition {
         boolean mathcing = false;
         boolean strictMathcing = true;
 
-        // checking field team
-        if ((findingEmployee.getTeam() != null) && (existEmployee.getTeam() != null)) {
-
-            List<Employee> findingSkils, existSkils;
-            findingSkils = findingEmployee.getTeam();
-            existSkils = existEmployee.getTeam();
-            int i = 0;
-            while (i < findingSkils.size()) {
-                if ((findingSkils.get(i) != null) && (findingSkils.get(i) != null)) {
-                    if (findingSkils.get(i).equals(existSkils.get(i))) {
-                        mathcing = true;
-                    } else {
-                        strictMathcing = false;
-                    }
-                }
-                i++;
-            }
+        // checking field controllingSomeTask
+        if (findingEmployee.isControllingSomeTask() == existEmployee.isControllingSomeTask()) {
+            mathcing = true;
+        } else {
+            strictMathcing = false;
         }
 
         if (strictly) {
@@ -434,73 +440,67 @@ public class Administraition {
     }
 
 
-    private static boolean checkDeveloperFieldsStrictly(Developer findingEmployee, Developer existEmployee) throws NotDefinedMethod {
+    private static boolean checkDeveloperFieldsStrictly(Developer findingEmployee, Developer existEmployee)   {
         return checkDeveloperFields(findingEmployee, existEmployee, true);
     }
 
-    private static boolean checkDeveloperFieldsSoftly(Developer findingEmployee, Developer existEmployee) throws NotDefinedMethod {
+    private static boolean checkDeveloperFieldsSoftly(Developer findingEmployee, Developer existEmployee)   {
         return checkDeveloperFields(findingEmployee, existEmployee, false);
     }
 
     private static boolean checkDeveloperFields(Developer findingEmployee,
                                                 Developer existEmployee,
-                                                boolean strictly) throws NotDefinedMethod {
+                                                boolean strictly)  {
         boolean mathcing = false;
         boolean strictMathcing = true;
 
-        System.out.println("Fields of Developer is not defined yet");
 
-        // checking field team
-//        if ((findingEmployee.getField() != null) && (existEmployee.getField() != null)){
-//            if (findingSkils.getField().equals(existSkils.getField())) {
-//                        mathcing = true;
-//                    } else {
-//                        strictMathcing = false;
-//                    }
-
-//        }
-
+        // checking field position
+        if (findingEmployee.getPosition().equals(existEmployee.getPosition())) {
+            mathcing = true;
+        } else {
+            strictMathcing = false;
+        }
 
         if (strictly) {
             return strictMathcing;
         }
-        // return mathcing;
-        throw new NotDefinedMethod();
+        return mathcing;
+        //throw new NotDefinedMethod();
 
     }
 
-    private static boolean checkTesterFieldsStrictly(Tester findingEmployee, Tester existEmployee) throws NotDefinedMethod {
+    private static boolean checkTesterFieldsStrictly(Tester findingEmployee, Tester existEmployee)   {
         return checkTesterFields(findingEmployee, existEmployee, true);
     }
 
-    private static boolean checkTesterFieldsSoftly(Tester findingEmployee, Tester existEmployee) throws NotDefinedMethod {
+    private static boolean checkTesterFieldsSoftly(Tester findingEmployee, Tester existEmployee)   {
         return checkTesterFields(findingEmployee, existEmployee, false);
     }
 
     private static boolean checkTesterFields(Tester findingEmployee,
                                              Tester existEmployee,
-                                             boolean strictly) throws NotDefinedMethod {
+                                             boolean strictly) {
         boolean mathcing = false;
         boolean strictMathcing = true;
 
-        System.out.println("Fields of Tester is not defined yet");
-        // checking field team
-//        if ((findingEmployee.getField() != null) && (existEmployee.getField() != null)){
-//            if (findingSkils.getField().equals(existSkils.getField())) {
-//                        mathcing = true;
-//                    } else {
-//                        strictMathcing = false;
-//                    }
 
-//        }
-
+        // checking field typeQA
+        if (findingEmployee.getTypeQA().equals(existEmployee.getTypeQA())  ) {
+            mathcing = true;
+        } else {
+            strictMathcing = false;
+        }
 
         if (strictly) {
             return strictMathcing;
         }
-        // return mathcing;
-        throw new NotDefinedMethod();
+
+        return mathcing;
+        //throw new NotDefinedMethod();
     }
+
+
     // ++++++++ search by frameworks+++++++++++++++++
 
     /**
@@ -522,9 +522,9 @@ public class Administraition {
             throws IncorrectFrameValueException {
 
         List<Employee> employeesInFrames = new ArrayList<>();
-        Company company = Company.createCompany();
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
 
-        for (Employee findingEmployee : company.getEmployeesOfWholeCompany()) {
+        for (Employee findingEmployee : hrDepartment.getAllEmployees()) {
             if (((((salaryFrom >= 0) || (salaryFrom == -1)) && (salaryFrom <= salaryTill)) || (salaryTill == -1))
                     && ((((bonusFrom >= 0) || (bonusFrom == -1)) && (bonusFrom <= bonusTill)) || (bonusTill == -1))
                     && ((((payRangeFrom >= 0) || (payRangeFrom == -1)) && (payRangeFrom <= payRangeTill)) || (payRangeTill == -1))
@@ -540,7 +540,7 @@ public class Administraition {
                                     && ((payRangeTill >= findingEmployee.getPayRange()) || (payRangeTill == -1))) {
                                 if (((experienceFrom <= findingEmployee.getExperience()) || (experienceFrom == -1))
                                         && ((experienceTill >= findingEmployee.getExperience()) || (experienceTill == -1))) {
-                                    company.addEmployeeToComany(findingEmployee);
+                                    hrDepartment.addEmployee(findingEmployee);
                                 }
                             }
                         }
@@ -564,23 +564,24 @@ public class Administraition {
 
 
     //++++++++++++++++++ Max & Min values ++++++++++++++++++++++++++++++
+
     /**
      * Find employee in whole company with max salary
      *
      * @return Employee with max salary in company
      */
     public static Employee findMaxSalary() throws NoEmployeesYet {
-        Company company = Company.createCompany();
-        List<Employee> employees = company.getEmployeesOfWholeCompany();
-        Employee employeeMaxSalary ;
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
+        List<Employee> employees = hrDepartment.getAllEmployees();
+        Employee employeeMaxSalary;
 
         // defend from NullPointerException
-         employeeMaxSalary = findNonNullEmployee( employees);
+        employeeMaxSalary = findNonNullEmployee(employees);
 
         // finding emloyee with max salary
         for (Employee employee :
                 employees) {
-            if ((employee != null) && ( employee.getSalary() > employeeMaxSalary.getSalary()) ) {
+            if ((employee != null) && (employee.getSalary() > employeeMaxSalary.getSalary())) {
                 employeeMaxSalary = employee;
             }
 
@@ -596,17 +597,17 @@ public class Administraition {
      * @return Employee with max salary in company
      */
     public static Employee findMinSalary() throws NoEmployeesYet {
-        Company company = Company.createCompany();
-        List<Employee> employees = company.getEmployeesOfWholeCompany();
-        Employee employeeMinSalary ;
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
+        List<Employee> employees = hrDepartment.getAllEmployees();
+        Employee employeeMinSalary;
 
         // defend from NullPointerException
-       employeeMinSalary = findNonNullEmployee( employees);
+        employeeMinSalary = findNonNullEmployee(employees);
 
-       // finding emloyee with max salary
+        // finding emloyee with max salary
         for (Employee employee :
                 employees) {
-            if ((employee != null) && ( employee.getSalary() < employeeMinSalary.getSalary()) ) {
+            if ((employee != null) && (employee.getSalary() < employeeMinSalary.getSalary())) {
                 employeeMinSalary = employee;
             }
 
@@ -616,7 +617,7 @@ public class Administraition {
 
     }
 
-    private static Employee findNonNullEmployee (List<Employee> employees) throws NoEmployeesYet {
+    private static Employee findNonNullEmployee(List<Employee> employees) throws NoEmployeesYet {
         Employee notNullEmployee = null;
         if (employees.get(0) != null) {
             notNullEmployee = employees.get(0);
@@ -628,7 +629,7 @@ public class Administraition {
             }
         }
         if (notNullEmployee == null) {
-            throw new NoEmployeesYet("Company haven't contain any employee yet");
+            throw new NoEmployeesYet("HRDepartment haven't contain any employee yet");
         }
         return notNullEmployee;
     }

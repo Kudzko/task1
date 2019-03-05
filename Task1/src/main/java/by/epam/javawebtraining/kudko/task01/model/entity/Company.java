@@ -5,59 +5,59 @@ import java.util.List;
 import java.util.Objects;
 
 public class Company {
-    private static Company itCompany;
-    private List<Employee> employeesOfWholeCompany;
-    private List<Team> teamsOfCompany;
 
-    private Company() {
-        employeesOfWholeCompany = new ArrayList<Employee>();
+    private List<Team> teams;
+    private HRDepartment hrDepartment;
+
+    public Company() {
+        hrDepartment = HRDepartment.createHRDepartment();
+        teams = new ArrayList<>();
     }
 
     public static Company createCompany() {
-        if (itCompany == null) {
-            itCompany = new Company();
-        }
-        return itCompany;
-    }
-// +++methods of addition and deleting+++
-    public boolean addEmployeeToComany(Employee employee) {
-        return employeesOfWholeCompany.add(employee);
+        return new Company();
     }
 
-    public boolean addAllEmployeesToComany(List<Employee> employees) {
-        return employeesOfWholeCompany.addAll(employees);
+
+    // +++methods of addition and deleting+++
+    public boolean addTeamToComany(Team team) {
+        return teams.add(team);
     }
 
-    public boolean deleteEmployeeFromComany(Employee employee) {
-       return employeesOfWholeCompany.remove(employee);
+    public boolean addAllTaemsToComany(List<Team> teamsToAdd) {
+        return teams.addAll(teamsToAdd);
     }
 
-    public Employee deleteEmployeeFromComany(int index ) {
-        return employeesOfWholeCompany.remove(index);
+    public boolean deleteTeamFromComany(Team team) {
+        return teams.remove(team);
     }
 
-    public boolean deleteAllEmployeeFromComany(List<Employee> employees ) {
-       return employeesOfWholeCompany.removeAll(employees);
-    }
- //------
-
-
-
-// +++getters & setters +++
-    public List<Employee> getEmployeesOfWholeCompany() {
-        return employeesOfWholeCompany;
+    public Team deleteTeamFromComany(int index) {
+        return teams.remove(index);
     }
 
-    public void setEmployeesOfWholeCompany(List<Employee> employeesOfWholeCompany) {
-        this.employeesOfWholeCompany = employeesOfWholeCompany;
+    public boolean deleteAllTeamsFromComany(List<Team> teamsToDelete) {
+        return teams.removeAll(teamsToDelete);
+    }
+    //------
+
+
+    // +++getters & setters +++
+
+    public List<Team> getTeams() {
+        return teams;
     }
 
-    public List<Team> getTeamsOfCompany() {
-        return teamsOfCompany;
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 
-    public void setTeamsOfCompany(List<Team> teamsOfCompany) {
-        this.teamsOfCompany = teamsOfCompany;
+    public HRDepartment getHrDepartment() {
+        return hrDepartment;
+    }
+
+    public void setHrDepartment(HRDepartment hrDepartment) {
+        this.hrDepartment = hrDepartment;
     }
 
     //-------
@@ -67,21 +67,22 @@ public class Company {
         if (this == o) return true;
         if (!(o instanceof Company)) return false;
         Company company = (Company) o;
-        return Objects.equals(employeesOfWholeCompany, company.employeesOfWholeCompany) &&
-                Objects.equals(teamsOfCompany, company.teamsOfCompany);
+        return Objects.equals(teams, company.teams) &&
+                Objects.equals(hrDepartment, company.hrDepartment);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(employeesOfWholeCompany, teamsOfCompany);
+        return Objects.hash(teams, hrDepartment);
     }
 
     @Override
     public String toString() {
         return "Company{" +
-                "employeesOfWholeCompany=" + employeesOfWholeCompany +
-                ", teamsOfCompany=" + teamsOfCompany +
+                "teams =" + teams +
                 '}';
     }
 }
+
+

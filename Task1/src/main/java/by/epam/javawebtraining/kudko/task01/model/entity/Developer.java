@@ -3,6 +3,7 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 import java.util.List;
 
 public class Developer extends Inferior {
+    private String position = "Junior";
 
     {
         // System.out.println("Hello from initialisation block of Developer");
@@ -16,35 +17,34 @@ public class Developer extends Inferior {
         super(id);
     }
 
-    public Developer(String name, String surname, String positoin, double salary, double bonus, int payRange,
-                     int experience, Manager chief, List<String> skills) {
-        super(name, surname, positoin, salary, bonus, payRange, experience, chief, skills);
-
-        // System.out.println("Hello from Developer custom constructor");
+    public Developer(String name, String surname, double salary, double bonus, int payRange, int experience,
+                     Manager chief, List<String> skills, String position) {
+        super(name, surname, salary, bonus, payRange, experience, chief, skills);
+        this.position = position;
     }
 
-    public void communicateWithCollegue(){
-        System.out.println("Communicate with Tester");
+    public void changePositoin(TypePosition typePosition) {
+        position = typePosition.position;
+    }
+
+    public String getPosition() {
+        return position;
     }
 
     @Override
     public String toString() {
-        return super.toString();
-                 }
+        return super.toString() + "position = " + position;
+    }
 
-//
-//    @Override
-//    public String toString() {
-//        return "Developer{" +
-//                "chief=" + chief +
-//                ", skills=" + skills +
-//                ", name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", positoin='" + positoin + '\'' +
-//                ", salary=" + salary +
-//                ", bonus=" + bonus +
-//                ", payRange=" + payRange +
-//                ", experience=" + experience +
-//                '}';
-//    }
+
+}
+
+enum TypePosition {
+    JUNIOR("Junior"), MIDDLE("Middle"), SENIOR("Senior");
+    String position;
+
+    TypePosition(String position) {
+        this.position = position;
+    }
+
 }

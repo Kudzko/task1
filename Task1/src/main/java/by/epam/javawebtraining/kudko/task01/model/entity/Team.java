@@ -2,6 +2,9 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 
 import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.ExitOutOfBoundException;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public class Team {
     private Employee[] team; // I created storage here with array as demanded
     private int counter;
@@ -90,5 +93,55 @@ public class Team {
 
     public int getCounter() {
         return counter;
+    }
+
+    public Employee[] getTeam() {
+        return team;
+    }
+
+    public void setTeam(Employee[] team) {
+        this.team = team;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Team)) return false;
+        Team team1 = (Team) o;
+        return counter == team1.counter &&
+                Arrays.equals(team, team1.team);
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = Objects.hash(counter);
+        result = 31 * result + Arrays.hashCode(team);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "team =" + printTeam() +
+                ", counter=" + counter +
+                '}';
+    }
+
+
+    private String printTeam(){
+        StringBuilder teamPrinter = new StringBuilder();
+        teamPrinter.append("       Team : \n");
+        for (Employee employee : team){
+            teamPrinter.append("       id = " + employee.getId() + ", ");
+            teamPrinter.append(" name = " + employee.getName() + ", ");
+            teamPrinter.append(" surname = " + employee.getSurname() + ", ");
+        }
+
+        return teamPrinter.toString();
     }
 }

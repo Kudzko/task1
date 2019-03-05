@@ -6,14 +6,14 @@ import by.epam.javawebtraining.kudko.task01.model.entity.*;
 
 public class EmpoyeeCreator {
 /* This is specialized simple factory.
-Specific is in creating Company and adding there Employee anyway,
+Specific is in creating HRDepartment and adding there Employee anyway,
  that we can know about all employees for sure
  */
 
 private static int id=0;
 
-    public static Employee createEmployee(KindOfEmployee kindOfEmployee, boolean addToCompany) /*throws UnknownEmployeeExceptoin */ {
-        Employee employee; // That new employee is added to List<Employee> in Company
+    public static Employee createEmployee(KindOfEmployee kindOfEmployee, boolean addToHRDepartment) /*throws UnknownEmployeeExceptoin */ {
+        Employee employee; // That new employee is added to List<Employee> in HRDepartment
         //  if addToCompany == true .
 
         id++;
@@ -40,11 +40,11 @@ private static int id=0;
              * */
         }
 
-        // I create here Company, witch is singleton
+        // I create here HRDepartment, witch is singleton
         // and add there employee if addToCompany == true
-        if (addToCompany == true) {
-            Company company = Company.createCompany();
-            company.addEmployeeToComany(employee);
+        if (addToHRDepartment) {
+            HRDepartment hrDepartment = HRDepartment.createHRDepartment();
+            hrDepartment.addEmployee(employee);
         }
         return employee;
     }
