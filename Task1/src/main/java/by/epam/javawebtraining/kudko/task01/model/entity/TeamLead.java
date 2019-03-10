@@ -8,13 +8,9 @@ import java.util.Objects;
 public class TeamLead extends Manager {
     private boolean controllingSomeTask = false;
 
-    {
-     //   System.out.println("Hello from initialisation block of TeamLead");
-    }
 
     public TeamLead() {
 
-     //   System.out.println("Hello from default constructor of TeamLead");
     }
 
     public TeamLead(int id) {
@@ -42,8 +38,8 @@ public class TeamLead extends Manager {
 
     @Override
     public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
         if (this == o) return true;
-        if (!(o instanceof TeamLead)) return false;
         if (!super.equals(o)) return false;
         TeamLead teamLead = (TeamLead) o;
         return controllingSomeTask == teamLead.controllingSomeTask;

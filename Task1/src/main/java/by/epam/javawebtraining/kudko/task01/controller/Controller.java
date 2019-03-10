@@ -1,300 +1,147 @@
 package by.epam.javawebtraining.kudko.task01.controller;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.InvalidSalaryValue;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInNameEcception;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoLettersInSurname;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
+import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
+import by.epam.javawebtraining.kudko.task01.util.UtilException.WrongNumberEmployeesException;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.TypeComparator;
+import by.epam.javawebtraining.kudko.task01.util.ElementsCreator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
-import by.epam.javawebtraining.kudko.task01.util.KindOfEmployee;
+import by.epam.javawebtraining.kudko.task01.view.ConsolePrinter;
+import by.epam.javawebtraining.kudko.task01.view.InputView;
+import by.epam.javawebtraining.kudko.task01.view.Printable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    public static void main(String[] args) throws NotDefinedMethod, NoLettersInNameEcception, NoLettersInSurname, InvalidSalaryValue {
-        Employee projectManager1 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
-        Employee projectManager2 = EmpoyeeCreator.createEmployee(KindOfEmployee.projectManager, true);
-        Employee teamLead1 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);
-        Employee teamLead2 = EmpoyeeCreator.createEmployee(KindOfEmployee.teamLead, true);
-        Employee developer1 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
-        Employee developer2 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
-        Employee developer3 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
-        Employee developer4 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
-        Employee developer5 = EmpoyeeCreator.createEmployee(KindOfEmployee.developer, true);
-        Employee tester1 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester, true);
-        Employee tester2 = EmpoyeeCreator.createEmployee(KindOfEmployee.tester, true);
+    public static void main(String[] args) {
+        Company company = ElementsCreator.createCompany();
+        InputView inputView = new InputView();
 
-        HRDepartment HRDepartment = HRDepartment.createCompany();
+        int amountTeams = inputView.getAmauntTeams();
+        int[] amountEmloyeesEachTeam = new int[amountTeams];
 
-        Team team1 = new Team();
-        Team team2 = new Team();
+        try {
+            amountEmloyeesEachTeam = inputView.getAmauntEmloyeesEachTeam();
+        } catch (WrongNumberEmployeesException e) {
+            e.printStackTrace();
+        }
 
-        team1.addEmployee(projectManager1);
-        team1.addEmployee(teamLead1);
-        team1.addEmployee(developer1);
-        team1.addEmployee(developer2);
-        team1.addEmployee(developer3);
-        team1.addEmployee(tester1);
+// creating teams and employees
 
-        team2.addEmployee(projectManager2);
-        team2.addEmployee(teamLead2);
-        team2.addEmployee(developer4);
-        team2.addEmployee(developer5);
-        team2.addEmployee(tester2);
+        for (int i = 0; i < amountTeams; i++) {
 
+            Team team = ElementsCreator.createTeam();
+            ProjectManager projectManager;
 
-        // Filling fields first developer
-        developer1.setName("John");
-        developer1.setSurname("Baker");
-        developer1.setPositoin("middle");
-        developer1.setSalary(10000);
-        developer1.setBonus(500);
-        developer1.setPayRange(2);
-        developer1.setExperience(2);
-        ((Developer) developer1).setChief((Manager) teamLead1);
+            projectManager = (ProjectManager) EmpoyeeCreator
+                    .createEmployeeWithID
+                            (EmpoyeeCreator.KindOfEmployee.PROJECTMANAGER);
+            projectManager = (ProjectManager) DataGenerator.fillEmployeeFields
+                    (projectManager);
 
-        List<String> skills1 = new ArrayList<String>();
-        skills1.add("Java");
-        skills1.add("HTML");
-        skills1.add("JS");
+            TeamLead teamLead;
+            teamLead = (TeamLead) EmpoyeeCreator.createEmployeeWithID
+                    (EmpoyeeCreator.KindOfEmployee.TEAMLEAD);
+            teamLead = (TeamLead) DataGenerator.fillEmployeeFields
+                    (teamLead);
 
-        ((Developer) developer1).setSkills(skills1);
+            team.addEmployee(projectManager);
+            team.addEmployee(teamLead);
 
-        // Filling fields second developer
-        developer2.setName("John");
-        developer2.setSurname("Finder");
-        developer2.setPositoin("senior");
-        developer2.setSalary(15000);
-        developer2.setBonus(600);
-        developer2.setPayRange(5);
-        developer2.setExperience(5);
-        ((Developer) developer2).setChief((Manager) teamLead1);
+            for (int k = 0; k < amountEmloyeesEachTeam[i] - 3; k++) {
 
-        List<String> skills2 = new ArrayList<String>();
-        skills2.add("Java");
-        skills2.add("HTML");
-        skills2.add("JS");
-        skills2.add("Java EE");
+                Developer developer;
+                developer = (Developer) EmpoyeeCreator.createEmployeeWithID
+                        (EmpoyeeCreator.KindOfEmployee.DEVELOPER);
+                developer = (Developer) DataGenerator.fillEmployeeFields
+                        (developer);
+                developer.setSkills(DataGenerator.generateSkills());
+                developer.setChief(teamLead);
+                developer.setPositoin(Developer.TypePosition.MIDDLE);
+                teamLead.setEmployee(developer);
+                projectManager.setEmployee(developer);
 
-        ((Developer) developer2).setSkills(skills2);
+                team.addEmployee(developer);
+            }
 
-        // Filling fields third developer
-        developer3.setName("Mike");
-        developer3.setSurname("Sigal");
-        developer3.setPositoin("senior");
-        developer3.setSalary(12000);
-        developer3.setBonus(400);
-        developer3.setPayRange(5);
-        developer3.setExperience(4);
-        ((Developer) developer3).setChief((Manager) teamLead1);
+            Tester tester;
+            tester = (Tester) EmpoyeeCreator.createEmployeeWithID
+                    (EmpoyeeCreator.KindOfEmployee.TESTER);
+            tester = (Tester) DataGenerator.fillEmployeeFields
+                    (tester);
+            tester.setSkills(DataGenerator.generateSkills());
+            tester.setChief(teamLead);
+            tester.setTypeQA(Tester.TypeQA.AUTOMATED);
+            teamLead.setEmployee(tester);
+            projectManager.setEmployee(tester);
 
-        List<String> skills3 = new ArrayList<String>();
-        skills3.add("Java SE");
-        skills3.add("HTML");
-        skills3.add("JS");
-        skills3.add("Java EE");
+            team.addEmployee(tester);
 
-        ((Developer) developer3).setSkills(skills3);
-
-        // Filling fields fourth developer
-        developer4.setName("Rick");
-        developer4.setSurname("Rock");
-        developer4.setPositoin("junior");
-        developer4.setSalary(10000);
-        developer4.setBonus(300);
-        developer4.setPayRange(1);
-        developer4.setExperience(1);
-        ((Developer) developer4).setChief((Manager) teamLead2);
-
-        List<String> skills4 = new ArrayList<String>();
-        skills4.add("Java SE");
-        skills4.add("HTML");
-        skills4.add("JS");
-        skills4.add("Java EE");
-
-        ((Developer) developer4).setSkills(skills4);
-
-        // Filling fields fifth developer
-        developer5.setName("Dick");
-        developer5.setSurname("Bush");
-        developer5.setPositoin("senior");
-        developer5.setSalary(20000);
-        developer5.setBonus(700);
-        developer5.setPayRange(6);
-        developer5.setExperience(7);
-        ((Developer) developer5).setChief((Manager) teamLead2);
-
-        List<String> skills5 = new ArrayList<String>();
-        skills5.add("Java SE");
-        skills5.add("HTML");
-        skills5.add("JS");
-        skills5.add("Java EE");
-
-        ((Developer) developer5).setSkills(skills5);
+            company.addTeamToComany(team);
+        }
 
 
-        // Filling fields first tester
-        tester1.setName("Ariana");
-        tester1.setSurname("Grande");
-        tester1.setPositoin("senior");
-        tester1.setSalary(20000);
-        tester1.setBonus(700);
-        tester1.setPayRange(6);
-        tester1.setExperience(7);
-        ((Tester) tester1).setChief((Manager) teamLead1);
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
 
-        List<String> skills6 = new ArrayList<String>();
-        skills6.add("Java SE");
-        skills6.add("HTML");
-        skills6.add("Jenkins");
-        skills6.add("Selenium");
-
-        ((Tester) tester1).setSkills(skills6);
-
-        // Filling fields second tester
-        tester2.setName("Tim");
-        tester2.setSurname("Taylor");
-        tester2.setPositoin("middle");
-        tester2.setSalary(10000);
-        tester2.setBonus(300);
-        tester2.setPayRange(4);
-        tester2.setExperience(2);
-        ((Tester) tester2).setChief((Manager) teamLead2);
-
-        List<String> skills7 = new ArrayList<String>();
-        skills7.add("Java SE");
-        skills7.add("Jenkins");
-        skills7.add("Selenium");
-
-        ((Tester) tester1).setSkills(skills7);
-
-        // Filling fields first teamLead
-        teamLead1.setName("John");
-        teamLead1.setSurname("Newman");
-        teamLead1.setPositoin("leader1");
-        teamLead1.setSalary(20000);
-        teamLead1.setBonus(700);
-        teamLead1.setPayRange(7);
-        teamLead1.setExperience(7);
-
-        Inferior[] inferiorsTeamLead1 = {(Inferior) developer1, (Inferior) developer2, (Inferior) developer3,
-                (Inferior) tester1};
-        ((TeamLead) teamLead1).setInferiors(inferiorsTeamLead1);
-        ((TeamLead) teamLead1).setLeader((Manager) projectManager1);
-
-        // Filling fields second teamLead
-        teamLead2.setName("John");
-        teamLead2.setSurname("Walker");
-        teamLead2.setPositoin("leader2");
-        teamLead2.setSalary(20000);
-        teamLead2.setBonus(700);
-        teamLead2.setPayRange(7);
-        teamLead2.setExperience(7);
-
-        List<Employee> teamOfTeamLead2 = new ArrayList<Employee>();
-        teamOfTeamLead2.add(developer4);
-        teamOfTeamLead2.add(developer5);
-        teamOfTeamLead2.add(tester2);
-        ((TeamLead) teamLead2).setTeam(teamOfTeamLead2);
-        ((TeamLead) teamLead2).setLeader((Manager) projectManager2);
-
-        //filling fields first projectManager
-        projectManager1.setName("John");
-        projectManager1.setSurname("James");
-        projectManager1.setPositoin("c.e.o.");
-        projectManager1.setSalary(30000);
-        projectManager1.setBonus(1000);
-        projectManager1.setPayRange(10);
-        projectManager1.setExperience(10);
-
-        List<Employee> projectTeam1 = new ArrayList<Employee>();
-        projectTeam1.add(teamLead1);
-        projectTeam1.add(developer1);
-        projectTeam1.add(developer2);
-        projectTeam1.add(developer3);
-        projectTeam1.add(tester1);
-        ((ProjectManager) projectManager1).setProjectTeam(projectTeam1);
-
-        //filling fields second projectManager
-        projectManager2.setName("John");
-        projectManager2.setSurname("Jonson");
-        projectManager2.setPositoin("c.e.o.2");
-        projectManager2.setSalary(30000);
-        projectManager2.setBonus(1000);
-        projectManager2.setPayRange(10);
-        projectManager2.setExperience(10);
-
-        List<Employee> projectTeam2 = new ArrayList<Employee>();
-        projectTeam1.add(teamLead2);
-        projectTeam1.add(developer4);
-        projectTeam1.add(developer5);
-        projectTeam1.add(tester2);
-        ((ProjectManager) projectManager1).setProjectTeam(projectTeam2);
 
         // ACTIONS WITH EMPLOYEES
 
 
+        // PRISES OF TEAMS
+        double [] teamsPrises = new double[amountTeams];
 
-        // RISES OF TEAMS
+        for (int i = 0; i < amountTeams; i++) {
+            teamsPrises[i] = Administraition.countTeamPrice(company.getTeams()
+                    .get(i));
 
-        double teamPrice1 = Administraition.countTeamPrice(team1);
-        double teamPrice2 = Administraition.countTeamPrice(team2);
-
-        System.out.println("Priсe first team : " + teamPrice1);
-        System.out.println("Priсe second team : " + teamPrice2);
+        }
 
 
-//        System.out.println("----------------COMPANY-----------------");
-//        for (int i = 0; i < HRDepartment.getEmployeesOfWholeCompany().size(); i++){
-//            System.out.println(HRDepartment.getEmployeesOfWholeCompany().get(i));
-//            System.out.println();
-//        }
-//
-//
-//
-//Employee [] teammm = team1.getWholeTeam();
-//        System.out.println("------------TEAM1--------------");
-//        for (int i = 0; i < teammm.length; i++){
-//            System.out.println(teammm[i]);
-//            System.out.println();
-//        }
-//
-//        Employee [] teammm2 = team2.getWholeTeam();
-//        System.out.println("------------TEAM2--------------");
-//        for (int i = 0; i < teammm2.length; i++){
-//            System.out.println(teammm2[i]);
-//            System.out.println();
-//        }
+        Printable console = new ConsolePrinter();
+        console.print("Priсes of teams : ", null);
+
+        for (int i = 0; i < amountTeams; i++) {
+            console.print("team  " + i + " : ", teamsPrises[i]);
+                    }
 
 
 
-        Employee findingEmployee1 = projectManager1;
-//        findingEmployee1.setName("John");
 
-        //finding by exact type of employee
-//        System.out.println("Result of finding projectManager by name: " +
-//                Administraition.findProjectManager((ProjectManager) findingEmployee1, HRDepartment)
-//        );
-//        System.out.println();
-//        System.out.println();
-        //finding by fields of employee
-//        System.out.println("Result of finding by name: ");
-//        List<Employee> foundEmployee =  Administraition.findEmployeeByParametersStrictly(findingEmployee1, HRDepartment);
-//
-//        for (int i = 0; i < foundEmployee.size(); i++){
-//            System.out.println(foundEmployee.get(i));
-//            System.out.println();
-//        }
-
-Administraition.sortEmployeesByComparator(team1, TypeComparator.ClasstypeSurnameNameComparator);
-        System.out.println("Sorted TEAM: ");
-        for (int i = 0; i < team1.getWholeTeam().length; i++){
-            System.out.println(team1.getWholeTeam()[i]);
+        System.out.println("----------------COMPANY-----------------");
+        for (int i = 0; i < hrDepartment.getAllEmployees().size();
+             i++) {
+            System.out.println(hrDepartment.getAllEmployees().get(i));
             System.out.println();
         }
+
+
+//        Employee findingEmployee1 = projectManager1;
+////        findingEmployee1.setName("John");
+//
+//        //finding by exact type of employee
+////        System.out.println("Result of finding projectManager by name: " +
+////                Administraition.findProjectManager((ProjectManager) findingEmployee1, HRDepartment)
+////        );
+////        System.out.println();
+////        System.out.println();
+//        //finding by fields of employee
+////        System.out.println("Result of finding by name: ");
+////        List<Employee> foundEmployee =  Administraition.findEmployeeByParametersStrictly(findingEmployee1, HRDepartment);
+////
+////        for (int i = 0; i < foundEmployee.size(); i++){
+////            System.out.println(foundEmployee.get(i));
+////            System.out.println();
+////        }
+//        developer1.energy;
+//        Administraition.sortEmployeesByComparator(team1, TypeComparator.ClasstypeSurnameNameComparator);
+//        System.out.println("Sorted TEAM: ");
+//        for (int i = 0; i < team1.getWholeTeam().length; i++) {
+//            System.out.println(team1.getWholeTeam()[i]);
+//            System.out.println();
+//        }
 
 
     }

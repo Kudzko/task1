@@ -1,6 +1,7 @@
 package by.epam.javawebtraining.kudko.task01.util;
 
 
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.UnknownEmployeeExceptoin;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 
 
@@ -10,42 +11,73 @@ Specific is in creating HRDepartment and adding there Employee anyway,
  that we can know about all employees for sure
  */
 
-private static int id=0;
+    private static int id = 0;
 
-    public static Employee createEmployee(KindOfEmployee kindOfEmployee, boolean addToHRDepartment) /*throws UnknownEmployeeExceptoin */ {
-        Employee employee; // That new employee is added to List<Employee> in HRDepartment
-        //  if addToCompany == true .
+    /**
+     * Create instance of one kind of employee
+     *
+     * @param kindOfEmployee
+     * @return instance according to enum KindOfEmployee
+     */
+    public static Employee createEmployee(KindOfEmployee kindOfEmployee)
+    /*throws UnknownEmployeeExceptoin */ {
 
-        id++;
+        Employee employee = null;
+
         switch (kindOfEmployee) {
-            case tester:
-                employee = new Tester(id);
+            case TESTER:
+                employee = new Tester();
                 break;
-            case developer:
-                employee = new Developer(id);
+            case DEVELOPER:
+                employee = new Developer();
                 break;
-            case teamLead:
-                employee = new TeamLead(id);
+            case TEAMLEAD:
+                employee = new TeamLead();
                 break;
-            case projectManager:
-                employee = new ProjectManager(id);
+            case PROJECTMANAGER:
+                employee = new ProjectManager();
                 break;
-            default:
-                employee = null;
-                break;
-
-            //throw new UnknownEmployeeExceptoin();
-            /*
-             * What is better here to return null or custom exception?
-             * */
         }
 
-        // I create here HRDepartment, witch is singleton
-        // and add there employee if addToCompany == true
-        if (addToHRDepartment) {
-            HRDepartment hrDepartment = HRDepartment.createHRDepartment();
-            hrDepartment.addEmployee(employee);
-        }
         return employee;
     }
+
+    /**
+     * Create one of kinds of employee with id and add to HRDepartment
+     * automatically
+     *
+     * @param kindOfEmployee
+     * @return instance according to the value of enum KindOfEmployee of
+     * parameter kindOfEmployee
+     */
+    public static Employee createEmployeeWithID(KindOfEmployee kindOfEmployee) {
+        Employee employee = null;
+        id++;
+
+        switch (kindOfEmployee) {
+            case TESTER:
+                employee = new Tester(id);
+                break;
+            case DEVELOPER:
+                employee = new Developer(id);
+                break;
+            case TEAMLEAD:
+                employee = new TeamLead(id);
+                break;
+            case PROJECTMANAGER:
+                employee = new ProjectManager(id);
+                break;
+        }
+
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
+        hrDepartment.addEmployee(employee);
+
+        return employee;
+    }
+
+
+    public enum KindOfEmployee {
+        DEVELOPER, TESTER, TEAMLEAD, PROJECTMANAGER;
+    }
+
 }

@@ -1,66 +1,94 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.*;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
 
 import java.util.Objects;
 
+
+/**
+ * Base class. Abstraction of employee of company
+ */
 public abstract class Employee {
 
-    protected int id = -1;
-    protected double energy = 100; // range from 0 till 100
-    protected String name;
-    protected String surname;
-    protected double salary; // in human*hours
-    protected double bonus;
-    protected int payRange;  // from 1 till 10
-    protected double experience;
+    private int id = -1;        // default value -1. It means that employee
+    // don't belong to any team, company and is not in HRDepartment
+    // and instance may use for finding
+    private double energy = 100;   // range from 0 till 100
+    private String name;
+    private String surname;
+    private double salary;         // in human*hours
+    private double bonus;
+    private int payRange;           // from 1 till 10
+    private double experience;
 
-    {
-        //    System.out.println("Hello from Employee initialization");
-    }
 
     public Employee() {
-        // System.out.println("Hello from Employee default constructor");
     }
 
     public Employee(int id) {
         this.id = id;
     }
 
-    public Employee(String name, String surname, double salary, double bonus, int payRange, int experience) {
+    public Employee(String name, String surname, double salary, double bonus,
+                    int payRange, int experience) {
         this.name = name;
         this.surname = surname;
         this.salary = salary;
         this.bonus = bonus;
         this.payRange = payRange;
         this.experience = experience;
-
-        // System.out.println("Hello from Employee custom constructor");
     }
 
-    public void work() throws TooLowEnergyException {
-        if (energy >= 10){
-            System.out.println("Do some work");
-            energy = getEnergy() - 100*0.1;
-        }else {
+
+    /**
+     * By this method employee do some work
+     * employee can do limited amount of work
+     * without relax
+     *
+     * @throws TooLowEnergyException if employee do work
+     *                               more then allowed without calling method relax()
+     */
+    public void work() throws TooLowEnergyException, SetWrongLevelEnergy {
+        if (energy >= 10) {
+            energy = getEnergy() - 100 * 0.1;
+        } else {
             throw new TooLowEnergyException("I am tired");
         }
 
     }
-    public void relax() throws TooHighEnergyException {
-        if (energy <= 90){
-            energy = getEnergy() + 100*0.1;
-            System.out.println("Relax");
-        }else {
+
+    /**
+     * By this method employee recover employee's energy
+     * employee can do limited amount of rest
+     * without work
+     *
+     * @throws TooHighEnergyException if employee relax
+     *                                more then allowed without calling method work()
+     */
+    public void relax() throws TooHighEnergyException, SetWrongLevelEnergy {
+        if (energy <= 90) {
+            energy = getEnergy() + 100 * 0.1;
+        } else {
             throw new TooHighEnergyException("I need work");
         }
 
     }
-//++++++++++++ GETTERS & SETTERS  ++++++++++++++++++++++
+
+
+    //++++++++++++ GETTERS & SETTERS  ++++++++++++++++++++++
+
+    /**
+     * @return Name of employee
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set name of employee
+     * @param name
+     * @throws NoLettersInNameEcception if name == null or lengs = 0
+     */
     public void setName(String name) throws NoLettersInNameEcception {
         if ((name != null) && (name.length() > 0)) {
             this.name = name;
@@ -70,10 +98,18 @@ public abstract class Employee {
 
     }
 
+    /**
+     * @return surname of employee
+     */
     public String getSurname() {
         return surname;
     }
 
+    /**
+     * Set surname of employee
+     * @param surname
+     * @throws NoLettersInSurname if name == null or lengs = 0
+     */
     public void setSurname(String surname) throws NoLettersInSurname {
 
         if ((surname != null) && (surname.length() > 0)) {
@@ -84,38 +120,60 @@ public abstract class Employee {
 
     }
 
+    /**
+     * @return double amount of salary of employee
+     */
     public double getSalary() {
         return salary;
     }
 
+    /**
+     * Sets double value of salary
+     * @param salary
+     * @throws InvalidSalaryValue if salary < 0
+     */
     public void setSalary(double salary) throws InvalidSalaryValue {
 
-        if (salary >= 0){
+        if (salary >= 0) {
             this.salary = salary;
-        }else throw new InvalidSalaryValue();
+        } else throw new InvalidSalaryValue();
     }
 
     public double getBonus() {
         return bonus;
     }
 
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
+    public void setBonus(double bonus) throws InvalidBonusValueExcetion {
+        if (bonus >= 0) {
+            this.bonus = bonus;
+        } else throw new InvalidBonusValueExcetion();
     }
 
     public int getPayRange() {
         return payRange;
     }
 
-    public void setPayRange(int payRange) {
-        this.payRange = payRange;
+    public void setPayRange(int payRange) throws InvalidPayRangeValueException {
+        if ((payRange >= 0) && (payRange <= 10)) {
+            this.payRange = payRange;
+        } else {
+            throw new InvalidPayRangeValueException("You should set int value" +
+                    " from 1 till 10");
+        }
+
     }
 
     public double getExperience() {
         return experience;
     }
 
-    public void setExperience(double experience) {
+    public void setExperience(double experience) throws InvalidExperienceValueException {
+        if (experience >= 0) {
+            this.experience = experience;
+        } else {
+            throw new InvalidExperienceValueException(" experience can't be " +
+                    "less then 0");
+        }
         this.experience = experience;
     }
 
@@ -128,18 +186,41 @@ public abstract class Employee {
     }
 
     public void setEnergy(int energy) throws SetWrongLevelEnergy {
-        if ( (0<= energy) && (energy <= 100)){
+        if ((0 <= energy) && (energy <= 100)) {
             this.energy = energy;
-        }else {
-            throw new SetWrongLevelEnergy("Check value of energy. It must be from 0 till 100");
+        } else {
+            throw new SetWrongLevelEnergy("Check " +
+                    " value of energy. It must be from 0 till 100");
         }
 
     }
 
+    /*right overriding equals:
+    1. checking reference
+    if (obj == this) {
+и верните  return true;
+
+    2. checking null & and class (better with getClass)
+    3. Объявите переменную типа, который вы сравниваете,
+     и приведите obj к этому типу. Потом сравнивайте каждый
+      атрибут типа начиная с численных атрибутов (если имеются)
+       потому что численные атрибуты проверяются быстрей.
+        Сравнивайте атрибуты с помощью операторов И и ИЛИ
+        (так называемые short-circuit logical operators) для
+         объединения проверок с другими атрибутами.
+    return id == guest.id
+    // the same in equals in object
+        && (firstName == guest.firstName
+            || (firstName != null &&firstName.equals(guest.getFirstName())))        && (lastName == guest.lastName
+            || (lastName != null && lastName .equals(guest.getLastName())
+            ));
+    }
+
+*/
     @Override
     public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
         if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
         Employee employee = (Employee) o;
         return id == employee.id &&
                 Double.compare(employee.energy, energy) == 0 &&

@@ -1,16 +1,15 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
 import java.util.List;
+import java.util.Objects;
 
+/**
+ * third level of abstraction
+ */
 public class Developer extends Inferior {
     private String position = "Junior";
 
-    {
-        // System.out.println("Hello from initialisation block of Developer");
-    }
-
     public Developer() {
-        // System.out.println("Hello from Developer default constructor");
     }
 
     public Developer(int id) {
@@ -23,7 +22,8 @@ public class Developer extends Inferior {
         this.position = position;
     }
 
-    public void changePositoin(TypePosition typePosition) {
+
+    public void setPositoin(TypePosition typePosition) {
         position = typePosition.position;
     }
 
@@ -32,19 +32,35 @@ public class Developer extends Inferior {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
+        if (this == o) return true;
+        if (!super.equals(o)) return false;
+        Developer developer = (Developer) o;
+        return Objects.equals(position, developer.position);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), position);
+    }
+
+    @Override
     public String toString() {
         return super.toString() + "position = " + position;
     }
 
 
-}
+   public enum TypePosition {
+        JUNIOR("Junior"), MIDDLE("Middle"), SENIOR("Senior");
+        String position;
 
-enum TypePosition {
-    JUNIOR("Junior"), MIDDLE("Middle"), SENIOR("Senior");
-    String position;
+        TypePosition(String position) {
+            this.position = position;
+        }
 
-    TypePosition(String position) {
-        this.position = position;
     }
-
 }
+
+

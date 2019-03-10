@@ -1,8 +1,8 @@
 package by.epam.javawebtraining.kudko.task01.model.logic;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.IncorrectFrameValueException;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NoEmployeesYet;
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.NotDefinedMethod;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.IncorrectFrameValueException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NoEmployeesYet;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.ComparatorCreator;
 import by.epam.javawebtraining.kudko.task01.model.logic.comparator.SurnameComparator;
@@ -367,27 +367,18 @@ public class Administraition {
         boolean strictMathcing = true;
 
         // checking field currentProjects
-        if ((findingEmployee.getCurrentProjects() != null) && (existEmployee.getCurrentProjects() != null)) {
+        if ((findingEmployee.getProjects() != null) && (existEmployee
+                .getProjects() != null)) {
 
-            List<String> findingCurrentProjects, existCurrentProjects;
-            findingCurrentProjects = findingEmployee.getCurrentProjects();
-            existCurrentProjects = existEmployee.getCurrentProjects();
+            List<Project> findingProjects, existProjects;
+            findingProjects = findingEmployee.getProjects();
+            existProjects = existEmployee.getProjects();
 
-            boolean[] matchings = compareProjectManagerField(findingCurrentProjects, existCurrentProjects);
+            boolean[] matchings = compareProjectManagerField(findingProjects, existProjects);
             mathcing = matchings[0];
             strictMathcing = matchings[1];
 
 
-        }
-        // checking field finishedProjects
-        if ((findingEmployee.getFinishedProjects() != null) && (existEmployee.getFinishedProjects() != null)) {
-
-            List<String> findingFinishedProjects, existFinishedProjects;
-            findingFinishedProjects = findingEmployee.getCurrentProjects();
-            existFinishedProjects = existEmployee.getCurrentProjects();
-            boolean[] matchings = compareProjectManagerField(findingFinishedProjects, existFinishedProjects);
-            mathcing = matchings[0];
-            strictMathcing = matchings[1];
         }
 
 
@@ -397,7 +388,8 @@ public class Administraition {
         return mathcing;
     }
 
-    private static boolean[] compareProjectManagerField(List<String> findingProjects, List<String> existProjects) {
+    private static boolean[] compareProjectManagerField(List<Project>
+                                                                findingProjects, List<Project> existProjects) {
         boolean[] mathcings = new boolean[2];
         int i = 0;
         while ((i < findingProjects.size()) & (i < existProjects.size())) {

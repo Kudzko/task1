@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.custom_exceptions.LogicException.ExitOutOfBoundException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.ExitOutOfBoundOfTeamException;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -8,37 +8,37 @@ import java.util.Objects;
 public class Team {
     private Employee[] team; // I created storage here with array as demanded
     private int counter;
+    private int defaultSize = 10; // default size of team
 
     {
-        //System.out.println("Hello from Team initialization");
         counter = -1;
     }
 
     public Team() {
 
-        team = new Employee[10];
-        // System.out.println("Hello from Team default constructor");
+        team = new Employee[defaultSize];
     }
 
     public Team(Employee[] department) {
         this.team = department;
-        // System.out.println("Hello from Team custom constructor");
-
     }
+
 
     public void addEmployee(Employee employee) {
         if (counter < team.length) {
             team[++counter] = employee;
         } else {
-            System.out.println("team is full");
+
             Employee[] tempDepartment;
             tempDepartment = team;
-            team = new Employee[team.length + 10];
+            team = new Employee[team.length + defaultSize];
+
             for (int i = 0; i < tempDepartment.length; i++) {
                 team[i] = tempDepartment[i];
             }
+
             team[++counter] = employee;
-            System.out.println("team is increased two times");
+
         }
     }
 
@@ -47,22 +47,24 @@ public class Team {
             if (counter < team.length) {
                 team[++counter] = employee[i];
             } else {
-                System.out.println("team is full");
+
                 Employee[] tempDepartment;
                 tempDepartment = team;
-                team = new Employee[team.length + 10];
+                team = new Employee[team.length + defaultSize];
+
                 for (int j = 0; j < tempDepartment.length; j++) {
                     team[j] = tempDepartment[j];
                 }
+
                 team[++counter] = employee[i];
-                System.out.println("team is increased two times");
-            }
+                            }
         }
     }
 
-    public Employee getEmployee(int i) throws ExitOutOfBoundException {
+    public Employee getEmployee(int i) throws ExitOutOfBoundOfTeamException {
+
         if (i >= team.length) {
-            throw new ExitOutOfBoundException();
+            throw new ExitOutOfBoundOfTeamException();
         }
         return team[i];
     }
@@ -71,9 +73,10 @@ public class Team {
         return team;
     }
 
-    public void deleteEmployee(int i) throws ExitOutOfBoundException {
+    public void deleteEmployee(int i) throws ExitOutOfBoundOfTeamException {
+
         if (i >= team.length) {
-            throw new ExitOutOfBoundException();
+            throw new ExitOutOfBoundOfTeamException();
         }
         team[i] = null;
         counter--;
@@ -84,7 +87,7 @@ public class Team {
         }
     }
 
-    public void deleteAllEmployee(){
+    public void deleteAllEmployee() {
         for (int i = 0; i < team.length; i++) {
             team[i] = null;
             counter--;
@@ -95,17 +98,20 @@ public class Team {
         return counter;
     }
 
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
     public Employee[] getTeam() {
         return team;
     }
 
     public void setTeam(Employee[] team) {
-        this.team = team;
+        if ((team != null) && (team.length != 0)) {
+            this.team = team;
+        }
     }
 
-    public void setCounter(int counter) {
-        this.counter = counter;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -127,21 +133,21 @@ public class Team {
     @Override
     public String toString() {
         return "Team{" +
-                "team =" + printTeam() +
+                "team =" + TeamToString() +
                 ", counter=" + counter +
                 '}';
     }
 
 
-    private String printTeam(){
-        StringBuilder teamPrinter = new StringBuilder();
-        teamPrinter.append("       Team : \n");
-        for (Employee employee : team){
-            teamPrinter.append("       id = " + employee.getId() + ", ");
-            teamPrinter.append(" name = " + employee.getName() + ", ");
-            teamPrinter.append(" surname = " + employee.getSurname() + ", ");
+    private String TeamToString() {
+        StringBuilder teamToString = new StringBuilder();
+        teamToString.append("       Team : \n");
+        for (Employee employee : team) {
+            teamToString.append("       id = " + employee.getId() + ", ");
+            teamToString.append(" name = " + employee.getName() + ", ");
+            teamToString.append(" surname = " + employee.getSurname() + ", ");
         }
 
-        return teamPrinter.toString();
+        return teamToString.toString();
     }
 }

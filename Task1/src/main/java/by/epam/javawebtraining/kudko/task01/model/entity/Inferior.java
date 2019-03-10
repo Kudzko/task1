@@ -1,21 +1,24 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.InvalidEnteredDataException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooHighEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooLowEnergyException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+
+/**
+ * second level of abstraction
+ */
 public abstract class Inferior extends Employee {
     private Manager chief;
     private List<String> skills;
 
-    {
-        // System.out.println("Hello from Inferior initialization");
-    }
-
     public Inferior() {
-        // System.out.println("Hello from Inferior default constructor");
-        skills = new ArrayList<>();
+                skills = new ArrayList<>();
     }
 
     public Inferior(int id) {
@@ -23,52 +26,54 @@ public abstract class Inferior extends Employee {
         skills = new ArrayList<>();
     }
 
-    public Inferior(String name, String surname, double salary, double bonus, int payRange, int experience,
-                    Manager chief, List<String> skills) {
+    public Inferior(String name, String surname, double salary, double bonus,
+                    int payRange, int experience, Manager chief, List<String> skills) {
         super(name, surname, salary, bonus, payRange, experience);
         this.chief = chief;
         this.skills = skills;
-        // System.out.println("Hello from Inferior custom constructor");
-    }
+          }
 
     @Override
-    public void work() {
-        if (energy >= 5){
-            System.out.println("Do some work");
-            energy = getEnergy() - 100*0.05;
+    public void work() throws TooLowEnergyException, SetWrongLevelEnergy {
+        if (getEnergy() >= 5){
+           setEnergy((int) (getEnergy() - 100*0.05));
         }else {
-            System.out.println("I am tired");
+            throw new TooLowEnergyException("I am tired");
         }
     }
 
     @Override
-    public void relax() {
-        if (energy <= 95){
-            System.out.println("Chill");
-            energy = getEnergy() + 100*0.05;
+    public void relax() throws TooHighEnergyException, SetWrongLevelEnergy {
+        if (getEnergy() <= 95){
+                setEnergy ((int) (getEnergy() + 100*0.05));
         }else {
-            System.out.println("I need work");
+            throw new TooHighEnergyException("I need work");
         }
     }
 
-    public void execute() {
-        System.out.println("Do manager's orders");
-    }
+//    public void execute() {
+//        System.out.println("Do manager's orders");
+//    }
 
-    public void addSkill(String skill) {
+    public void addSkill(String skill) throws InvalidEnteredDataException {
         if ((skill != null) && (!skill.isEmpty())) {
             skills.add(skill);
         } else {
-            System.out.println("entered skill incorrect ( null or contains zero letters)");
+            throw  new InvalidEnteredDataException("entered skill incorrect ( " +
+                    "null or contains zero " +
+                    "letters)");
         }
-
-
     }
 
     public Manager getChief() {
         return chief;
     }
 
+    /**
+     * If inferior has a chief field store reference to his chief
+     * If inferior has no a chief field store null
+     * @param chief
+     */
     public void setChief(Manager chief) {
         this.chief = chief;
     }
@@ -78,13 +83,16 @@ public abstract class Inferior extends Employee {
     }
 
     public void setSkills(List<String> skills) {
-        this.skills = skills;
+        if ((skills != null) && (!skills.isEmpty())){
+            this.skills = skills;
+        }
+
     }
 
     @Override
     public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return  false;
         if (this == o) return true;
-        if (!(o instanceof Inferior)) return false;
         if (!super.equals(o)) return false;
         Inferior inferior = (Inferior) o;
         return Objects.equals(chief, inferior.chief) &&
@@ -99,11 +107,17 @@ public abstract class Inferior extends Employee {
 
     @Override
     public String toString() {
-        return super.toString() +
-                "\n      chief = " + chief.id + ", " + chief.name + chief.surname +
-                ",\n      skills = " + skills.toString() +
-                ']' +
-                '}';
+        StringBuilder inferior = new StringBuilder();
+        inferior.append(super.toString());
+        if (chief != null){
+            inferior.append( "\n      chief = " + chief.getId() + ", " + chief.getName()+ chief.getSurname() );
+        }
+        if (skills != null){
+            inferior.append( ",\n      skills = " + skills.toString() );
+        }
+        inferior.append("]}");
+
+        return inferior.toString();
     }
 
 }

@@ -43,13 +43,14 @@ public class Company {
 
 
     // +++getters & setters +++
-
     public List<Team> getTeams() {
         return teams;
     }
 
     public void setTeams(List<Team> teams) {
-        this.teams = teams;
+        if ((teams != null) && ( !teams.isEmpty())){
+            this.teams = teams;
+        }
     }
 
     public HRDepartment getHrDepartment() {

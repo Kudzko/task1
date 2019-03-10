@@ -1,5 +1,7 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.Objects;
 
 public abstract class Manager extends Employee {
     private List<Employee> employees;
-    protected Manager leader;
+    private Manager leader;
 
     {
         // System.out.println("Hello from Manager initialization");
@@ -31,21 +33,21 @@ public abstract class Manager extends Employee {
     }
 
     @Override
-    public void work() {
-        if (energy >= 20){
+    public void work() throws SetWrongLevelEnergy {
+        if (getEnergy() >= 20) {
             System.out.println("Do some work");
-            energy = getEnergy() - 100*0.2;
-        }else {
+            setEnergy((int) (getEnergy() - 100 * 0.2));
+        } else {
             System.out.println("I am tired");
         }
     }
 
     @Override
-    public void relax() {
-        if (energy <= 80){
+    public void relax() throws SetWrongLevelEnergy {
+        if (getEnergy() <= 80) {
             System.out.println("Chill");
-            energy = getEnergy() + 100*0.2;
-        }else {
+            setEnergy((int) (getEnergy() + 100 * 0.2));
+        } else {
             System.out.println("I need work");
         }
     }
@@ -59,7 +61,15 @@ public abstract class Manager extends Employee {
     }
 
     public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
+        if ((employees != null) && (!employees.isEmpty())) {
+            this.employees = employees;
+        }
+    }
+
+    public void setEmployee(Employee employee) {
+        if (employee != null) {
+            employees.add(employee);
+        }
     }
 
     public Manager getLeader() {
@@ -72,8 +82,8 @@ public abstract class Manager extends Employee {
 
     @Override
     public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
         if (this == o) return true;
-        if (!(o instanceof Manager)) return false;
         if (!super.equals(o)) return false;
         Manager manager = (Manager) o;
         return Objects.equals(employees, manager.employees) &&
@@ -89,22 +99,22 @@ public abstract class Manager extends Employee {
     @Override
     public String toString() {
         return super.toString() +
-                "\n     inferiors = " + printInferiors() +
+                "\n     inferiors = " + inferiorsToString() +
                 "\n     leader = " + leader +
                 " ]" +
                 "}\n";
     }
 
-    public String printInferiors() {
+    public String inferiorsToString() {
         StringBuilder inferiorsToString = new StringBuilder();
         inferiorsToString.append("\n      ");
         for (Employee employee : employees) {
             if (employee != null) {
-                inferiorsToString.append(employee.id);
+                inferiorsToString.append(employee.getId());
                 inferiorsToString.append(", ");
-                inferiorsToString.append(employee.name);
+                inferiorsToString.append(employee.getName());
                 inferiorsToString.append(", ");
-                inferiorsToString.append(employee.surname);
+                inferiorsToString.append(employee.getSurname());
                 inferiorsToString.append("; \n      ");
             }
 

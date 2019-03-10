@@ -5,13 +5,10 @@ import java.util.Objects;
 
 public class Tester extends Inferior {
     private String typeQA;
-    {
-       // System.out.println("Hello from initialisation block of Tester");
-    }
+
 
     public Tester() {
-        //System.out.println("Hello from Tester default constructor");
-    }
+        }
 
     public Tester(int id) {
         super(id);
@@ -21,8 +18,6 @@ public class Tester extends Inferior {
                   Manager chief, List<String> skills, String typeQA) {
         super(name, surname, salary, bonus, payRange, experience, chief, skills);
         this.typeQA = typeQA;
-
-        // System.out.println("Hello from Tester custom constructor");
     }
 
     public void setTypeQA(TypeQA typeQA) {
@@ -36,8 +31,8 @@ public class Tester extends Inferior {
 
     @Override
     public boolean equals(Object o) {
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
         if (this == o) return true;
-        if (!(o instanceof Tester)) return false;
         if (!super.equals(o)) return false;
         Tester tester = (Tester) o;
         return Objects.equals(typeQA, tester.typeQA);
@@ -55,12 +50,12 @@ public class Tester extends Inferior {
     }
 
 
-}
- enum TypeQA {
-    AUTOMATED("Automated testing"), MANUAL ("Manual Testing");
-    String typeQA;
+   public enum TypeQA {
+        AUTOMATED("Automated testing"), MANUAL ("Manual Testing");
+        String typeQA;
 
-     TypeQA(String typeQA) {
-         this.typeQA = typeQA;
-     }
- }
+        TypeQA(String typeQA) {
+            this.typeQA = typeQA;
+        }
+    }
+}
