@@ -14,10 +14,14 @@ public class Tester extends Inferior {
         super(id);
     }
 
-    public Tester(String name, String surname, double salary, double bonus, int payRange, int experience,
-                  Manager chief, List<String> skills, String typeQA) {
-        super(name, surname, salary, bonus, payRange, experience, chief, skills);
+    public Tester(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience, Manager chief, List<String> skills, String typeQA) {
+        super(id, energy, name, surname, salary, bonus, payRange, experience, chief, skills);
         this.typeQA = typeQA;
+    }
+
+    public Tester(Tester other) {
+        super(other);
+        this.typeQA = other.typeQA;
     }
 
     public void setTypeQA(TypeQA typeQA) {

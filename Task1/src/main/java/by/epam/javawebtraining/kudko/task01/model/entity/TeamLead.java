@@ -1,7 +1,5 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,10 +16,14 @@ public class TeamLead extends Manager {
 
     }
 
-    public TeamLead(String name, String surname, double salary, double bonus, int payRange, int experience,
-                    List<Employee> employees, Manager leader, boolean controllingSomeTask) {
-        super(name, surname, salary, bonus, payRange, experience, employees, leader);
+    public TeamLead(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience, List<Employee> employees, Manager leader, boolean controllingSomeTask) {
+        super(id, energy, name, surname, salary, bonus, payRange, experience, employees, leader);
         this.controllingSomeTask = controllingSomeTask;
+    }
+
+    public TeamLead(TeamLead other) {
+        super(other);
+        this.controllingSomeTask = other.controllingSomeTask;
     }
 
     public void multytask(){

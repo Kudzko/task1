@@ -1,19 +1,14 @@
 package by.epam.javawebtraining.kudko.task01.controller;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
-import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
-import by.epam.javawebtraining.kudko.task01.util.UtilException.WrongNumberEmployeesException;
+import by.epam.javawebtraining.kudko.task01.model.Administraition;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
-import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
-import by.epam.javawebtraining.kudko.task01.model.logic.comparator.TypeComparator;
+import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
 import by.epam.javawebtraining.kudko.task01.util.ElementsCreator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
+import by.epam.javawebtraining.kudko.task01.util.UtilException.WrongNumberEmployeesException;
 import by.epam.javawebtraining.kudko.task01.view.ConsolePrinter;
 import by.epam.javawebtraining.kudko.task01.view.InputView;
 import by.epam.javawebtraining.kudko.task01.view.Printable;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Controller {
     public static void main(String[] args) {
@@ -47,6 +42,7 @@ public class Controller {
                     (EmpoyeeCreator.KindOfEmployee.TEAMLEAD);
             teamLead = (TeamLead) DataGenerator.fillEmployeeFields
                     (teamLead);
+            teamLead.setLeader(projectManager);
 
             team.addEmployee(projectManager);
             team.addEmployee(teamLead);
@@ -60,7 +56,7 @@ public class Controller {
                         (developer);
                 developer.setSkills(DataGenerator.generateSkills());
                 developer.setChief(teamLead);
-                developer.setPositoin(Developer.TypePosition.MIDDLE);
+                developer.setPosition(Developer.TypePosition.MIDDLE);
                 teamLead.setEmployee(developer);
                 projectManager.setEmployee(developer);
 

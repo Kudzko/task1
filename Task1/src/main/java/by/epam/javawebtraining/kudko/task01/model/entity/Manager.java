@@ -1,59 +1,90 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
 import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooHighEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooLowEnergyException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Manager extends Employee {
+public class Manager extends Employee {
     private List<Employee> employees;
     private Manager leader;
 
     {
-        // System.out.println("Hello from Manager initialization");
         employees = new ArrayList<>();
     }
 
+    /**
+     * Default constructor
+     */
     public Manager() {
-        // System.out.println("Hello from Manager default constructor");
     }
 
+    /**
+     * Constructor with id
+     *
+     * @param id
+     */
     public Manager(int id) {
         super(id);
     }
 
-    public Manager(String name, String surname, double salary, double bonus, int payRange, int experience,
-                   List<Employee> employees, Manager leader) {
-        super(name, surname, salary, bonus, payRange, experience);
+    /**
+     * Custom constructor
+     *
+     * @param id
+     * @param energy
+     * @param name
+     * @param surname
+     * @param salary
+     * @param bonus
+     * @param payRange
+     * @param experience
+     * @param employees
+     * @param leader
+     */
+    public Manager(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience, List<Employee> employees, Manager leader) {
+        super(id, energy, name, surname, salary, bonus, payRange, experience);
         this.employees = employees;
         this.leader = leader;
-        // System.out.println("Hello from Manager custom constructor");
+    }
+
+    /**
+     * constructor of copying
+     *
+     * @param other
+     */
+    public Manager(Manager other) {
+        super(other);
+        this.employees = other.employees;
+        this.leader = other.leader;
     }
 
     @Override
-    public void work() throws SetWrongLevelEnergy {
+    public void work() throws SetWrongLevelEnergy, TooLowEnergyException {
         if (getEnergy() >= 20) {
-            System.out.println("Do some work");
+
             setEnergy((int) (getEnergy() - 100 * 0.2));
         } else {
-            System.out.println("I am tired");
+            throw new TooLowEnergyException("Very low energy. I need relax.");
         }
     }
 
     @Override
-    public void relax() throws SetWrongLevelEnergy {
+    public void relax() throws SetWrongLevelEnergy, TooHighEnergyException {
         if (getEnergy() <= 80) {
-            System.out.println("Chill");
+
             setEnergy((int) (getEnergy() + 100 * 0.2));
         } else {
-            System.out.println("I need work");
+            throw new TooHighEnergyException("Very high energy. I need relax.");
         }
     }
 
-    public void manage() {
-        System.out.println("I am managing");
+    public String manage() {
+
+        return "I am managing";
     }
 
     public List<Employee> getEmployees() {

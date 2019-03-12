@@ -21,10 +21,14 @@ public class ProjectManager extends Manager {
         projects = new ArrayList<>();
     }
 
-    public ProjectManager(String name, String surname, double salary, double bonus, int payRange, int experience,
-                          List<Employee> employees, Manager leader, List<Project> projects) {
-        super(name, surname, salary, bonus, payRange, experience, employees, leader);
+    public ProjectManager(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience, List<Employee> employees, Manager leader, List<Project> projects) {
+        super(id, energy, name, surname, salary, bonus, payRange, experience, employees, leader);
         this.projects = projects;
+    }
+
+    public ProjectManager(ProjectManager other) {
+        super(other);
+        this.projects = other.projects;
     }
 
     public void startProject() {

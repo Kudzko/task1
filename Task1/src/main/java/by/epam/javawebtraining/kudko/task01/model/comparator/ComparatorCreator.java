@@ -1,6 +1,6 @@
-package by.epam.javawebtraining.kudko.task01.model.logic.comparator;
+package by.epam.javawebtraining.kudko.task01.model.comparator;
 
-import by.epam.javawebtraining.kudko.task01.model.entity.*;
+import by.epam.javawebtraining.kudko.task01.model.entity.Employee;
 
 import java.util.Comparator;
 

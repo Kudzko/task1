@@ -1,7 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.util;
 
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.UnknownEmployeeExceptoin;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 
 
@@ -40,6 +39,28 @@ Specific is in creating HRDepartment and adding there Employee anyway,
         }
 
         return employee;
+    }
+
+    /**
+     * Create instance of one kind of employee
+     * Second variant of code, Trying make code more simple
+     *
+     * @param kindOfEmployee
+     * @return instance according to enum KindOfEmployee
+     */
+    public static Employee createEmployeeTwo(KindOfEmployee kindOfEmployee)
+    /*throws UnknownEmployeeExceptoin */ {
+        switch (kindOfEmployee) {
+            case TESTER:
+                return new Tester();
+            case DEVELOPER:
+                return new Developer();
+            case TEAMLEAD:
+                return new TeamLead();
+            case PROJECTMANAGER:
+                return new ProjectManager();
+        }
+        return null;
     }
 
     /**

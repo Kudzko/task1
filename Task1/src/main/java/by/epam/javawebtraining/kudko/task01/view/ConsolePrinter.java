@@ -8,8 +8,12 @@ public class ConsolePrinter implements Printable{
     }
 
     @Override
-    public void print(String additionalInfo, Object o) {
-        System.out.println(additionalInfo);
-        System.out.println(o);
+    public void print(String comment, Object o) {
+        System.out.println(comment + " " + o);
+    }
+
+    @Override
+    public void print(String Headcomment) {
+        System.out.println(Headcomment);
     }
 }

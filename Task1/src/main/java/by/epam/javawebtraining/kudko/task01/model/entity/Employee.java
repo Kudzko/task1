@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * Base class. Abstraction of employee of company
  */
-public abstract class Employee {
+public class Employee {
 
     private int id = -1;        // default value -1. It means that employee
     // don't belong to any team, company and is not in HRDepartment
@@ -29,14 +29,28 @@ public abstract class Employee {
         this.id = id;
     }
 
-    public Employee(String name, String surname, double salary, double bonus,
-                    int payRange, int experience) {
+    public Employee(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience) {
+        this.id = id;
+        this.energy = energy;
         this.name = name;
         this.surname = surname;
         this.salary = salary;
         this.bonus = bonus;
         this.payRange = payRange;
         this.experience = experience;
+    }
+
+    /**
+     * Constructor of copying
+     */
+    public Employee(Employee other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.surname = other.surname;
+        this.salary = other.salary;
+        this.bonus = other.bonus;
+        this.payRange = other.payRange;
+        this.experience = other.experience;
     }
 
 
@@ -48,7 +62,7 @@ public abstract class Employee {
      * @throws TooLowEnergyException if employee do work
      *                               more then allowed without calling method relax()
      */
-    public void work() throws TooLowEnergyException, SetWrongLevelEnergy {
+    public void work() throws TooLowEnergyException, SetWrongLevelEnergy, NotFoundCurrentProjectException {
         if (energy >= 10) {
             energy = getEnergy() - 100 * 0.1;
         } else {

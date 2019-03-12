@@ -1,9 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.InvalidEnteredDataException;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooHighEnergyException;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooLowEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.Objects;
 /**
  * second level of abstraction
  */
-public abstract class Inferior extends Employee {
+public class Inferior extends Employee {
     private Manager chief;
     private List<String> skills;
 
@@ -26,15 +23,20 @@ public abstract class Inferior extends Employee {
         skills = new ArrayList<>();
     }
 
-    public Inferior(String name, String surname, double salary, double bonus,
-                    int payRange, int experience, Manager chief, List<String> skills) {
-        super(name, surname, salary, bonus, payRange, experience);
+    public Inferior(int id, double energy, String name, String surname, double salary, double bonus, int payRange, double experience, Manager chief, List<String> skills) {
+        super(id, energy, name, surname, salary, bonus, payRange, experience);
         this.chief = chief;
         this.skills = skills;
-          }
+    }
+
+    public Inferior(Inferior other) {
+        super(other);
+        this.chief = other.chief;
+        this.skills = other.skills;
+    }
 
     @Override
-    public void work() throws TooLowEnergyException, SetWrongLevelEnergy {
+    public void work() throws TooLowEnergyException, SetWrongLevelEnergy, NotFoundCurrentProjectException {
         if (getEnergy() >= 5){
            setEnergy((int) (getEnergy() - 100*0.05));
         }else {
@@ -51,9 +53,9 @@ public abstract class Inferior extends Employee {
         }
     }
 
-//    public void execute() {
-//        System.out.println("Do manager's orders");
-//    }
+    public String execute() {
+        return "Executing some orders";
+    }
 
     public void addSkill(String skill) throws InvalidEnteredDataException {
         if ((skill != null) && (!skill.isEmpty())) {

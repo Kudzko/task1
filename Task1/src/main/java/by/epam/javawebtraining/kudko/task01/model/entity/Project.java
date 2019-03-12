@@ -48,6 +48,10 @@ public class Project {
         }
     }
 
+    /**
+     * @return true if project is current
+     * and return false if project is finished
+     */
     public boolean isStatus() {
         return status;
     }
@@ -55,7 +59,8 @@ public class Project {
     /**
      * set true if project is current
      * set false if project is finished
-     * @param status
+     * @param status true for current projects
+     *               and false for finished
      */
     public void setStatus(boolean status) {
         this.status = status;
