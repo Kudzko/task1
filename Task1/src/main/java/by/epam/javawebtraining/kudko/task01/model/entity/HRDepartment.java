@@ -2,7 +2,6 @@ package by.epam.javawebtraining.kudko.task01.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class HRDepartment {
     private static HRDepartment itHRDepartment;
@@ -20,21 +19,52 @@ public class HRDepartment {
     }
 
     // +++methods of addition and deleting+++
+
+    /**
+     * Add any employee
+     *
+     * @param employee
+     * @return true if employee added in the list of employees
+     */
     public boolean addEmployee(Employee employee) {
         return allEmployees.add(employee);
     }
 
+    /**
+     * Add List of employees to HRDepartment
+     *
+     * @param employees
+     * @return true if List<Employee> added to HRDepartment
+     */
     public boolean addAllEmployees(List<Employee> employees) {
         return allEmployees.addAll(employees);
     }
 
+    /**
+     * Delete employee from {@link HRDepartment}
+     * @param employee
+     * @return true if {@link HRDepartment} contains such employee and
+     * deletes this employee
+     * @return false if {@link HRDepartment} has no matches (doesn't contain
+     * such employee)
+     */
     public boolean deleteEmployee(Employee employee) {
         return allEmployees.remove(employee);
     }
 
+    /**
+     *
+     * @param index - index of the employee to be removed
+     * @return the element previously at the specified position
+     *
+     * Throws:
+     * UnsupportedOperationException - if the remove operation is not supported by this list
+     * IndexOutOfBoundsException - if the index is out of range (index < 0 || index >= size())
+     */
     public Employee deleteEmployee(int index) {
         return allEmployees.remove(index);
     }
+
 
     public boolean deleteAllEmployees(List<Employee> employees) {
         return allEmployees.removeAll(employees);

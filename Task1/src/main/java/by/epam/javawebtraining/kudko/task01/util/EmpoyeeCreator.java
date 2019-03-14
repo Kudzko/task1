@@ -101,4 +101,11 @@ Specific is in creating HRDepartment and adding there Employee anyway,
         DEVELOPER, TESTER, TEAMLEAD, PROJECTMANAGER;
     }
 
+    /**
+     * Set id value = 0
+     * Uses to run tests independently
+     */
+    public static void resetID() {
+        id = 0;
+    }
 }

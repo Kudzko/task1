@@ -15,7 +15,7 @@ public class Inferior extends Employee {
     private List<String> skills;
 
     public Inferior() {
-                skills = new ArrayList<>();
+        skills = new ArrayList<>();
     }
 
     public Inferior(int id) {
@@ -37,18 +37,18 @@ public class Inferior extends Employee {
 
     @Override
     public void work() throws TooLowEnergyException, SetWrongLevelEnergy, NotFoundCurrentProjectException {
-        if (getEnergy() >= 5){
-           setEnergy((int) (getEnergy() - 100*0.05));
-        }else {
+        if (getEnergy() >= 5) {
+            setEnergy((int) (getEnergy() - 100 * 0.05));
+        } else {
             throw new TooLowEnergyException("I am tired");
         }
     }
 
     @Override
     public void relax() throws TooHighEnergyException, SetWrongLevelEnergy {
-        if (getEnergy() <= 95){
-                setEnergy ((int) (getEnergy() + 100*0.05));
-        }else {
+        if (getEnergy() <= 95) {
+            setEnergy((int) (getEnergy() + 100 * 0.05));
+        } else {
             throw new TooHighEnergyException("I need work");
         }
     }
@@ -61,7 +61,7 @@ public class Inferior extends Employee {
         if ((skill != null) && (!skill.isEmpty())) {
             skills.add(skill);
         } else {
-            throw  new InvalidEnteredDataException("entered skill incorrect ( " +
+            throw new InvalidEnteredDataException("entered skill incorrect ( " +
                     "null or contains zero " +
                     "letters)");
         }
@@ -74,6 +74,7 @@ public class Inferior extends Employee {
     /**
      * If inferior has a chief field store reference to his chief
      * If inferior has no a chief field store null
+     *
      * @param chief
      */
     public void setChief(Manager chief) {
@@ -84,16 +85,17 @@ public class Inferior extends Employee {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {
-        if ((skills != null) && (!skills.isEmpty())){
+    public boolean setSkills(List<String> skills) {
+        if ((skills != null) && (!skills.isEmpty())) {
             this.skills = skills;
+            return true;
         }
-
+        return false;
     }
 
     @Override
     public boolean equals(Object o) {
-        if ((o == null) || (o.getClass() != this.getClass())) return  false;
+        if ((o == null) || (o.getClass() != this.getClass())) return false;
         if (this == o) return true;
         if (!super.equals(o)) return false;
         Inferior inferior = (Inferior) o;
@@ -111,11 +113,11 @@ public class Inferior extends Employee {
     public String toString() {
         StringBuilder inferior = new StringBuilder();
         inferior.append(super.toString());
-        if (chief != null){
-            inferior.append( "\n      chief = " + chief.getId() + ", " + chief.getName()+ chief.getSurname() );
+        if (chief != null) {
+            inferior.append("\n      chief = " + chief.getId() + ", " + chief.getName() + chief.getSurname());
         }
-        if (skills != null){
-            inferior.append( ",\n      skills = " + skills.toString() );
+        if (skills != null) {
+            inferior.append(",\n      skills = " + skills.toString());
         }
         inferior.append("]}");
 

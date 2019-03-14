@@ -6,6 +6,7 @@ import by.epam.javawebtraining.kudko.task01.util.ElementsCreator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
 import org.junit.*;
 
+
 public class DeveloperTest {
     static ProjectManager projectManager;
     static TeamLead teamLead;
@@ -59,6 +60,7 @@ public class DeveloperTest {
         teamLead = null;
         developer = null;
         team = null;
+        EmpoyeeCreator.resetID();
     }
 
 
@@ -156,7 +158,6 @@ public class DeveloperTest {
     @Test(expected = InvalidEnteredDataException.class)
     public void addSkillNull() throws InvalidEnteredDataException {
         developerClone.addSkill(null);
-
     }
 
     @Test(expected = InvalidEnteredDataException.class)
@@ -165,29 +166,5 @@ public class DeveloperTest {
 
     }
 
-
-
-
-    /*
-    *
-    * @RunWith(value = Parameterized.class)
-    public class tstDeveloperParametrized{
-        private String skill;
-
-        @Parameterized.Parameters
-        public  Collection set_parameters(){
-            return Arrays.asList(new Object[]{
-                    null, ""
-            });
-        }
-
-        public tstDeveloperParametrized(String skill) {
-            this.skill = skill;
-        }
-        @Before
-        public void setUp(){
-            developerClone.
-        }
-    }*/
 
 }
