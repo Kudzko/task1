@@ -1,4 +1,4 @@
-package by.epam.javawebtraining.kudko.task01.model.customexceptions;
+package by.epam.javawebtraining.kudko.task01.model.customexception;
 
 public class TechnicalException  extends KudkoTaskOneException {
 

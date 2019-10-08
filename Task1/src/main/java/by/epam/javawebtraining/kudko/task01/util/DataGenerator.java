@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.util;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.*;
 import by.epam.javawebtraining.kudko.task01.model.entity.Employee;
 
 import java.util.ArrayList;

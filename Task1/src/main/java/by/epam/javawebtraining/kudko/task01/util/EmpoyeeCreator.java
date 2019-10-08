@@ -12,18 +12,23 @@ Specific is in creating HRDepartment and adding there Employee anyway,
 
     private static int id = 0;
 
+   public enum EmployeeType { // public that it can be used in Controller
+       // fo example
+        DEVELOPER, TESTER, TEAMLEAD, PROJECTMANAGER;
+    }
+
     /**
      * Create instance of one kind of employee
      *
-     * @param kindOfEmployee
-     * @return instance according to enum KindOfEmployee
+     * @param employeeType
+     * @return instance according to enum EmployeeType
      */
-    public static Employee createEmployee(KindOfEmployee kindOfEmployee)
+    public static Employee createEmployee(EmployeeType employeeType)
     /*throws UnknownEmployeeExceptoin */ {
 
         Employee employee = null;
 
-        switch (kindOfEmployee) {
+        switch (employeeType) {
             case TESTER:
                 employee = new Tester();
                 break;
@@ -45,12 +50,12 @@ Specific is in creating HRDepartment and adding there Employee anyway,
      * Create instance of one kind of employee
      * Second variant of code, Trying make code more simple
      *
-     * @param kindOfEmployee
-     * @return instance according to enum KindOfEmployee
+     * @param employeeType
+     * @return instance according to enum EmployeeType
      */
-    public static Employee createEmployeeTwo(KindOfEmployee kindOfEmployee)
+    public static Employee createEmployeeTwo(EmployeeType employeeType)
     /*throws UnknownEmployeeExceptoin */ {
-        switch (kindOfEmployee) {
+        switch (employeeType) {
             case TESTER:
                 return new Tester();
             case DEVELOPER:
@@ -67,15 +72,15 @@ Specific is in creating HRDepartment and adding there Employee anyway,
      * Create one of kinds of employee with id and add to HRDepartment
      * automatically
      *
-     * @param kindOfEmployee
-     * @return instance according to the value of enum KindOfEmployee of
-     * parameter kindOfEmployee
+     * @param employeeType
+     * @return instance according to the value of enum EmployeeType of
+     * parameter employeeType
      */
-    public static Employee createEmployeeWithID(KindOfEmployee kindOfEmployee) {
+    public static Employee createEmployeeWithID(EmployeeType employeeType) {
         Employee employee = null;
         id++;
 
-        switch (kindOfEmployee) {
+        switch (employeeType) {
             case TESTER:
                 employee = new Tester(id);
                 break;
@@ -90,15 +95,14 @@ Specific is in creating HRDepartment and adding there Employee anyway,
                 break;
         }
 
-        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
-        hrDepartment.addEmployee(employee);
+        addToHRDepartment(employee);
 
         return employee;
     }
 
-
-    public enum KindOfEmployee {
-        DEVELOPER, TESTER, TEAMLEAD, PROJECTMANAGER;
+    private static void addToHRDepartment(Employee employee) {
+        HRDepartment hrDepartment = HRDepartment.createHRDepartment();
+        hrDepartment.addEmployee(employee);
     }
 
     /**

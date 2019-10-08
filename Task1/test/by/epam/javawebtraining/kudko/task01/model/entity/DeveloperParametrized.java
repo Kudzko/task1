@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.InvalidEnteredDataException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.InvalidEnteredDataException;
 import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
 import org.junit.Before;
@@ -36,11 +36,11 @@ public class DeveloperParametrized {
     public static void createTeam() {
         developer = (Developer) EmpoyeeCreator
                 .createEmployeeWithID
-                        (EmpoyeeCreator.KindOfEmployee.DEVELOPER);
+                        (EmpoyeeCreator.EmployeeType.DEVELOPER);
         developer = (Developer) DataGenerator.fillEmployeeFields
                 (developer);
         developer.setSkills(DataGenerator.generateSkills());
-        developer.setPosition(Developer.TypePosition.MIDDLE);
+        developer.setPosition(Developer.PositionType.MIDDLE);
     }
 
     @Before

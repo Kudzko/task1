@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.InvalidProjectNameException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.InvalidProjectNameException;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package by.epam.javawebtraining.kudko.task01;
 
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NoLettersInNameEcception;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.NoLettersInNameEcception;
 import by.epam.javawebtraining.kudko.task01.model.entity.Developer;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
 
@@ -11,7 +11,7 @@ public class Test {
     public static void main(String[] args) {
 
         Developer developer1 = (Developer) EmpoyeeCreator.createEmployeeWithID
-                (EmpoyeeCreator.KindOfEmployee.DEVELOPER);
+                (EmpoyeeCreator.EmployeeType.DEVELOPER);
         try {
             developer1.setName("John");
         } catch (NoLettersInNameEcception noLettersInNameEcception) {

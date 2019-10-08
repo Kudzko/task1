@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.*;
 
 import java.util.Objects;
 
@@ -150,7 +150,9 @@ public class Employee {
 
         if (salary >= 0) {
             this.salary = salary;
-        } else throw new InvalidSalaryValue();
+        } else{
+            throw new InvalidSalaryValue();
+        }
     }
 
     public double getBonus() {

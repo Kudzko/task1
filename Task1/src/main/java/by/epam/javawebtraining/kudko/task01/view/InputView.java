@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.view;
 
-import by.epam.javawebtraining.kudko.task01.util.UtilException.WrongNumberEmployeesException;
+import by.epam.javawebtraining.kudko.task01.util.utilexception.WrongNumberEmployeesException;
 
 public class InputView {
     int amountTeams = 3;

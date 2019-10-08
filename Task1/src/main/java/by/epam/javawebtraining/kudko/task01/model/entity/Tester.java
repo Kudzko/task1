@@ -56,10 +56,14 @@ public class Tester extends Inferior {
 
    public enum TypeQA {
         AUTOMATED("Automated testing"), MANUAL ("Manual Testing");
-        String typeQA;
+        private String typeQA;
 
         TypeQA(String typeQA) {
             this.typeQA = typeQA;
         }
-    }
+
+       public String getTypeQA() {
+           return typeQA;
+       }
+   }
 }

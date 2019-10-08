@@ -1,8 +1,8 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooHighEnergyException;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooLowEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.SetWrongLevelEnergy;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.TooHighEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.TooLowEnergyException;
 
 import java.util.ArrayList;
 import java.util.List;

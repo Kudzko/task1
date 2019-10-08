@@ -1,4 +1,4 @@
-package by.epam.javawebtraining.kudko.task01.model;
+package by.epam.javawebtraining.kudko.task01.model.logic;
 
 public class Test {
 }

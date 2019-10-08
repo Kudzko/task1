@@ -1,8 +1,8 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NotFoundCurrentProjectException;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.SetWrongLevelEnergy;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.TooLowEnergyException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.NotFoundCurrentProjectException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.SetWrongLevelEnergy;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.TooLowEnergyException;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,6 +11,16 @@ import java.util.Objects;
  * third level of abstraction
  */
 public class Developer extends Inferior {
+
+    public enum PositionType {
+        JUNIOR, MIDDLE, SENIOR;
+
+        @Override
+        public String toString() {
+            return "PositionType{" + name().toLowerCase() + "}";
+        }
+    }
+
     private String position = "Junior";
 
     /**
@@ -87,8 +97,8 @@ public class Developer extends Inferior {
 
     }
 
-    public void setPosition(TypePosition typePosition) {
-        position = typePosition.toString();
+    public void setPosition(PositionType positionType) {
+        position = positionType.toString();
     }
 
     public String getPosition() {
@@ -115,15 +125,6 @@ public class Developer extends Inferior {
         return super.toString() + "position = " + position;
     }
 
-
-   public enum TypePosition {
-       JUNIOR, MIDDLE, SENIOR;
-
-       @Override
-       public String toString() {
-           return "TypePosition{" + name().toLowerCase() + "}";
-       }
-   }
 }
 
 

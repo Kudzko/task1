@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.*;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.*;
 import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
 import by.epam.javawebtraining.kudko.task01.util.ElementsCreator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
@@ -26,12 +26,12 @@ public class DeveloperTest {
 
         projectManager = (ProjectManager) EmpoyeeCreator
                 .createEmployeeWithID
-                        (EmpoyeeCreator.KindOfEmployee.PROJECTMANAGER);
+                        (EmpoyeeCreator.EmployeeType.PROJECTMANAGER);
         projectManager = (ProjectManager) DataGenerator.fillEmployeeFields
                 (projectManager);
 
         teamLead = (TeamLead) EmpoyeeCreator.createEmployeeWithID
-                (EmpoyeeCreator.KindOfEmployee.TEAMLEAD);
+                (EmpoyeeCreator.EmployeeType.TEAMLEAD);
         teamLead = (TeamLead) DataGenerator.fillEmployeeFields
                 (teamLead);
         teamLead.setLeader(projectManager);
@@ -40,12 +40,12 @@ public class DeveloperTest {
         team.addEmployee(teamLead);
         developer = (Developer) EmpoyeeCreator
                 .createEmployeeWithID
-                        (EmpoyeeCreator.KindOfEmployee.DEVELOPER);
+                        (EmpoyeeCreator.EmployeeType.DEVELOPER);
         developer = (Developer) DataGenerator.fillEmployeeFields
                 (developer);
         developer.setSkills(DataGenerator.generateSkills());
         developer.setChief(teamLead);
-        developer.setPosition(Developer.TypePosition.MIDDLE);
+        developer.setPosition(Developer.PositionType.MIDDLE);
         teamLead.setEmployee(developer);
         projectManager.setEmployee(developer);
 

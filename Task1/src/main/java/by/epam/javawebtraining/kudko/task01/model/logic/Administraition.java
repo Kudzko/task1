@@ -1,11 +1,11 @@
-package by.epam.javawebtraining.kudko.task01.model;
+package by.epam.javawebtraining.kudko.task01.model.logic;
 
 import by.epam.javawebtraining.kudko.task01.model.comparator.ComparatorCreator;
 import by.epam.javawebtraining.kudko.task01.model.comparator.SurnameComparator;
 import by.epam.javawebtraining.kudko.task01.model.comparator.TypeComparator;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.IncorrectFrameValueException;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NoEmployeesYet;
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.NotDefinedMethod;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.IncorrectFrameValueException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.NoEmployeesYet;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.NotDefinedMethod;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 
 import java.util.ArrayList;

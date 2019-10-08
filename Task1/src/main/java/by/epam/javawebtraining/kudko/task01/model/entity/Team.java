@@ -1,6 +1,6 @@
 package by.epam.javawebtraining.kudko.task01.model.entity;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException.ExitOutOfBoundOfTeamException;
+import by.epam.javawebtraining.kudko.task01.model.customexception.logicexception.ExitOutOfBoundOfTeamException;
 
 import java.util.Arrays;
 import java.util.Objects;

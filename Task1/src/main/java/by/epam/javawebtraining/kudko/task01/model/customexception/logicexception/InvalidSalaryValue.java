@@ -1,6 +1,6 @@
-package by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicException;
+package by.epam.javawebtraining.kudko.task01.model.customexception.logicexception;
 
-import by.epam.javawebtraining.kudko.task01.model.customexceptions.LogicExceptoin;
+import by.epam.javawebtraining.kudko.task01.model.customexception.LogicExceptoin;
 
 public class InvalidSalaryValue extends LogicExceptoin {
     public InvalidSalaryValue() {

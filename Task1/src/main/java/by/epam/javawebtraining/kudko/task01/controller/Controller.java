@@ -1,11 +1,11 @@
 package by.epam.javawebtraining.kudko.task01.controller;
 
-import by.epam.javawebtraining.kudko.task01.model.Administraition;
+import by.epam.javawebtraining.kudko.task01.model.logic.Administraition;
 import by.epam.javawebtraining.kudko.task01.model.entity.*;
 import by.epam.javawebtraining.kudko.task01.util.DataGenerator;
 import by.epam.javawebtraining.kudko.task01.util.ElementsCreator;
 import by.epam.javawebtraining.kudko.task01.util.EmpoyeeCreator;
-import by.epam.javawebtraining.kudko.task01.util.UtilException.WrongNumberEmployeesException;
+import by.epam.javawebtraining.kudko.task01.util.utilexception.WrongNumberEmployeesException;
 import by.epam.javawebtraining.kudko.task01.view.ConsolePrinter;
 import by.epam.javawebtraining.kudko.task01.view.InputView;
 import by.epam.javawebtraining.kudko.task01.view.Printable;
@@ -33,13 +33,13 @@ public class Controller {
 
             projectManager = (ProjectManager) EmpoyeeCreator
                     .createEmployeeWithID
-                            (EmpoyeeCreator.KindOfEmployee.PROJECTMANAGER);
+                            (EmpoyeeCreator.EmployeeType.PROJECTMANAGER);
             projectManager = (ProjectManager) DataGenerator.fillEmployeeFields
                     (projectManager);
 
             TeamLead teamLead;
             teamLead = (TeamLead) EmpoyeeCreator.createEmployeeWithID
-                    (EmpoyeeCreator.KindOfEmployee.TEAMLEAD);
+                    (EmpoyeeCreator.EmployeeType.TEAMLEAD);
             teamLead = (TeamLead) DataGenerator.fillEmployeeFields
                     (teamLead);
             teamLead.setLeader(projectManager);
@@ -51,12 +51,12 @@ public class Controller {
 
                 Developer developer;
                 developer = (Developer) EmpoyeeCreator.createEmployeeWithID
-                        (EmpoyeeCreator.KindOfEmployee.DEVELOPER);
+                        (EmpoyeeCreator.EmployeeType.DEVELOPER);
                 developer = (Developer) DataGenerator.fillEmployeeFields
                         (developer);
                 developer.setSkills(DataGenerator.generateSkills());
                 developer.setChief(teamLead);
-                developer.setPosition(Developer.TypePosition.MIDDLE);
+                developer.setPosition(Developer.PositionType.MIDDLE);
                 teamLead.setEmployee(developer);
                 projectManager.setEmployee(developer);
 
@@ -65,7 +65,7 @@ public class Controller {
 
             Tester tester;
             tester = (Tester) EmpoyeeCreator.createEmployeeWithID
-                    (EmpoyeeCreator.KindOfEmployee.TESTER);
+                    (EmpoyeeCreator.EmployeeType.TESTER);
             tester = (Tester) DataGenerator.fillEmployeeFields
                     (tester);
             tester.setSkills(DataGenerator.generateSkills());
